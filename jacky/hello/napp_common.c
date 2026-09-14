@@ -3,10 +3,21 @@
 #include <stdio.h>
 #include <string.h>
 #include <libssh2.h>
+#include <libssh2_sftp.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include "napp.h"
+
+
+void to_uppercase(char *str) {
+    if (str == NULL) return; // Safety check
+
+    while (*str != '\0') {
+        *str = toupper((unsigned char)*str);
+        str++;
+    }
+}
 
 
 static int waitsocket(libssh2_socket_t socket_fd, LIBSSH2_SESSION *session)
@@ -47,10 +58,11 @@ static int waitsocket(libssh2_socket_t socket_fd, LIBSSH2_SESSION *session)
 }
 
 // this is a common function to start and stop services (maxAdapter, maxIntegrator, haproxy, mqtt, etc
-int run_remote_command(const char *hostname, const char *username, const char *password, const char *command, bool pipe, TextView *widget)
+char *run_remote_command(const char *hostname, const char *username, const char *password, const char *command, bool pipe, char *buffer, TextView *widget, char *filename)
 {
 
-        printf("hostname = %s, username = %s, password = %s, command = %s \n", hostname, username, password, command);
+	printf("[run_remote_command] Command is %s \n", command);
+        printf("hostname = %s, username = %s, password = %s, command = %s, filename = %s \n", hostname, username, password, command, filename);
 	//textview_printf(widget, "hostname = %s, username = %s, password = %s, command = %s \n", hostname, username, password, command);
 
         bool error = FALSE;
@@ -58,13 +70,13 @@ int run_remote_command(const char *hostname, const char *username, const char *p
         int err_len, err_code, exitcode;
         int sock, status, i, auth_pw = 0;
         struct sockaddr_in sin;
-        int rc, argc;
+        size_t rc; int argc;
         const char *fingerprint;
         LIBSSH2_SESSION *session;
         LIBSSH2_CHANNEL *channel;
         char message[255];
         char *userauthlist;
-        char buffer[1024];
+        //char buffer[1024];
         char password_buffer[1024];
 
         status = libssh2_init(0);
@@ -119,7 +131,7 @@ int run_remote_command(const char *hostname, const char *username, const char *p
         #endif
 
         rc = libssh2_session_handshake(session, sock);
-        printf("rc = %d \n", rc);       // -13
+        printf("rc = %ld \n", rc);       // -13
         if (rc < 0) {
                 //libssh2_session_free(session);
                 char *err_msg;
@@ -127,8 +139,8 @@ int run_remote_command(const char *hostname, const char *username, const char *p
                 libssh2_session_last_error(session, &err_msg, &err_len, 0);
                 fprintf(stderr, "Handshake protocol error details: %s\n", err_msg);
 
-                printf("ssh session handshake failed : %d \n", rc);
-                //textview_printf(widget, "ssh session handshake failed : %d \n", rc);
+                printf("ssh session handshake failed : %ld \n", rc);
+                //textview_printf(widget, "ssh session handshake failed : %ld \n", rc);
 
                 error = TRUE;
                 goto shutdown;
@@ -328,26 +340,101 @@ int run_remote_command(const char *hostname, const char *username, const char *p
 
         if (error == TRUE)
 	{
+                printf("Fail to execute cmd : %s\n", command);
                 sprintf(message, "Fail to execute cmd : %s\n", command);
-		//textview_printf(widget, "Fail to execute cmd : %s\n", command);
+		textview_printf(widget, "Fail to execute cmd : %s\n", command);
 	}
         else
 	{
+                printf("cmd : %s is executed successfully \n", command);
                 sprintf(message, "cmd : %s is executed successfully \n", command);
-		//textview_printf(widget, "cmd : %s is executed successfully \n", command);
+		textview_printf(widget, "cmd : %s is executed successfully \n", command);
 	}
 
 
     // if pipe = TRUE, we want to pipe the output of the command <journalctl> to widget
-    if (pipe == TRUE) // journalctrl command
+    if (pipe == TRUE) // we want to grab the results of the cmd executed i.e. journalctrl command, CPU stats
     {
-	return 1;
+
+	/* --- ftell() cannot work with popen, use stat */
+	//char command[1024];
+	//sprintf(command, "echo %s | /usr/bin/sudo -S /bin/bash -c '/usr/bin/ssh -T %s@%s && cd /usr/local/src/ && /usr/bin/cat maxAdapterCpu'", password, username, hostname);
+
+
+	//FILE *pipe = popen(command, "r");
+	//if (!pipe) {
+
+	//	printf("napp_common.c : %s : popen() failed \n", __func__);
+	//	exit(0); // goto shutdown;
+	//}
+	//else
+	{
+		//printf("napp_common.c : %s : popen success \n", __func__);
+		LIBSSH2_SFTP *sftp_session = NULL;
+		LIBSSH2_SFTP_ATTRIBUTES attrs;
+		long long file_size = -1, bytesRead, total_bytes;
+		int rc;
+		char *sftp_buffer;
+
+		sftp_session = libssh2_sftp_init(session);
+		if (!sftp_session) {
+			printf("fail to initialise SFTP session on remote file : %s \n", filename);
+			sprintf(message, "Unable to init SFTP session context on remote file : %s \n", filename);
+			textview_printf(widget, "Unable to init SFTP session context on remote file : %s \n", filename);
+		}
+		else {
+			printf("here : 0 \n");
+			memset(&attrs, 0, sizeof(attrs));
+			rc = libssh2_sftp_stat(sftp_session, "/usr/local/src/maxAdapterCpu", &attrs);
+			if (rc == 0) {
+				// Confirm the payload contains an authentic size value 
+				if (attrs.flags & LIBSSH2_SFTP_ATTR_SIZE) {
+			            file_size = (long long)attrs.filesize;
+				    printf("file_size = %lld \n", file_size);
+
+			}
+
+			buffer = (char *)malloc(file_size * sizeof(char));
+			#ifdef DEBUG
+	                printf("--------------------------\n");
+			#endif
+
+			LIBSSH2_SFTP_HANDLE *handle = libssh2_sftp_open(sftp_session, filename, LIBSSH2_FXF_READ, 0);
+			bytesRead = libssh2_sftp_read(handle, buffer, file_size-1);
+			#ifdef DEBUG
+			printf("bytesRead = %lld, file_size = %lld \n", bytesRead, file_size);
+			#endif
+
+	                buffer[bytesRead] = '\0';
+               		//total_bytes += bytesRead;
+
+			#ifdef DEBUG
+	                printf("--------------------------\n");
+	                printf("buffer is \n%s \n", buffer);
+	                printf("--------------------------\n");
+			#endif
+		        } else {
+				printf("Stat call succeeded, but size attribute flag is missing.\n");
+		            	fprintf(stderr, "Stat call succeeded, but size attribute flag is missing.\n");
+			}
+
+			#ifdef DEBUG
+	                printf("--------------------------\n");
+			#endif
+			//buffer = (char *)malloc(file_size * sizeof(char));
+			//memcpy(buffer, sftp_buffer, file_size);
+
+			//free (sftp_buffer);
+			libssh2_sftp_shutdown(sftp_session);
+			return buffer;
+		}
+	}
 
     }
-    else if (pipe == FALSE) // not a journalctl command
+    else if (pipe == FALSE) // we do not want the results of the cmd executed i.e. start/ stop services
     {
 	// do nothing
-	return 0;
+	return NULL;
     }
 
     shutdown:

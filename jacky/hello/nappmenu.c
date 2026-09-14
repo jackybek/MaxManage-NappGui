@@ -7,8 +7,8 @@
 
 void i_OnClick_menu_project_new(App *app, Event *e)
 {
-    textview_printf(app->text, "Project->New Menu click (%d)\n", app->clicks);
-        textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Project->New Menu click (%d)\n", app->clicks);
+        textview_scroll_caret(app->textMaxAdapter);
 
     app->clicks += 1;
 
@@ -18,8 +18,8 @@ void i_OnClick_menu_project_new(App *app, Event *e)
 
 void i_OnClick_menu_project_open(App *app, Event *e)
 {
-    textview_printf(app->text, "Project->Open Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Project->Open Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     FileOpen(app, app->window);
     unref(e);
@@ -27,8 +27,8 @@ void i_OnClick_menu_project_open(App *app, Event *e)
 
 void i_OnClick_menu_project_save(App *app, Event *e)
 {
-    textview_printf(app->text, "Project->Save Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Project->Save Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
 
     app->clicks += 1;
     FileSave(app, app->window);
@@ -38,8 +38,8 @@ void i_OnClick_menu_project_save(App *app, Event *e)
 
 void i_OnClick_menu_project_saveAs(App *app, Event *e)
 {
-    textview_printf(app->text, "Project->Save As Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Project->Save As Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     FileSaveAs(app, app->window);
     unref(e);
@@ -47,8 +47,8 @@ void i_OnClick_menu_project_saveAs(App *app, Event *e)
 
 void i_OnClick_menu_project_close(App *app, Event *e)
 {
-    textview_printf(app->text, "Project->Close Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Project->Close Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     FileClose(app, app->window);
     unref(e);
@@ -64,8 +64,8 @@ void i_OnClick_menu_project_quit(App *app, Event *e)
 
 void i_OnClick_menu_view_interconnectivity(App *app, Event *e)
 {
-    textview_printf(app->text, "View->Interconnectivity Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "View->Interconnectivity Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     ViewInterconnectivity(app, app->window);
     unref(e);
@@ -73,8 +73,8 @@ void i_OnClick_menu_view_interconnectivity(App *app, Event *e)
 
 void i_OnClick_menu_view_project(App *app, Event *e)
 {
-    textview_printf(app->text, "View->Project Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "View->Project Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     ViewProject(app, app->window);
     unref(e);
@@ -82,8 +82,8 @@ void i_OnClick_menu_view_project(App *app, Event *e)
 
 void i_OnClick_menu_view_attributes(App *app, Event *e)
 {
-    textview_printf(app->text, "View->Attributes Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "View->Attributes Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     ViewAttributes(app, app->window);
     unref(e);
@@ -91,8 +91,8 @@ void i_OnClick_menu_view_attributes(App *app, Event *e)
 
 void i_OnClick_menu_view_references(App *app, Event *e)
 {
-    textview_printf(app->text, "View->References Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "View->References Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     ViewReferences(app, app->window);
     unref(e);
@@ -101,8 +101,8 @@ void i_OnClick_menu_view_references(App *app, Event *e)
 
 void i_OnClick_menu_view_addressspace(App *app, Event *e)
 {
-    textview_printf(app->text, "View->Address Space Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "View->Address Space Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     ViewAddressSpace(app, app->window);
     unref(e);
@@ -110,8 +110,8 @@ void i_OnClick_menu_view_addressspace(App *app, Event *e)
 
 void i_OnClick_menu_view_maxAdapter(App *app, Event *e)
 {
-    textview_printf(app->text, "View->maxAdapter Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "View->maxAdapter Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     ViewmaxAdapter(app, app->window);
     unref(e);
@@ -120,8 +120,8 @@ void i_OnClick_menu_view_maxAdapter(App *app, Event *e)
 
 void i_OnClick_menu_view_maxGate(App *app, Event *e)
 {
-    textview_printf(app->text, "View->maxGate Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "View->maxGate Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     ViewmaxGate(app, app->window);
     unref(e);
@@ -130,8 +130,8 @@ void i_OnClick_menu_view_maxGate(App *app, Event *e)
 
 void i_OnClick_menu_view_maxIntegrator(App *app, Event *e)
 {
-    textview_printf(app->text, "View->maxIntegrator Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "View->maxIntegrator Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     ViewmaxIntegrator(app, app->window);
     unref(e);
@@ -140,8 +140,8 @@ void i_OnClick_menu_view_maxIntegrator(App *app, Event *e)
 
 void i_OnClick_menu_view_log(App *app, Event *e)
 {
-    textview_printf(app->text, "View->Log Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "View->Log Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     ViewLog(app, app->window);
     unref(e);
@@ -149,8 +149,8 @@ void i_OnClick_menu_view_log(App *app, Event *e)
 
 void i_OnClick_menu_view_filetoolbar(App *app, Event *e)
 {
-    textview_printf(app->text, "View->File Toolbar Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "View->File Toolbar Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     /* alternate the status of the button */
@@ -160,7 +160,7 @@ void i_OnClick_menu_view_filetoolbar(App *app, Event *e)
 	menuitem_state(app->view_fileToolbar, ekGUI_ON);
 
 	/* show all the flat buttons */
-	textview_printf(app->text, "View->File Toolbar : showing flat buttons \n", app->clicks);
+	textview_printf(app->textMaxAdapter, "View->File Toolbar : showing flat buttons \n", app->clicks);
 	layout_show_col(app->buttonLayout, 0, TRUE);
         layout_show_col(app->buttonLayout, 1, TRUE);
 	layout_show_col(app->buttonLayout, 2, TRUE);
@@ -173,7 +173,7 @@ void i_OnClick_menu_view_filetoolbar(App *app, Event *e)
 	menuitem_state(app->view_fileToolbar, ekGUI_OFF);
 
 	/* hide all the flat buttons */
-	textview_printf(app->text, "View->File Toolbar : hiding flat buttons \n", app->clicks);
+	textview_printf(app->textMaxAdapter, "View->File Toolbar : hiding flat buttons \n", app->clicks);
 	layout_show_col(app->buttonLayout, 0, FALSE);
 	layout_show_col(app->buttonLayout, 1, FALSE);
 	layout_show_col(app->buttonLayout, 2, FALSE);
@@ -189,8 +189,8 @@ void i_OnClick_menu_view_filetoolbar(App *app, Event *e)
 
 void i_OnClick_menu_view_viewtoolbar(App *app, Event *e)
 {
-    textview_printf(app->text, "View->View Toolbar Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "View->View Toolbar Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     /* alternate the status of the button */
@@ -200,7 +200,7 @@ void i_OnClick_menu_view_viewtoolbar(App *app, Event *e)
         menuitem_state(app->view_viewToolbar, ekGUI_ON);
 
         /* show all the flat buttons */
-        textview_printf(app->text, "Toolbars->View Toolbar : showing flat buttons \n", app->clicks);
+        textview_printf(app->textMaxAdapter, "Toolbars->View Toolbar : showing flat buttons \n", app->clicks);
         layout_show_col(app->buttonLayout, 6, TRUE);
         layout_show_col(app->buttonLayout, 7, TRUE);
         layout_show_col(app->buttonLayout, 8, TRUE);
@@ -213,7 +213,7 @@ void i_OnClick_menu_view_viewtoolbar(App *app, Event *e)
         menuitem_state(app->view_viewToolbar, ekGUI_OFF);
 
         /* hide all the flat buttons */
-        textview_printf(app->text, "Toolbars->View Toolbar : hiding flat buttons \n", app->clicks);
+        textview_printf(app->textMaxAdapter, "Toolbars->View Toolbar : hiding flat buttons \n", app->clicks);
         layout_show_col(app->buttonLayout, 6, FALSE);
         layout_show_col(app->buttonLayout, 7, FALSE);
         layout_show_col(app->buttonLayout, 8, FALSE);
@@ -228,8 +228,8 @@ void i_OnClick_menu_view_viewtoolbar(App *app, Event *e)
 
 void i_OnClick_menu_view_maxEnginetoolbar(App *app, Event *e)
 {
-    textview_printf(app->text, "View->maxEngine Toolbar Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "View->maxEngine Toolbar Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     /* alternate the status of the button */
@@ -239,7 +239,7 @@ void i_OnClick_menu_view_maxEnginetoolbar(App *app, Event *e)
         menuitem_state(app->view_maxEngineToolbar, ekGUI_ON);
 
         /* show all the flat buttons */
-        textview_printf(app->text, "Toolbars->maxEngine Toolbar : showing flat buttons \n", app->clicks);
+        textview_printf(app->textMaxAdapter, "Toolbars->maxEngine Toolbar : showing flat buttons \n", app->clicks);
         layout_show_col(app->buttonLayout, 12, TRUE);
         layout_show_col(app->buttonLayout, 13, TRUE);
         layout_show_col(app->buttonLayout, 14, TRUE);
@@ -260,7 +260,7 @@ void i_OnClick_menu_view_maxEnginetoolbar(App *app, Event *e)
         menuitem_state(app->view_maxEngineToolbar, ekGUI_OFF);
 
         /* hide all the flat buttons */
-        textview_printf(app->text, "Toolbars->maxEngine Toolbar : hiding flat buttons \n", app->clicks);
+        textview_printf(app->textMaxAdapter, "Toolbars->maxEngine Toolbar : hiding flat buttons \n", app->clicks);
         layout_show_col(app->buttonLayout, 12, FALSE);
         layout_show_col(app->buttonLayout, 13, FALSE);
         layout_show_col(app->buttonLayout, 14, FALSE);
@@ -285,8 +285,8 @@ void i_OnClick_menu_view_maxEnginetoolbar(App *app, Event *e)
 
 void i_OnClick_menu_view_maxCoretoolbar(App *app, Event *e)
 {
-    textview_printf(app->text, "View->maxCore Toolbar Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "View->maxCore Toolbar Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     /* alternate the status of the button */
@@ -312,8 +312,8 @@ void i_OnClick_menu_view_maxCoretoolbar(App *app, Event *e)
 
 void i_OnClick_menu_view_maxIntegratortoolbar(App *app, Event *e)
 {
-    textview_printf(app->text, "View->maxIntegrator Toolbar Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "View->maxIntegrator Toolbar Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     /* alternate the status of the button */
@@ -338,8 +338,8 @@ void i_OnClick_menu_view_maxIntegratortoolbar(App *app, Event *e)
 }
 void i_OnClick_menu_view_maxAdaptertoolbar(App *app, Event *e)
 {
-    textview_printf(app->text, "View->maxAdapter Toolbar Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "View->maxAdapter Toolbar Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     /* alternate the status of the button */
@@ -364,8 +364,8 @@ void i_OnClick_menu_view_maxAdaptertoolbar(App *app, Event *e)
 }
 void i_OnClick_menu_view_maxGatetoolbar(App *app, Event *e)
 {
-    textview_printf(app->text, "View->maxGate Toolbar Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "View->maxGate Toolbar Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     /* alternate the status of the button */
@@ -391,8 +391,8 @@ void i_OnClick_menu_view_maxGatetoolbar(App *app, Event *e)
 
 void i_OnClick_menu_view_maxScaletoolbar(App *app, Event *e)
 {
-    textview_printf(app->text, "View->maxScale Toolbar Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "View->maxScale Toolbar Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     /* alternate the status of the button */
@@ -417,8 +417,8 @@ void i_OnClick_menu_view_maxScaletoolbar(App *app, Event *e)
 }
 void i_OnClick_menu_view_maxOrchestratortoolbar(App *app, Event *e)
 {
-    textview_printf(app->text, "View->maxOrchestrator Toolbar Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "View->maxOrchestrator Toolbar Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     /* alternate the status of the button */
@@ -443,8 +443,8 @@ void i_OnClick_menu_view_maxOrchestratortoolbar(App *app, Event *e)
 }
 void i_OnClick_menu_view_maxMindtoolbar(App *app, Event *e)
 {
-    textview_printf(app->text, "View->maxMind Toolbar Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "View->maxMind Toolbar Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     /* alternate the status of the button */
@@ -469,8 +469,8 @@ void i_OnClick_menu_view_maxMindtoolbar(App *app, Event *e)
 }
 void i_OnClick_menu_view_maxLicensetoolbar(App *app, Event *e)
 {
-    textview_printf(app->text, "View->maxLicense Toolbar Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "View->maxLicense Toolbar Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     /* alternate the status of the button */
@@ -496,8 +496,8 @@ void i_OnClick_menu_view_maxLicensetoolbar(App *app, Event *e)
 
 void i_OnClick_menu_view_maxServicestoolbar(App *app, Event *e)
 {
-    textview_printf(app->text, "View->maxServices Toolbar Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "View->maxServices Toolbar Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     /* alternate the status of the button */
@@ -524,8 +524,8 @@ void i_OnClick_menu_view_maxServicestoolbar(App *app, Event *e)
 
 void i_OnClick_menu_view_documenttoolbar(App *app, Event *e)
 {
-    textview_printf(app->text, "View->Document Toolbar  Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "View->Document Toolbar  Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     /* alternate the status of the button */
@@ -551,8 +551,8 @@ void i_OnClick_menu_view_documenttoolbar(App *app, Event *e)
 
 void i_OnClick_menu_maxengine_oneclickstart(App *app, Event *e)
 {
-    textview_printf(app->text, "maxEngine->Start Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "maxEngine->Start Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     maxEngineOneClickStart(app, app->window);
 
@@ -561,8 +561,8 @@ void i_OnClick_menu_maxengine_oneclickstart(App *app, Event *e)
 
 void i_OnClick_menu_maxengine_oneclickstop(App *app, Event *e)
 {
-    textview_printf(app->text, "maxEngine->Stop Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "maxEngine->Stop Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     maxEngineOneClickStop(app, app->window);
 
@@ -571,8 +571,8 @@ void i_OnClick_menu_maxengine_oneclickstop(App *app, Event *e)
 
 void i_OnClick_menu_maxengine_viewstatistics(App *app, Event *e)
 {
-    textview_printf(app->text, "maxEngine->View Statistics Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "maxEngine->View Statistics Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     unref(e);
@@ -580,8 +580,8 @@ void i_OnClick_menu_maxengine_viewstatistics(App *app, Event *e)
 
 void i_OnClick_menu_maxengine_viewlivelogs(App *app, Event *e)
 {
-    textview_printf(app->text, "maxEngine->View Live Logs Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "maxEngine->View Live Logs Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     /* alternate the status of the button */
@@ -608,8 +608,8 @@ void i_OnClick_menu_maxengine_viewlivelogs(App *app, Event *e)
 
 void i_OnClick_menu_maxadapter_start(App *app, Event *e)
 {
-    textview_printf(app->text, "maxAdapter->Start Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "maxAdapter->Start Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     if (menuitem_get_state(app->maxAdapter_Start) == ekGUI_OFF) {
@@ -625,8 +625,8 @@ void i_OnClick_menu_maxadapter_start(App *app, Event *e)
 
 void i_OnClick_menu_maxadapter_stop(App *app, Event *e)
 {
-    textview_printf(app->text, "maxAdapter->Stop Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "maxAdapter->Stop Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     if (menuitem_get_state(app->maxAdapter_Stop) == ekGUI_OFF) {
@@ -641,8 +641,8 @@ void i_OnClick_menu_maxadapter_stop(App *app, Event *e)
 
 void i_OnClick_menu_maxadapter_alarmsandconditions(App *app, Event *e)
 {
-    textview_printf(app->text, "maxAdapter->Alarms&Conditions Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "maxAdapter->Alarms&Conditions Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     maxAdapterAlarmsAndConditions(app, app->window);
 
@@ -651,8 +651,8 @@ void i_OnClick_menu_maxadapter_alarmsandconditions(App *app, Event *e)
 
 void i_OnClick_menu_maxadapter_events(App *app, Event *e)
 {
-    textview_printf(app->text, "maxAdapter->Events Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "maxAdapter->Events Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     maxAdapterEvents(app, app->window);
 
@@ -661,8 +661,8 @@ void i_OnClick_menu_maxadapter_events(App *app, Event *e)
 
 void i_OnClick_menu_maxadapter_logsmanagement(App *app, Event *e)
 {
-    textview_printf(app->text, "maxAdapter->Logs Management Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "maxAdapter->Logs Management Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     maxAdapterLogsManagement(app, app->window);
 
@@ -671,8 +671,8 @@ void i_OnClick_menu_maxadapter_logsmanagement(App *app, Event *e)
 
 void i_OnClick_menu_maxadapter_reverseconnect(App *app, Event *e)
 {
-    textview_printf(app->text, "maxAdapter->Reverse Connect Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "maxAdapter->Reverse Connect Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     maxAdapterReverseConnect(app, app->window);
 
@@ -681,8 +681,8 @@ void i_OnClick_menu_maxadapter_reverseconnect(App *app, Event *e)
 
 void i_OnClick_menu_maxadapter_startupparameters(App *app, Event *e)
 {
-    textview_printf(app->text, "maxAdapter->Startup Parameters Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "maxAdapter->Startup Parameters Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     maxAdapterStartupParameters(app, app->window);
 
@@ -691,8 +691,8 @@ void i_OnClick_menu_maxadapter_startupparameters(App *app, Event *e)
 
 void i_OnClick_menu_maxadapter_communications(App *app, Event *e)
 {
-    textview_printf(app->text, "maxAdapter->Communications Protocol Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "maxAdapter->Communications Protocol Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     maxAdapterCommunicationsProtocol(app, app->window);
 
@@ -702,8 +702,8 @@ void i_OnClick_menu_maxadapter_communications(App *app, Event *e)
 
 void i_OnClick_menu_maxadapter_viewstatistics(App *app, Event *e)
 {
-    textview_printf(app->text, "maxAdapter->View Statistics Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "maxAdapter->View Statistics Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     maxAdapterViewStatistics(app, app->window);
 
@@ -712,8 +712,8 @@ void i_OnClick_menu_maxadapter_viewstatistics(App *app, Event *e)
 
 void i_OnClick_menu_maxadapter_viewlivelogs(App *app, Event *e)
 {
-    textview_printf(app->text, "maxAdapter->View Live Logs Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "maxAdapter->View Live Logs Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
      /* alternate the status of the button */
@@ -743,8 +743,8 @@ void i_OnClick_menu_maxadapter_viewlivelogs(App *app, Event *e)
 
 void i_OnClick_menu_maxadapter_discoverdevices(App *app, Event *e)
 {
-    textview_printf(app->text, "maxAdapter->Discover Devices Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "maxAdapter->Discover Devices Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     maxAdapterDiscoverDevices(app, app->window);
 
@@ -755,8 +755,8 @@ void i_OnClick_menu_maxadapter_discoverdevices(App *app, Event *e)
 
 void i_OnClick_menu_maxadapter_autogenerate(App *app, Event *e)
 {
-    textview_printf(app->text, "maxAdapter->Auto generate Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "maxAdapter->Auto generate Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     maxAdapterAutoGenerate(app, app->window);
 
@@ -766,8 +766,8 @@ void i_OnClick_menu_maxadapter_autogenerate(App *app, Event *e)
 
 void i_OnClick_menu_maxadapter_nodeseteditor(App *app, Event *e)
 {
-    textview_printf(app->text, "maxAdapter->Edit device nodeset Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "maxAdapter->Edit device nodeset Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     maxAdapterNodesetEditor(app, app->window);
 
@@ -777,8 +777,8 @@ void i_OnClick_menu_maxadapter_nodeseteditor(App *app, Event *e)
 
 void i_OnClick_menu_maxadapter_simrun(App *app, Event *e)
 {
-    textview_printf(app->text, "maxAdapter->Simulate and connect Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "maxAdapter->Simulate and connect Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     maxAdapterSimRun(app, app->window);
 
@@ -789,8 +789,8 @@ void i_OnClick_menu_maxadapter_simrun(App *app, Event *e)
 
 void i_OnClick_menu_maxadapter_manualconfiguration(App *app, Event *e)
 {
-    textview_printf(app->text, "maxAdapter->Manual Configuration Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "maxAdapter->Manual Configuration Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     maxAdapterManualConfiguration(app, app->window);
 
@@ -801,8 +801,8 @@ void i_OnClick_menu_maxadapter_manualconfiguration(App *app, Event *e)
 
 void i_OnClick_menu_maxcore_viewlivelogs(App *app, Event *e)
 {
-    textview_printf(app->text, "maxCore->View Live Logs Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxCore, "maxCore->View Live Logs Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxCore);
     app->clicks += 1;
     maxCoreViewLiveLogs(app, app->window);
 
@@ -829,8 +829,8 @@ void i_OnClick_menu_maxcore_viewlivelogs(App *app, Event *e)
 /**/
 void i_OnClick_menu_maxServices_usersaccount(App *app, Event *e)
 {
-    textview_printf(app->text, "maxService->Users Account Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxServices, "maxService->Users Account Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxServices);
     app->clicks += 1;
     maxServicesUsersAccount(app, app->window);
 
@@ -839,8 +839,8 @@ void i_OnClick_menu_maxServices_usersaccount(App *app, Event *e)
 
 void i_OnClick_menu_maxServices_systemsaccount(App *app, Event *e)
 {
-    textview_printf(app->text, "maxServices->Systems Account Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxServices, "maxServices->Systems Account Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxServices);
     app->clicks += 1;
     maxServicesSystemsAccount(app, app->window);
 
@@ -849,8 +849,8 @@ void i_OnClick_menu_maxServices_systemsaccount(App *app, Event *e)
 
 void i_OnClick_menu_maxServices_generatesslcertificates(App *app, Event *e)
 {
-    textview_printf(app->text, "maxServices->Generate SSL Cetificates Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxServices, "maxServices->Generate SSL Cetificates Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxServices);
     app->clicks += 1;
     maxServicesGenerateSSLCertificates(app, app->window);
 
@@ -859,8 +859,8 @@ void i_OnClick_menu_maxServices_generatesslcertificates(App *app, Event *e)
 
 void i_OnClick_menu_maxCore_registermaxadapters(App *app, Event *e)
 {
-    textview_printf(app->text, "maxCore->Register maxAdapters Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxCore, "maxCore->Register maxAdapters Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxCore);
     app->clicks += 1;
     maxCoreRegisterAdapters(app, app->window);
 
@@ -1075,8 +1075,8 @@ void i_OnClick_menu_maxIntegrator_ldsservice(App *app, Event *e)
 /**/
 void i_OnClick_menu_maxscale_instancesetup(App *app, Event *e)
 {
-    textview_printf(app->text, "maxScale->Setup Instance Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "maxScale->Setup Instance Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxScale);
     app->clicks += 1;
     maxScaleSetupInstance(app, app->window);
 
@@ -1087,8 +1087,8 @@ void i_OnClick_menu_maxscale_instancesetup(App *app, Event *e)
 
 void i_OnClick_menu_maxscale_configuration(App *app, Event *e)
 {
-    textview_printf(app->text, "maxScale->Configuration Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "maxScale->Configuration Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxScale);
     app->clicks += 1;
     maxScaleConfiguration(app, app->window);
 
@@ -1098,7 +1098,7 @@ void i_OnClick_menu_maxscale_configuration(App *app, Event *e)
 
 void i_OnClick_menu_maxOrchestrator_start(App *app, Event *e)
 {
-    textview_printf(app->text, "maxOrchestrator->Start Menu click (%d)\n", app->clicks);
+    textview_printf(app->textMaxAdapter, "maxOrchestrator->Start Menu click (%d)\n", app->clicks);
     textview_scroll_caret(app->textMaxOrchestrator);
     app->clicks += 1;
     maxOrchestratorStart(app, app->window);
@@ -1132,8 +1132,8 @@ void i_OnClick_menu_maxOrchestrator_defineDataflow(App *app, Event *e)
 
 void i_OnClick_menu_maxmind_digitaltwin(App *app, Event *e)
 {
-    textview_printf(app->text, "maxMind->Digital Twin Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxMind, "maxMind->Digital Twin Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxMind);
     app->clicks += 1;
     maxMindDigitalTwin(app, app->window);
 
@@ -1144,8 +1144,8 @@ void i_OnClick_menu_maxmind_digitaltwin(App *app, Event *e)
 
 void i_OnClick_menu_maxmind_analytics(App *app, Event *e)
 {
-    textview_printf(app->text, "maxMind->Real time Analytics Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxMind, "maxMind->Real time Analytics Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxMind);
     app->clicks += 1;
     maxMindRealTimeAnalytics(app, app->window);
 
@@ -1156,8 +1156,8 @@ void i_OnClick_menu_maxmind_analytics(App *app, Event *e)
 
 void i_OnClick_menu_maxmind_machinelearning(App *app, Event *e)
 {
-    textview_printf(app->text, "maxMind->Machine Learning Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxMind, "maxMind->Machine Learning Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxMind);
     app->clicks += 1;
     maxMindMachineLearning(app, app->window);
 
@@ -1168,8 +1168,8 @@ void i_OnClick_menu_maxmind_machinelearning(App *app, Event *e)
 
 void i_OnClick_menu_maxgate_start(App *app, Event *e)
 {
-    textview_printf(app->text, "maxGate->Start Instance Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxGate, "maxGate->Start Instance Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxGate);
     app->clicks += 1;
     maxGateStartInstance(app, app->window);
 
@@ -1180,8 +1180,8 @@ void i_OnClick_menu_maxgate_start(App *app, Event *e)
 
 void i_OnClick_menu_maxgate_stop(App *app, Event *e)
 {
-    textview_printf(app->text, "maxGate->Stop Instance Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxGate, "maxGate->Stop Instance Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxGate);
     app->clicks += 1;
     maxGateStopInstance(app, app->window);
 
@@ -1192,8 +1192,8 @@ void i_OnClick_menu_maxgate_stop(App *app, Event *e)
 
 void i_OnClick_menu_maxgate_inspect(App *app, Event *e)
 {
-    textview_printf(app->text, "maxGate->Inspect Instance Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxGate, "maxGate->Inspect Instance Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxGate);
     app->clicks += 1;
     maxGateInspectInstance(app, app->window);
 
@@ -1204,8 +1204,8 @@ void i_OnClick_menu_maxgate_inspect(App *app, Event *e)
 
 void i_OnClick_menu_maxgate_manualconfiguration_add(App *app, Event *e)
 {
-    textview_printf(app->text, "maxGate->Manual Configuration Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxGate, "maxGate->Manual Configuration Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxGate);
     app->clicks += 1;
     maxGateManualConfiguration(app, app->window);
 
@@ -1235,16 +1235,16 @@ void i_OnClick_menu_maxLicense_request(App *app, Event *e)
 
 void i_OnClick_menu_maxservices_usersaccount(App *app, Event *e)
 {
-    textview_printf(app->text, "maxServices->Users Account Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxServices, "maxServices->Users Account Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxServices);
     app->clicks += 1;
 
 }
 
 void i_OnClick_menu_maxservices_systemsaccount(App *app, Event *e)
 {
-    textview_printf(app->text, "maxServices->Systems Account Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxServices, "maxServices->Systems Account Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxServices);
     app->clicks += 1;
 
 
@@ -1253,8 +1253,8 @@ void i_OnClick_menu_maxservices_systemsaccount(App *app, Event *e)
 void i_OnClick_menu_maxservices_generatesslcertificates(App *app, Event *e)
 {
 
-    textview_printf(app->text, "maxServices->Generate SSL certificate Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxServices, "maxServices->Generate SSL certificate Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxServices);
     app->clicks += 1;
 
 }
@@ -1262,8 +1262,8 @@ void i_OnClick_menu_maxservices_generatesslcertificates(App *app, Event *e)
 
 void i_OnClick_client_add(App *app, Event *e)
 {
-    textview_printf(app->text, "client->Add Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "client->Add Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     ClientAdd(app, app->window);
 
@@ -1272,8 +1272,8 @@ void i_OnClick_client_add(App *app, Event *e)
 
 void i_OnClick_client_remove(App *app, Event *e)
 {
-    textview_printf(app->text, "client->Remove Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "client->Remove Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     ClientRemove(app, app->window);
 
@@ -1282,8 +1282,8 @@ void i_OnClick_client_remove(App *app, Event *e)
 
 void i_OnClick_client_connect(App *app, Event *e)
 {
-    textview_printf(app->text, "client->Connect Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "client->Connect Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     ClientConnect(app, app->window);
 
@@ -1292,8 +1292,8 @@ void i_OnClick_client_connect(App *app, Event *e)
 
 void i_OnClick_client_disconnect(App *app, Event *e)
 {
-    textview_printf(app->text, "client->Disconnect Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "client->Disconnect Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     ClientDisconnect(app, app->window);
 
@@ -1302,8 +1302,8 @@ void i_OnClick_client_disconnect(App *app, Event *e)
 
 void i_OnClick_client_properties(App *app, Event *e)
 {
-    textview_printf(app->text, "client->Properties Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "client->Properties Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     ClientProperties(app, app->window);
 
@@ -1312,8 +1312,8 @@ void i_OnClick_client_properties(App *app, Event *e)
 
 void i_OnClick_client_changeuser(App *app, Event *e)
 {
-    textview_printf(app->text, "client->Change User Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "client->Change User Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
     ClientChangeUser(app, app->window);
 
@@ -1322,9 +1322,9 @@ void i_OnClick_client_changeuser(App *app, Event *e)
 
 void i_OnClick_client_changepassword(App *app, Event *e)
 {
-    textview_printf(app->text, "client->Change Password Menu click (%d)\n", app->clicks);
+    textview_printf(app->textMaxAdapter, "client->Change Password Menu click (%d)\n", app->clicks);
     app->clicks += 1;
-    textview_scroll_caret(app->text);
+    textview_scroll_caret(app->textMaxAdapter);
     ClientChangePassword(app, app->window);
 
     unref(e);
@@ -1332,9 +1332,9 @@ void i_OnClick_client_changepassword(App *app, Event *e)
 
 void i_OnClick_server_start(App *app, Event *e)
 {
-    textview_printf(app->text, "server->Start Menu click (%d)\n", app->clicks);
+    textview_printf(app->textMaxAdapter, "server->Start Menu click (%d)\n", app->clicks);
     app->clicks += 1;
-    textview_scroll_caret(app->text);
+    textview_scroll_caret(app->textMaxAdapter);
     ServerStart(app, app->window);
 
     unref(e);
@@ -1342,9 +1342,9 @@ void i_OnClick_server_start(App *app, Event *e)
 
 void i_OnClick_server_stop(App *app, Event *e)
 {
-    textview_printf(app->text, "server->Stop Menu click (%d)\n", app->clicks);
+    textview_printf(app->textMaxAdapter, "server->Stop Menu click (%d)\n", app->clicks);
     app->clicks += 1;
-    textview_scroll_caret(app->text);
+    textview_scroll_caret(app->textMaxAdapter);
     ServerStop(app, app->window);
 
     unref(e);
@@ -1352,9 +1352,9 @@ void i_OnClick_server_stop(App *app, Event *e)
 
 void i_OnClick_server_properties(App *app, Event *e)
 {
-    textview_printf(app->text, "server->Properties Menu click (%d)\n", app->clicks);
+    textview_printf(app->textMaxAdapter, "server->Properties Menu click (%d)\n", app->clicks);
     app->clicks += 1;
-    textview_scroll_caret(app->text);
+    textview_scroll_caret(app->textMaxAdapter);
     ServerProperties(app, app->window);
 
     unref(e);
@@ -1362,9 +1362,9 @@ void i_OnClick_server_properties(App *app, Event *e)
 
 void i_OnClick_server_adduser(App *app, Event *e)
 {
-    textview_printf(app->text, "server->Add User  Menu click (%d)\n", app->clicks);
+    textview_printf(app->textMaxAdapter, "server->Add User  Menu click (%d)\n", app->clicks);
     app->clicks += 1;
-    textview_scroll_caret(app->text);
+    textview_scroll_caret(app->textMaxAdapter);
     ServerAdduser(app, app->window);
 
     unref(e);
@@ -1372,9 +1372,9 @@ void i_OnClick_server_adduser(App *app, Event *e)
 
 void i_OnClick_server_edituser(App *app, Event *e)
 {
-    textview_printf(app->text, "server->Edit User Menu click (%d)\n", app->clicks);
+    textview_printf(app->textMaxAdapter, "server->Edit User Menu click (%d)\n", app->clicks);
     app->clicks += 1;
-    textview_scroll_caret(app->text);
+    textview_scroll_caret(app->textMaxAdapter);
     ServerEdituser(app, app->window);
 
     unref(e);
@@ -1382,8 +1382,8 @@ void i_OnClick_server_edituser(App *app, Event *e)
 
 void i_OnClick_document_add(App *app, Event *e)
 {
-    textview_printf(app->text, "Document->Add Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Document->Add Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     unref(e);
@@ -1392,8 +1392,8 @@ void i_OnClick_document_add(App *app, Event *e)
 
 void i_OnClick_document_remove(App *app, Event *e)
 {
-    textview_printf(app->text, "Document->Remove Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Document->Remove Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     unref(e);
@@ -1402,8 +1402,8 @@ void i_OnClick_document_remove(App *app, Event *e)
 
 void i_OnClick_document_hide_unhide(App *app, Event *e)
 {
-    textview_printf(app->text, "Document->Hide/ Unhide all dock widgets Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Document->Hide/ Unhide all dock widgets Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     unref(e);
@@ -1412,8 +1412,8 @@ void i_OnClick_document_hide_unhide(App *app, Event *e)
 
 void i_OnClick_settings_plugins(App *app, Event *e)
 {
-    textview_printf(app->text, "Settings->Plugins Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Settings->Plugins Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     unref(e);
@@ -1422,8 +1422,8 @@ void i_OnClick_settings_plugins(App *app, Event *e)
 
 void i_OnClick_settings_configure_OPCSvr(App *app, Event *e)
 {
-    textview_printf(app->text, "Settings->Configure->OPCSvr Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Settings->Configure->OPCSvr Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     unref(e);
@@ -1432,8 +1432,8 @@ void i_OnClick_settings_configure_OPCSvr(App *app, Event *e)
 
 void i_OnClick_settings_configure_LDS(App *app, Event *e)
 {
-    textview_printf(app->text, "Settings->Configure->LDS Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Settings->Configure->LDS Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     unref(e);
@@ -1441,8 +1441,8 @@ void i_OnClick_settings_configure_LDS(App *app, Event *e)
 
 void i_OnClick_settings_configure_GDS(App *app, Event *e)
 {
-    textview_printf(app->text, "Settings->Configure->GDS Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Settings->Configure->GDS Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     unref(e);
@@ -1450,8 +1450,8 @@ void i_OnClick_settings_configure_GDS(App *app, Event *e)
 
 void i_OnClick_settings_interfaces_modbusTCP(App *app, Event *e)
 {
-    textview_printf(app->text, "Settings->Interfaces->modbusTCP Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Settings->Interfaces->modbusTCP Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     interfacesModbusTCP(app, app->window);
@@ -1461,8 +1461,8 @@ void i_OnClick_settings_interfaces_modbusTCP(App *app, Event *e)
 
 void i_OnClick_settings_interfaces_modbusRTU(App *app, Event *e)
 {
-    textview_printf(app->text, "Settings->Interfaces->modbusRTU click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Settings->Interfaces->modbusRTU click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     interfacesModbusRTU(app, app->window);
@@ -1475,8 +1475,8 @@ void i_OnClick_settings_interfaces_EtherCAT(App *app, Event *e)
 #ifdef INFO
 etherlab.org
 #endif
-    textview_printf(app->text, "Settings->Interfaces->EtherCAT click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Settings->Interfaces->EtherCAT click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     interfacesEtherCAT(app, app->window);
@@ -1489,8 +1489,8 @@ void i_OnClick_settings_interfaces_TwinCATADS(App *app, Event *e)
 #ifdef INFO
 github.com/Beckhoff/ADS
 #endif
-    textview_printf(app->text, "Settings->Interfaces->TwinCAT ADS click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Settings->Interfaces->TwinCAT ADS click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     interfacesTwinCATADS(app, app->window);
@@ -1504,8 +1504,8 @@ void i_OnClick_settings_interfaces_EthernetIP(App *app, Event *e)
 github.ccom/nimbuscontrols/EIPScanner
 #endif
 
-    textview_printf(app->text, "Settings->Interfaces->Ethernet/IP click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Settings->Interfaces->Ethernet/IP click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     interfacesEthernetIP(app, app->window);
@@ -1518,8 +1518,8 @@ void i_OnClick_settings_interfaces_ProfiNet(App *app, Event *e)
 github.com/rtlabs-com/p-net
 #endif
 
-    textview_printf(app->text, "Settings->Interfaces->Ethernet/IP click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Settings->Interfaces->Ethernet/IP click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     interfacesProfiNet(app, app->window);
@@ -1529,8 +1529,8 @@ github.com/rtlabs-com/p-net
 
 void i_OnClick_settings_configure_message_broker(App *app, Event *e)
 {
-    textview_printf(app->text, "Settings->Configure->MSB Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Settings->Configure->MSB Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     unref(e);
@@ -1540,8 +1540,8 @@ void i_OnClick_settings_configure_message_broker(App *app, Event *e)
 
 void i_OnClick_settings_managecertificates(App *app, Event *e)
 {
-    textview_printf(app->text, "Settings->Manage Certificates Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Settings->Manage Certificates Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     unref(e);
@@ -1550,8 +1550,8 @@ void i_OnClick_settings_managecertificates(App *app, Event *e)
 
 void i_OnClick_menu_help_manual(App *app, Event *e)
 {
-    textview_printf(app->text, "Help->Manual Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Help->Manual Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     unref(e);
@@ -1560,8 +1560,8 @@ void i_OnClick_menu_help_manual(App *app, Event *e)
 
 void i_OnClick_menu_help_whatsthis(App *app, Event *e)
 {
-    textview_printf(app->text, "Help->What's This? Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Help->What's This? Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     unref(e);
@@ -1570,8 +1570,8 @@ void i_OnClick_menu_help_whatsthis(App *app, Event *e)
 
 void i_OnClick_menu_help_licensestatus(App *app, Event *e)
 {
-    textview_printf(app->text, "Help->License Status Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Help->License Status Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     unref(e);
@@ -1580,8 +1580,8 @@ void i_OnClick_menu_help_licensestatus(App *app, Event *e)
 
 void i_OnClick_menu_help_checkforupdates(App *app, Event *e)
 {
-    textview_printf(app->text, "Help->Check for UpdatesMenu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Help->Check for UpdatesMenu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     unref(e);
@@ -1590,8 +1590,8 @@ void i_OnClick_menu_help_checkforupdates(App *app, Event *e)
 
 void i_OnClick_menu_help_about(App *app, Event *e)
 {
-    textview_printf(app->text, "Help->About Menu click (%d)\n", app->clicks);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Help->About Menu click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
     app->clicks += 1;
 
     helpAbout(app, app->window);
@@ -1853,18 +1853,18 @@ void createMenus(App *app)
       image_view_maxMindToolbar = image_from_file("/home/pi/nappgui_src/jacky/img/maxMindIcon.png", NULL);  /* to replace with a new icon file */
       image_view_maxLicenseToolbar = image_from_file("/home/pi/nappgui_src/jacky/img/maxLicenseIcon.png", NULL);  /* to replace with a new icon file */
       image_view_documentToolbar = image_from_file("/home/pi/nappgui_src/jacky/img/maxDocumentIcon.png", NULL); /* to replace with a new icon file */
-      image_view_maxServicesToolbar =image_from_file("/home/pi/nappgui_src/jacky/img/maxIntegratorIcon.png", NULL);  /* to replace with a new icon file */ 
+      image_view_maxServicesToolbar =image_from_file("/home/pi/nappgui_src/jacky/img/maxIntegratorIcon.png", NULL);  /* to replace with a new icon file */
 
       /* displays a tick next to the menuitem if it is selected, tracked in app */
-      menuitem_text(app->view_interconnectivity,      "Interconnectivity       "); menuitem_state(app->view_interconnectivity, ekGUI_ON); //view_interconnectivity = TRUE;
-      menuitem_text(app->view_project,                "Project                 "); menuitem_state(app->view_project, ekGUI_ON); //view_project = TRUE;
-      menuitem_text(app->view_attributes,             "Attributes              "); menuitem_state(app->view_attributes, ekGUI_ON); //view_attributes = TRUE;
-      menuitem_text(app->view_references,             "References              "); menuitem_state(app->view_references, ekGUI_ON); //view_references = TRUE;
-      menuitem_text(app->view_addressspace,           "Address Space           "); menuitem_state(app->view_addressspace, ekGUI_ON); //view_addressspace = TRUE;
-      menuitem_text(app->view_maxAdapter,             "maxAdapter              "); menuitem_state(app->view_maxAdapter, ekGUI_ON); //view_maxAdapter = TRUE;
-      menuitem_text(app->view_maxGate,                "maxGate                 "); menuitem_state(app->view_maxGate, ekGUI_ON); //view_maxGate = TRUE;
-      menuitem_text(app->view_maxIntegrator,          "maxIntegrator           "); menuitem_state(app->view_maxIntegrator, ekGUI_ON); //view_maxIntegrator = TRUE;
-      menuitem_text(app->view_log,                    "Log                     "); menuitem_state(app->view_log, ekGUI_ON); //view_log = TRUE;
+      menuitem_text(app->view_interconnectivity,      "Interconnectivity       "); menuitem_state(app->view_interconnectivity, ekGUI_OFF); //view_interconnectivity = TRUE;
+      menuitem_text(app->view_project,                "Project                 "); menuitem_state(app->view_project, ekGUI_OFF); //view_project = TRUE;
+      menuitem_text(app->view_attributes,             "Attributes              "); menuitem_state(app->view_attributes, ekGUI_OFF); //view_attributes = TRUE;
+      menuitem_text(app->view_references,             "References              "); menuitem_state(app->view_references, ekGUI_OFF); //view_references = TRUE;
+      menuitem_text(app->view_addressspace,           "Address Space           "); menuitem_state(app->view_addressspace, ekGUI_OFF); //view_addressspace = TRUE;
+      menuitem_text(app->view_maxAdapter,             "maxAdapter              "); menuitem_state(app->view_maxAdapter, ekGUI_OFF); //view_maxAdapter = TRUE;
+      menuitem_text(app->view_maxGate,                "maxGate                 "); menuitem_state(app->view_maxGate, ekGUI_OFF); //view_maxGate = TRUE;
+      menuitem_text(app->view_maxIntegrator,          "maxIntegrator           "); menuitem_state(app->view_maxIntegrator, ekGUI_OFF); //view_maxIntegrator = TRUE;
+      menuitem_text(app->view_log,                    "Log                     "); menuitem_state(app->view_log, ekGUI_OFF); //view_log = TRUE;
 
       /* adds the image icon to the menu item */
       menu_add_item(app->submenu_view, app->view_interconnectivity); menuitem_image(app->view_interconnectivity, image_view_interconnectivity);

@@ -106,54 +106,6 @@ void maxOrchestratorDefineDataflow(App *app, Window *parent_window)
 	else
 		textview_printf(app->text, "napp_maxOrchestrator.c : Error loading /home/pi/nappgui_src/jacky/img/maxOrchestrator.png\n");
 #endif
-#ifdef coredump
-    // Setup required OpenGL attributes
-    oglerr_t err;
-    void *nView;
-    View *flow_view;
-	Panel *flow_panel;
-	Layout *flow_layout;
-
-    OGLProps props;
-    props.api = ekOGL_3_3; // Choose version: ekOGL_1_1, ekOGL_3_3_CORE, etc.
-    props.hdaccel = TRUE;
-    props.color_bpp = 32;
-    props.depth_bpp = 0;
-    props.stencil_bpp = 0;
-    props.aux_buffers = 0;
-    props.transparent = FALSE;
-    props.shared = NULL;
-
-	flow_view = app->viewA; //view_create();
-	// Map graphics runtime processing hook to drawing thread callbacks
-	view_OnDraw(flow_view, listener(app, _on_draw, App));
-	view_OnMove(flow_view, listener(app, _on_mouse_move, App));
-	view_OnDown(flow_view, listener(app, _on_mouse_click, App));
-	view_OnUp(flow_view, listener(app, _on_mouse_click, App));
-
-	//view_size(flow_view, s2df(800.0f, 600.0f));
-	nView = view_native(flow_view);
-
-	// Instantiating matching backend context bindings attached over window panel dimensions
-	app->gl_context = ogl3d_context(&props, nView, &err);
-/*
-	if (!app->gl_context)
-	{
-    		bstd_printf("Error: %s\n", ogl3d_err_str(err));
-		exit(0);
-	}
-*/
-	view_update(flow_view);
-
-	//flow_layout = layout_create(1,1);
-	//layout_view(app->canvasLayout, flow_view, 0,0);
-	//flow_panel = panel_custom(TRUE, TRUE, TRUE);
-	//panel_layout(flow_panel, app->canvasLayout);
-	//window_panel(app->window, flow_panel);
-
-	//window_client_size(app->window, s2df(800.0f, 600.0f));
-	//window_show(app->window);
-#endif
 
 #define SHOW_URL
 #ifndef SHOW_URL
@@ -172,20 +124,23 @@ void maxOrchestratorDefineDataflow(App *app, Window *parent_window)
 	//window_show(window);
 
 	//panel_size(app->panelABottom, s2df(1080.0f, 450.0f));
-	layout_tabstop(app->layoutABottom, 0,0, ekKEY_TAB);
+	layout_tabstop(app->layoutATop, 0,0, ekKEY_TAB);
 
 	//GtkWidget *gtk_window = (GtkWidget*)window_native(window);
 	//webview_t webView = webview_create(0, (void*)gtk_window);
 	webview = webview_create();
 	webview_navigate(webview, url);		// once ssh session is started, use localhost
+	splitview_webview(app->split2b, webview, FALSE);
 	webview_size(webview, s2df(1024.0f, 768.0f));
 
 	//panel_layout(app->panelABottom, app->layoutABottom);
 	//app->layoutABottom = layout_create(1,1);
 	//app->panelABottom = panel_scroll(TRUE, TRUE);
-	layout_webview(app->layoutABottom, webview, 0,0);
-        panel_layout(app->panelABottom, app->layoutABottom);
-	panel_update(app->panelABottom);
+	layout_webview(app->layoutATop, webview, 0,0);
+	layout_hexpand(app->layoutATop, 0);
+	layout_vexpand(app->layoutATop, 0);
+        //panel_layout(app->panelABottom, app->layoutABottom); - already perform this step during initialisation (nappmain.c)
+	panel_update(app->panelATop);
 	//window_panel(window, panel);
 
 

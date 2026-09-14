@@ -15,8 +15,8 @@
 
 CMapData *configKeyValuePair;   // global variable that stores the key-value pairs in airgardConfig file
 
-typedef struct _treenode_t TreeNode;
-typedef struct _appdata_t AppData;
+//typedef struct _treenode_t TreeNode;
+//typedef struct _appdata_t AppData;
 
 struct _treenode_t
 {
@@ -220,6 +220,7 @@ DeclPt(TreeNode);
 //typedef struct _appdata_t AppData;
 
 
+
 void i_OnTreeDataTableLeftTop1(AppData *data, Event *e)
 {
     uint32_t etype = event_type(e);
@@ -299,7 +300,7 @@ void i_OnTreeDataTableLeftTop1(AppData *data, Event *e)
             else
                 cell->icon = gui_image(DISK16_PNG);
 
-            bstd_sprintf(data->temp_string, sizeof(data->temp_string), "Adress %d", pos->row);
+            bstd_sprintf(data->temp_string, sizeof(data->temp_string), "Address %d", pos->row);
             break;
 
         case 2:
@@ -454,7 +455,7 @@ void i_OnTreeDataTableLeftBottom1(AppData *app, Event *e)
 }
 
 
-void i_OnTreeDataTableCentreTop1(App *app, Event *e)
+void i_OnTreeDataTableCentreBottom1(App *app, Event *e)
 {
     uint32_t etype = event_type(e);
     switch(etype)
@@ -1348,7 +1349,7 @@ Panel *split_panel(App *app)
     TextView *textLeftTop1, *textLeftCentre1, *textLeftTop2, *textLeftBottom2, *textLeftTop3, *textLeftBottom3, *textRight, *textRightTop, *textRightBottom ;
     Panel *panel1;
     Layout *layout1, *layout1b, *layout2b, *layout3b;
-    SplitView *split1, *split2, *split1b, *split2b, *split3b;
+    SplitView *split1, *split2, *split1b, *split3b; //*split2b
     TableView *tableLeftTop1, *tableLeftBottom1, *tableCentreTop1, *tableCentreBottom1;
 
     View *viewA;
@@ -1370,12 +1371,18 @@ Panel *split_panel(App *app)
 		ImageView *maxAdapterStatusImageView;
 		Image *maxAdapterStatusImage;
 		Panel *panelB;
+		Panel *panelTopRight;
 
                 Layout *layoutC;
                 ImageView *maxIntegratorStatusImageView;
                 Image *maxIntegratorStatusImage;
                 Panel *panelC;
+		Panel *panelBottomRight;
 
+
+		Layout *LayoutTopRightDataTransfer, *LayoutTopRightStatus, *LayoutBottomRightOnline, *LayoutBottomRightStatus;
+
+    Tabs *tabRightTopWindow, *tabRightBottomWindow;
 
     //TextView *textLeft = textview_create();  textview_printf(textLeft, "Text View Left");
     textRight = textview_create(); textview_printf(textRight, "Text View Right");
@@ -1390,8 +1397,8 @@ Panel *split_panel(App *app)
 	// left section
 	// first do top table
 	tableLeftTop1 = tableview_create();
+	tableview_tree(tableLeftTop1, UINT32_MAX );	// set as a treeview, UINT32_MAX  : disables treeview
 	app->dataTableLeftTop1 = tableLeftTop1;
-	tableview_tree(tableLeftTop1, UINT32_MAX);	// set as a treeview
 
 	tableview_size(tableLeftTop1, s2df(200, 300));
 
@@ -1406,11 +1413,13 @@ Panel *split_panel(App *app)
     tableview_add_column_text(tableLeftTop1);
     tableview_add_column_text(tableLeftTop1);
 
+
 	tableview_header_clickable(tableLeftTop1, TRUE);
 	tableview_header_resizable(tableLeftTop1, TRUE);
 	tableview_header_indicator(tableLeftTop1, 1, ekINDDOWN_ARROW);
 	tableview_header_indicator(tableLeftTop1, 2, ekINDUP_ARROW);
 	tableview_header_title(tableLeftTop1, 0, "Qpro");
+	tableview_column_icon(tableLeftTop1, 1, 16, 5);
 	tableview_column_width(tableLeftTop1, 0, 100);
 	tableview_column_limits(tableLeftTop1, 2, 50, 100);
 	tableview_column_freeze(tableLeftTop1, 1);
@@ -1434,15 +1443,15 @@ Panel *split_panel(App *app)
 	tableview_update(tableLeftBottom1);
 
 	// centre section
-	tableCentreTop1 = tableview_create();
-	tableview_size(tableCentreTop1, s2df(1080,150));
-	tableview_OnData(tableCentreTop1, listener(app, i_OnTreeDataTableCentreTop1, App));
-	tableview_update(tableCentreTop1);
+	tableCentreBottom1 = tableview_create();
+	tableview_size(tableCentreBottom1, s2df(1080,150));
+	tableview_OnData(tableCentreBottom1, listener(app, i_OnTreeDataTableCentreBottom1, App));
+	tableview_update(tableCentreBottom1);
 
+	#ifdef DEFUNCT
 	tableCentreBottom1 = tableview_create();
 	tableview_size(tableCentreBottom1, s2df(1080, 600));
 
-	#ifdef DEFUNCT
         textLeftTop2 = textview_create(); textview_printf(textLeftTop2, "Address space");
         textLeftBottom2 = textview_create(); textview_printf(textLeftBottom2, "Interconnectivity");
         textview_size(textLeftTop2, s2df(1080, 150));
@@ -1465,6 +1474,8 @@ Panel *split_panel(App *app)
 
     panel1 = panel_scroll(TRUE, TRUE);
     layout1 = layout_create(2,1);
+    layout_hmargin(layout1, 0, 5);
+    layout_vmargin(layout1, 0, 5);
         split1 = splitview_vertical(); // split into LEFT and RIGHT sections (Left)
 	splitview_minsize0(split1, 1920*1/7); //splitview_minsize1(split1, 1920*6/7); // only can set minimum width of splitview1 LEFT section
         split2 = splitview_vertical(); // split into LEFT and RIGHT sections (Left)
@@ -1476,8 +1487,8 @@ Panel *split_panel(App *app)
 	//splitview_minsize0(split1c, 200); splitview_minsize1(split1c, 200);
 
     layout2b = layout_create(1,2);
-	split2b = splitview_horizontal(); // split into TOP, BOTTOM
-	splitview_minsize0(split2b, 300); splitview_minsize1(split2b, 300);	// minimum height of splitview TOP and BOTTOM section
+	app->split2b = splitview_horizontal(); // split into TOP, BOTTOM
+	splitview_minsize0(app->split2b, 300); splitview_minsize1(app->split2b, 300);	// minimum height of splitview TOP and BOTTOM section
 
     layout3b = layout_create(1,2);
 	split3b = splitview_horizontal(); // split into TOP, BOTTOM
@@ -1485,7 +1496,6 @@ Panel *split_panel(App *app)
 
 
     // --------------------------------------------------------- Left Section---------------------------------------
-    #ifndef RW_SPLITVIEW_VERTICAL
        	splitview_splitview(split1, split1b);
        	layout_splitview(layout1b, split1b, 0,0);
 
@@ -1517,154 +1527,413 @@ Panel *split_panel(App *app)
                        "Value");
 
     // --------------------------------------------------------- Middle Section---------------------------------------
-	splitview_splitview(split1, split2b);	// put a secondary splitview into the primary splitview
-	layout_splitview(layout2b, split2b, 0,0);
-
-#ifndef WORKING
+	splitview_splitview(split1, app->split2b);	// put a secondary splitview into the primary splitview
+	layout_splitview(layout2b, app->split2b, 0,0);
+        app->layoutATop = layout_create(1,1);
+	layout_hexpand(app->layoutATop, 0);
+	layout_vexpand(app->layoutATop, 0);
+	layout_splitview(app->layoutATop, app->split2b, 0,0);	// layout2b
 
 	// --------------start with the upper half
-        app->layoutATop = layout_create(1,1);
-	layout_splitview(layout2b, split2b, 0,0);
-		splitview_tableview(split2b, tableCentreTop1, FALSE);
-		tableview_add_column_text(tableCentreTop1);
+	WebView *webview;
+	const char *url = "https://google.com/";
+	webview = webview_create();
+	webview_navigate(webview, url);
+
+		//--> webview_panel() will be created in maxOrchestrator;
+		splitview_webview(app->split2b, webview, FALSE);
+		webview_size(webview, s2df(1024.0f, 768.0f));
+
+		#ifdef VERIFICATION
+                splitview_tableview(app->split2b, tableCentreTop1, FALSE);
+                tableview_add_column_text(tableCentreTop1);
                 tableview_header_title(tableCentreTop1,
                        0,
-                       "Nodeset");
-		tableview_add_column_text(tableCentreTop1);
+                       "Test");
+                tableview_add_column_text(tableCentreTop1);
                 tableview_header_title(tableCentreTop1,
                        1,
-                       "Param 1");
-		tableview_add_column_text(tableCentreTop1);
-                tableview_header_title(tableCentreTop1,
-                       2,
-                       "Param 2");
-		tableview_add_column_text(tableCentreTop1);
-                tableview_header_title(tableCentreTop1,
-                       3,
-                       "Param 3");
-		tableview_add_column_text(tableCentreTop1);
-                tableview_header_title(tableCentreTop1,
-                       4,
-                       "Param 4");
-                tableview_add_column_text(tableCentreTop1);
-                tableview_header_title(tableCentreTop1,
-                       5,
-                       "Param 5");
-                tableview_add_column_text(tableCentreTop1);
-                tableview_header_title(tableCentreTop1,
-                       6,
-                       "Param 6");
-                tableview_add_column_text(tableCentreTop1);
-                tableview_header_title(tableCentreTop1,
-                       7,
-                       "Param 7");
-                tableview_add_column_text(tableCentreTop1);
-                tableview_header_title(tableCentreTop1,
-                       8,
-                       "Param 8");
-                tableview_add_column_text(tableCentreTop1);
-                tableview_header_title(tableCentreTop1,
-                       9,
-                       "Param 9");
-                tableview_add_column_text(tableCentreTop1);
-                tableview_header_title(tableCentreTop1,
-                       10,
-                       "Param 10");
-                tableview_add_column_text(tableCentreTop1);
-                tableview_header_title(tableCentreTop1,
-                       11,
-                       "Param 11");
-                tableview_add_column_text(tableCentreTop1);
-                tableview_header_title(tableCentreTop1,
-                       12,
-                       "Param 12");
-
-        	//--> panel_layout()
-                app->panelATop = panel_scroll(TRUE, TRUE); //app->panelABottom = panel_scroll(TRUE, TRUE);
-                panel_layout(app->panelATop, app->layoutATop); //panel_layout(app->panelABottom, app->layoutABottom);
-		// splitview_panel()
-		splitview_panel(split2b, app->panelATop);
+                       "Test 1");
+		#endif
 
 	// --------------now do the lower half
-		app->layoutABottom = layout_create(1,1);
-		layout_splitview(layout2b, split2b, 0,1);
-
-		#ifdef KIV
-		layout_tableview(app->layoutABottom, tableCentreBottom1, 0,0);
+		splitview_tableview(app->split2b, tableCentreBottom1, FALSE);
 		tableview_add_column_text(tableCentreBottom1);
                 tableview_header_title(tableCentreBottom1,
                        0,
-                       "maxOrchestrator");
-		#else
-		//--> webview_panel() will be created in maxOrchestrator;
-		//-->panel_layout();
-		app->panelABottom = panel_scroll(TRUE, TRUE);
-		panel_layout(app->panelABottom, app->layoutABottom);
-		#endif
+                       "Nodeset");
+		tableview_add_column_text(tableCentreBottom1);
+                tableview_header_title(tableCentreBottom1,
+                       1,
+                       "Param 1");
+		tableview_add_column_text(tableCentreBottom1);
+                tableview_header_title(tableCentreBottom1,
+                       2,
+                       "Param 2");
+		tableview_add_column_text(tableCentreBottom1);
+                tableview_header_title(tableCentreBottom1,
+                       3,
+                       "Param 3");
+		tableview_add_column_text(tableCentreBottom1);
+                tableview_header_title(tableCentreBottom1,
+                       4,
+                       "Param 4");
+                tableview_add_column_text(tableCentreBottom1);
+                tableview_header_title(tableCentreBottom1,
+                       5,
+                       "Param 5");
+                tableview_add_column_text(tableCentreBottom1);
+                tableview_header_title(tableCentreBottom1,
+                       6,
+                       "Param 6");
+                tableview_add_column_text(tableCentreBottom1);
+                tableview_header_title(tableCentreBottom1,
+                       7,
+                       "Param 7");
+                tableview_add_column_text(tableCentreBottom1);
+                tableview_header_title(tableCentreBottom1,
+                       8,
+                       "Param 8");
+                tableview_add_column_text(tableCentreBottom1);
+                tableview_header_title(tableCentreBottom1,
+                       9,
+                       "Param 9");
+                tableview_add_column_text(tableCentreBottom1);
+                tableview_header_title(tableCentreBottom1,
+                       10,
+                       "Param 10");
+                tableview_add_column_text(tableCentreBottom1);
+                tableview_header_title(tableCentreBottom1,
+                       11,
+                       "Param 11");
+                tableview_add_column_text(tableCentreBottom1);
+                tableview_header_title(tableCentreBottom1,
+                       12,
+                       "Param 12");
 
-	// finally assign the 2 panels to the splitview (split2b : horizontal)
-		//--> splitview_panel();
-                splitview_panel(split2b, app->panelATop);
-		splitview_panel(split2b, app->panelABottom);
+       	//--> panel_layout()
+        //        app->panelATop = panel_scroll(TRUE, TRUE); //app->panelABottom = panel_scroll(TRUE, TRUE);
+        //        panel_layout(app->panelATop, app->layoutATop); //panel_layout(app->panelABottom, app->layoutABottom);
 
-		//panel_size(panelATop, s2df(400.0f,50.0f)); panel_size(panelABottom, s2df(400.0f, 350.0f));
-		//app->viewA = view_custom(TRUE, TRUE);
-		//layout_view(app->layoutATop, app->viewA, 0,0); layout_view(app->layoutABottom, app->viewA, 0,0);
-
-		//splitview_panel(split2b, app->panelABottom);
-		//splitview_textview(split2b, textLeftTop2, FALSE);        // put the child object into split2b
-		//splitview_textview(split2b, textLeftBottom2, FALSE);        // put the child object into split2b
-
-#else
-        //--> layout_imageview();
-                layoutA = layout_create(1,1);	// 2,2
-                //InterconnectivityImageView00 = imageview_create();
-                //InterconnectivityImageView01 = imageview_create();
-                //InterconnectivityImageView10 = imageview_create();
-                //InterconnectivityImageView11 = imageview_create();
-                //InterconnectivityImage = image_from_file("/home/pi/nappgui_src/jacky/img/interconnectivity.png", &error);
-                //imageview_image(InterconnectivityImageView00, InterconnectivityImage);
-                //imageview_image(InterconnectivityImageView01, InterconnectivityImage);
-                //imageview_image(InterconnectivityImageView10, InterconnectivityImage);
-                //imageview_image(InterconnectivityImageView11, InterconnectivityImage);
-                //layout_imageview(layoutA, InterconnectivityImageView00, 0,0);
-                //layout_imageview(layoutA, InterconnectivityImageView01, 0,1);
-		splitview_splitview(split2, split3b);
-		//layout_imageview(layoutA, InterconnectivityImageView10, 1,0);
-                //layout_imageview(layoutA, InterconnectivityImageView11, 1,1);
-        //--> panel_layout();
-                panelA = panel_scroll(TRUE, TRUE);
-                panel_layout(panelA, layoutA);
-		app->viewA = view_custom(TRUE, TRUE);
-		layout_view(layoutA, app->viewA, 0,0);
-        //--> splitview_panel();
-                splitview_panel(split2b, panelA);
-		//imageview_size(InterconnectivityImageView00, s2df(200,600));
-		//imageview_scale(InterconnectivityImageView00, ekGUI_SCALE_AUTO);
-                //imageview_size(InterconnectivityImageView01, s2df(200,600));
-                //imageview_scale(InterconnectivityImageView01, ekGUI_SCALE_AUTO);
-                //imageview_size(InterconnectivityImageView10, s2df(200,600));
-                //imageview_scale(InterconnectivityImageView10, ekGUI_SCALE_AUTO);
-                //imageview_size(InterconnectivityImageView11, s2df(200,600));
-                //imageview_scale(InterconnectivityImageView11, ekGUI_SCALE_AUTO);
-
-		splitview_textview(split2b, textLeftTop2, FALSE);        // put the child object into split2b
-                splitview_textview(split2b, textLeftBottom2, FALSE);        // put the child object into split2b
-
-#endif
 
     // --------------------------------------------------------- Right Section---------------------------------------
+
+
+   #ifndef WORKING
+	splitview_splitview(split2, split3b);
+	layout_splitview(layout3b, split3b, 0,0);
+
+	splitview_minsize0(split2, 1920*5/7); // splitview_minsize1(split2, 1920*1/7); // only can set minimum width of splitview2 LEFT section 
+
+	// ------------------------start with top section
+	// attach tab controls to Layout
+	tabRightTopWindow = tabs_create(ekGUI_POS_TOP);
+    	tabs_length(tabRightTopWindow, 250);
+    	tabs_add_elem(tabRightTopWindow, "Data Transfers", NULL); //tabs_OnSelect(tabRightTopWindow, listener(app, i_OnClick_tabRightTop, App));
+    	tabs_add_elem(tabRightTopWindow, "Status", NULL); //tabs_OnSelect(tabRightTopWindow, listener(app, i_OnClick_tabRightTop, App));
+
+	// 1.1. add a layout to panel : LayoutTopRightDataTransfer = 0, LayoutTopRightStatus =1
+	panelTopRight = panel_create(); //panel_scroll(TRUE, TRUE);
+	layout_panel(layout3b, panelTopRight, 0,1);
+
+	LayoutTopRightDataTransfer = layout_create(1,2); // 6
+	Label *maxAdapterLabel = label_create();
+	label_text(maxAdapterLabel, "MaxAdapter");
+	layout_label(LayoutTopRightDataTransfer, maxAdapterLabel, 0,0);
+
+	LayoutTopRightStatus = layout_create(1,8);
+	// 1.2 assign layout to panel
+	unsigned int layoutIndexTopRightDataTransfer = panel_layout(panelTopRight, LayoutTopRightDataTransfer);
+	unsigned int layoutIndexTopRightStatus = panel_layout(panelTopRight, LayoutTopRightStatus);
+		printf(" %d %d \n", layoutIndexTopRightDataTransfer, layoutIndexTopRightStatus);
+
+	// 1.3 assign additional wigets to the layout
+	Layout *subLayoutTopRightCPUStatus = layout_create(3,18);
+	Layout *subLayoutTopRightRAMStatus = layout_create(3,4);
+	    //layout_layout(LayoutTopRightStatus, subLayoutTopRightCPUStatus, 0,1);
+	    //layout_layout(LayoutTopRightStatus, subLayoutTopRightRAMStatus, 0,2);
+	layout_margin(subLayoutTopRightCPUStatus, 5);
+	layout_margin(subLayoutTopRightRAMStatus, 5);
+
+	Panel *subPanelTopRightCPUStatus = panel_scroll(FALSE, TRUE);
+	panel_layout(subPanelTopRightCPUStatus, subLayoutTopRightCPUStatus);
+	layout_panel(LayoutTopRightStatus, subPanelTopRightCPUStatus, 0,1);
+
+	// 1.3.1 CPU section
+	Label *labelCPUOverall = label_create(); label_text(labelCPUOverall, "CPU Overall"); label_align(labelCPUOverall, ekLEFT);
+	Label *labelCPU1 = label_create(); label_text(labelCPU1, "Core 0"); label_align(labelCPU1, ekCENTER); //label_width(labelCPU1, 2);
+	Label *labelCPU2 = label_create(); label_text(labelCPU2, "Core 1"); label_align(labelCPU2, ekCENTER); //label_width(labelCPU2, 2);
+	Label *labelCPU3 = label_create(); label_text(labelCPU3, "Core 2"); label_align(labelCPU3, ekCENTER); //label_width(labelCPU3, 2);
+	Label *labelCPU4 = label_create(); label_text(labelCPU4, "Core 3"); label_align(labelCPU4, ekCENTER); //label_width(labelCPU4, 2);
+	Label *labelCPU5 = label_create(); label_text(labelCPU5, "Core 4"); label_align(labelCPU5, ekCENTER); //label_width(labelCPU5, 2);
+	Label *labelCPU6 = label_create(); label_text(labelCPU6, "Core 5"); label_align(labelCPU6, ekCENTER); //label_width(labelCPU6, 2);
+	Label *labelCPU7 = label_create(); label_text(labelCPU7, "Core 6"); label_align(labelCPU7, ekCENTER); //label_width(labelCPU7, 2);
+	Label *labelCPU8 = label_create(); label_text(labelCPU8, "Core 7"); label_align(labelCPU8, ekCENTER); //label_width(labelCPU8, 2);
+        Label *labelCPU9 = label_create(); label_text(labelCPU9, "Core 8"); label_align(labelCPU9, ekCENTER); //label_width(labelCPU1, 2);
+        Label *labelCPU10 = label_create(); label_text(labelCPU10, "Core 9"); label_align(labelCPU10, ekCENTER); //label_width(labelCPU2, 2);
+        Label *labelCPU11 = label_create(); label_text(labelCPU11, "Core 10"); label_align(labelCPU11, ekCENTER); //label_width(labelCPU3, 2);
+        Label *labelCPU12 = label_create(); label_text(labelCPU12, "Core 11"); label_align(labelCPU12, ekCENTER); //label_width(labelCPU4, 2);
+        Label *labelCPU13 = label_create(); label_text(labelCPU13, "Core 12"); label_align(labelCPU13, ekCENTER); //label_width(labelCPU5, 2);
+        Label *labelCPU14 = label_create(); label_text(labelCPU14, "Core 13"); label_align(labelCPU14, ekCENTER); //label_width(labelCPU6, 2);
+        Label *labelCPU15 = label_create(); label_text(labelCPU15, "Core 14"); label_align(labelCPU15, ekCENTER); //label_width(labelCPU7, 2);
+        Label *labelCPU16 = label_create(); label_text(labelCPU16, "Core 15"); label_align(labelCPU16, ekCENTER); //label_width(labelCPU8, 2);
+
+	Label *labelCPU1Percent = label_create(); label_text(labelCPU1Percent, "5%"); label_align(labelCPU1Percent, ekCENTER); //label_width(labelCPU1Percent, 2);
+	Label *labelCPU2Percent = label_create(); label_text(labelCPU2Percent, "10%"); label_align(labelCPU2Percent, ekCENTER); //label_width(labelCPU2Percent, 2);
+	Label *labelCPU3Percent = label_create(); label_text(labelCPU3Percent, "40%"); label_align(labelCPU3Percent, ekCENTER); //label_width(labelCPU3Percent, 2);
+	Label *labelCPU4Percent = label_create(); label_text(labelCPU4Percent, "1%"); label_align(labelCPU4Percent, ekCENTER); //label_width(labelCPU4Percent, 2);
+	Label *labelCPU5Percent = label_create(); label_text(labelCPU5Percent, "15%"); label_align(labelCPU5Percent, ekCENTER); //label_width(labelCPU5Percent, 2);
+	Label *labelCPU6Percent = label_create(); label_text(labelCPU6Percent, "100%"); label_align(labelCPU6Percent, ekCENTER); //label_width(labelCPU6Percent, 2);
+	Label *labelCPU7Percent = label_create(); label_text(labelCPU7Percent, "66%"); label_align(labelCPU7Percent, ekCENTER); //label_width(labelCPU7Percent, 2);
+	Label *labelCPU8Percent = label_create(); label_text(labelCPU8Percent, "48%"); label_align(labelCPU8Percent, ekCENTER); //label_width(labelCPU8Percent, 2);
+        Label *labelCPU9Percent = label_create(); label_text(labelCPU9Percent, "15%"); label_align(labelCPU9Percent, ekCENTER); //label_width(>
+        Label *labelCPU10Percent = label_create(); label_text(labelCPU10Percent, "20%"); label_align(labelCPU10Percent, ekCENTER); //label_width>
+        Label *labelCPU11Percent = label_create(); label_text(labelCPU11Percent, "30%"); label_align(labelCPU11Percent, ekCENTER); //label_width>
+        Label *labelCPU12Percent = label_create(); label_text(labelCPU12Percent, "77%"); label_align(labelCPU12Percent, ekCENTER); //label_width(>
+        Label *labelCPU13Percent = label_create(); label_text(labelCPU13Percent, "85%"); label_align(labelCPU13Percent, ekCENTER); //label_width>
+        Label *labelCPU14Percent = label_create(); label_text(labelCPU14Percent, "10%"); label_align(labelCPU14Percent, ekCENTER); //label_widt>
+        Label *labelCPU15Percent = label_create(); label_text(labelCPU15Percent, "36%"); label_align(labelCPU15Percent, ekCENTER); //label_width>
+        Label *labelCPU16Percent = label_create(); label_text(labelCPU16Percent, "4%"); label_align(labelCPU16Percent, ekCENTER); //label_width>
+
+	Progress *progressCPUOverall = progress_create(); progress_value(progressCPUOverall, (const float)0.35 ); progress_width(progressCPUOverall, 4);
+	Progress *progressCPU1 = progress_create(); progress_value(progressCPU1, (const float)0.05 ); //progress_width(progressCPU1, 1);
+	Progress *progressCPU2 = progress_create(); progress_value(progressCPU2, (const float)0.10 ); //progress_width(progressCPU2, 1);
+	Progress *progressCPU3 = progress_create(); progress_value(progressCPU3, (const float)0.40 ); //progress_width(progressCPU3, 1);
+	Progress *progressCPU4 = progress_create(); progress_value(progressCPU4, (const float)0.01 ); //progress_width(progressCPU4, 1);
+	Progress *progressCPU5 = progress_create(); progress_value(progressCPU5, (const float)0.15 ); //progress_width(progressCPU5, 1);
+	Progress *progressCPU6 = progress_create(); progress_value(progressCPU6, (const float)1.00 ); //progress_width(progressCPU6, 1);
+	Progress *progressCPU7 = progress_create(); progress_value(progressCPU7, (const float)0.66 ); //progress_width(progressCPU7, 1);
+	Progress *progressCPU8 = progress_create(); progress_value(progressCPU8, (const float)0.48 ); //progress_width(progressCPU8, 1);
+        Progress *progressCPU9 = progress_create(); progress_value(progressCPU9, (const float)0.15 ); //progress_width(progressCPU1, 1);
+        Progress *progressCPU10 = progress_create(); progress_value(progressCPU10, (const float)0.20 ); //progress_width(progressCPU2, 1);
+        Progress *progressCPU11 = progress_create(); progress_value(progressCPU11, (const float)0.30 ); //progress_width(progressCPU3, 1);
+        Progress *progressCPU12 = progress_create(); progress_value(progressCPU12, (const float)0.77 ); //progress_width(progressCPU4, 1);
+        Progress *progressCPU13 = progress_create(); progress_value(progressCPU13, (const float)0.85 ); //progress_width(progressCPU5, 1);
+        Progress *progressCPU14 = progress_create(); progress_value(progressCPU14, (const float)0.10 ); //progress_width(progressCPU6, 1);
+        Progress *progressCPU15 = progress_create(); progress_value(progressCPU15, (const float)0.36 ); //progress_width(progressCPU7, 1);
+        Progress *progressCPU16 = progress_create(); progress_value(progressCPU16, (const float)0.04 ); //progress_width(progressCPU8, 1);
+
+	layout_label(subLayoutTopRightCPUStatus, labelCPUOverall, 0,0);
+	layout_progress(subLayoutTopRightCPUStatus, progressCPUOverall, 1,0);
+	layout_progress(subLayoutTopRightCPUStatus, progressCPU1, 0,1);
+	layout_progress(subLayoutTopRightCPUStatus, progressCPU2, 0,2);
+	layout_progress(subLayoutTopRightCPUStatus, progressCPU3, 0,3);
+	layout_progress(subLayoutTopRightCPUStatus, progressCPU4, 0,4);
+	layout_progress(subLayoutTopRightCPUStatus, progressCPU5, 0,5);
+	layout_progress(subLayoutTopRightCPUStatus, progressCPU6, 0,6);
+	layout_progress(subLayoutTopRightCPUStatus, progressCPU7, 0,7);
+	layout_progress(subLayoutTopRightCPUStatus, progressCPU8, 0,8);
+        layout_progress(subLayoutTopRightCPUStatus, progressCPU9, 0,9);
+        layout_progress(subLayoutTopRightCPUStatus, progressCPU10, 0,10);
+        layout_progress(subLayoutTopRightCPUStatus, progressCPU11, 0,11);
+        layout_progress(subLayoutTopRightCPUStatus, progressCPU12, 0,12);
+        layout_progress(subLayoutTopRightCPUStatus, progressCPU13, 0,13);
+        layout_progress(subLayoutTopRightCPUStatus, progressCPU14, 0,14);
+        layout_progress(subLayoutTopRightCPUStatus, progressCPU15, 0,15);
+        layout_progress(subLayoutTopRightCPUStatus, progressCPU16, 0,16);
+	layout_hmargin (subLayoutTopRightCPUStatus, 0, 5);
+	layout_label(subLayoutTopRightCPUStatus, labelCPU1, 1, 1);
+	layout_label(subLayoutTopRightCPUStatus, labelCPU2, 1, 2);
+	layout_label(subLayoutTopRightCPUStatus, labelCPU3, 1, 3);
+	layout_label(subLayoutTopRightCPUStatus, labelCPU4, 1, 4);
+	layout_label(subLayoutTopRightCPUStatus, labelCPU5, 1, 5);
+	layout_label(subLayoutTopRightCPUStatus, labelCPU6, 1, 6);
+	layout_label(subLayoutTopRightCPUStatus, labelCPU7, 1, 7);
+	layout_label(subLayoutTopRightCPUStatus, labelCPU8, 1, 8);
+        layout_label(subLayoutTopRightCPUStatus, labelCPU9, 1, 9);
+        layout_label(subLayoutTopRightCPUStatus, labelCPU10, 1, 10);
+        layout_label(subLayoutTopRightCPUStatus, labelCPU11, 1, 11);
+        layout_label(subLayoutTopRightCPUStatus, labelCPU12, 1, 12);
+        layout_label(subLayoutTopRightCPUStatus, labelCPU13, 1, 13);
+        layout_label(subLayoutTopRightCPUStatus, labelCPU14, 1, 14);
+        layout_label(subLayoutTopRightCPUStatus, labelCPU15, 1, 15);
+        layout_label(subLayoutTopRightCPUStatus, labelCPU16, 1, 16);
+	layout_label(subLayoutTopRightCPUStatus, labelCPU1Percent, 2, 1);
+	layout_label(subLayoutTopRightCPUStatus, labelCPU2Percent, 2, 2);
+	layout_label(subLayoutTopRightCPUStatus, labelCPU3Percent, 2, 3);
+	layout_label(subLayoutTopRightCPUStatus, labelCPU4Percent, 2, 4);
+	layout_label(subLayoutTopRightCPUStatus, labelCPU5Percent, 2, 5);
+	layout_label(subLayoutTopRightCPUStatus, labelCPU6Percent, 2, 6);
+	layout_label(subLayoutTopRightCPUStatus, labelCPU7Percent, 2, 7);
+	layout_label(subLayoutTopRightCPUStatus, labelCPU8Percent, 2, 8);
+        layout_label(subLayoutTopRightCPUStatus, labelCPU9Percent, 2, 9);
+        layout_label(subLayoutTopRightCPUStatus, labelCPU10Percent, 2, 10);
+        layout_label(subLayoutTopRightCPUStatus, labelCPU11Percent, 2, 11);
+        layout_label(subLayoutTopRightCPUStatus, labelCPU12Percent, 2, 12);
+        layout_label(subLayoutTopRightCPUStatus, labelCPU13Percent, 2, 13);
+        layout_label(subLayoutTopRightCPUStatus, labelCPU14Percent, 2, 14);
+        layout_label(subLayoutTopRightCPUStatus, labelCPU15Percent, 2, 15);
+        layout_label(subLayoutTopRightCPUStatus, labelCPU16Percent, 2, 16);
+
+	Panel *subPanelCPUGraph = panel_create();
+	panel_size(subPanelCPUGraph, s2df(50,100));
+	Layout *subLayoutCPUGraph = layout_create(1,1);
+	layout_vmargin(subLayoutCPUGraph, 0, 5);
+	layout_hmargin(subLayoutCPUGraph, 0, 5);
+	panel_layout(subPanelCPUGraph, subLayoutCPUGraph);
+	layout_panel(LayoutTopRightStatus, subPanelCPUGraph, 0,2);
+
+	TableView *tableViewCPUGraph = tableview_create();
+	tableview_header_visible(tableViewCPUGraph, FALSE);
+	tableview_grid(tableViewCPUGraph, TRUE, TRUE);
+	tableview_column_resizable(tableViewCPUGraph, FALSE, FALSE);
+	tableview_add_column_text(tableViewCPUGraph);
+	tableview_add_column_text(tableViewCPUGraph);
+	tableview_add_column_text(tableViewCPUGraph);
+	tableview_add_column_text(tableViewCPUGraph);
+	tableview_add_column_text(tableViewCPUGraph);
+	tableview_add_column_text(tableViewCPUGraph);
+	tableview_add_column_text(tableViewCPUGraph);
+	tableview_add_column_text(tableViewCPUGraph);
+	tableview_add_column_text(tableViewCPUGraph);
+	tableview_add_column_text(tableViewCPUGraph);
+
+	layout_tableview(subLayoutCPUGraph, tableViewCPUGraph, 0,0);
+
+	// 1.3.2 RAM section
+	Label *labelRAMOverall = label_create(); label_text(labelRAMOverall, "RAM Utilisation"); label_align(labelRAMOverall, ekLEFT);
+	app->progressRAMOverall = progress_create();
+	progress_value(app->progressRAMOverall, 1.0);
+	progress_width(app->progressRAMOverall, 4);
+
+	layout_label(LayoutTopRightStatus, labelRAMOverall, 0,4);
+	layout_progress(LayoutTopRightStatus, app->progressRAMOverall, 0,5);
+
+	Label *labelRAMUsed = label_create(); label_text(labelRAMUsed, "Used"); label_align(labelRAMUsed, ekJUSTIFY);
+	Label *labelRAMFree = label_create(); label_text(labelRAMFree, "Free"); label_align(labelRAMFree, ekJUSTIFY);
+	Label *labelRAMTotal = label_create(); label_text(labelRAMTotal, "Total"); label_align(labelRAMTotal, ekJUSTIFY);
+	app->labelRAMUsedFigure = label_create(); label_text(app->labelRAMUsedFigure, "0 MB          "); //label_width(app->labelRAMUsedFigure, 5);
+	app->labelRAMFreeFigure = label_create(); label_text(app->labelRAMFreeFigure, "0 MB          "); //label_width(app->labelRAMFreeFigure, 5);
+	app->labelRAMTotalFigure = label_create(); label_text(app->labelRAMTotalFigure, "0 MB        "); //label_width(app->labelRAMTotalFigure, 5);
+	layout_label(subLayoutTopRightRAMStatus, labelRAMUsed, 0,1);
+	layout_label(subLayoutTopRightRAMStatus, labelRAMFree, 1,1);
+	layout_label(subLayoutTopRightRAMStatus, labelRAMTotal, 2,1);
+	layout_label(subLayoutTopRightRAMStatus, app->labelRAMUsedFigure, 0,2);
+	layout_label(subLayoutTopRightRAMStatus, app->labelRAMFreeFigure, 1,2);
+	layout_label(subLayoutTopRightRAMStatus, app->labelRAMTotalFigure, 2,2);
+
+	layout_layout(LayoutTopRightStatus,subLayoutTopRightRAMStatus, 0,6);
+
+	Panel*subPanelRAMGraph = panel_create();
+	panel_size(subPanelRAMGraph, s2df(50,100));
+	Layout *subLayoutRAMGraph = layout_create(1,1);
+	layout_vmargin(subLayoutRAMGraph, 0,5);
+	layout_hmargin(subLayoutRAMGraph, 0,5);
+	panel_layout(subPanelRAMGraph, subLayoutRAMGraph);
+	layout_panel(LayoutTopRightStatus, subPanelRAMGraph, 0,7);
+
+	TableView *tableViewRAMGraph = tableview_create();
+	tableview_header_visible(tableViewRAMGraph, FALSE);
+	tableview_grid(tableViewRAMGraph, TRUE, TRUE);
+	tableview_column_resizable(tableViewRAMGraph, FALSE, FALSE);
+	tableview_add_column_text(tableViewRAMGraph);
+	tableview_add_column_text(tableViewRAMGraph);
+	tableview_add_column_text(tableViewRAMGraph);
+	tableview_add_column_text(tableViewRAMGraph);
+	tableview_add_column_text(tableViewRAMGraph);
+	tableview_add_column_text(tableViewRAMGraph);
+	tableview_add_column_text(tableViewRAMGraph);
+	tableview_add_column_text(tableViewRAMGraph);
+	tableview_add_column_text(tableViewRAMGraph);
+	tableview_add_column_text(tableViewRAMGraph);
+
+	layout_tableview(subLayoutRAMGraph, tableViewRAMGraph, 0,0);
+
+	// 1.4 set the active layout = Status
+	panel_visible_layout(panelTopRight, layoutIndexTopRightStatus);
+	panel_update(panelTopRight);
+
+	/* 1.5 attach tabRightTopWindow to layout */
+	layout_tabs(LayoutTopRightDataTransfer, tabRightTopWindow, 0,0);
+	layout_tabs(LayoutTopRightStatus, tabRightTopWindow, 0,0);
+
+	//layout_vsize(LayoutTopRightDataTransfer, 0, 50);
+	//layout_vsize(LayoutTopRightStatus, 0, 50);
+
+	//-->splitview_panel()
+        splitview_panel(split3b, panelTopRight);
+
+
+
+	// ------------------------next, configure bottom section
+	// header title : maxIntegrator
+	Font *fontMaxIntegrator = font_create("Times New Roman", 14, ekFBOLD);
+	Label *labelHeaderMaxIntegrator = label_create(); label_text(labelHeaderMaxIntegrator, "MaxIntegrator");
+	label_font(labelHeaderMaxIntegrator, fontMaxIntegrator);
+	label_align(labelHeaderMaxIntegrator, ekCENTER);
+
+	// attach tab controls to Layout
+	tabRightBottomWindow = tabs_create(ekGUI_POS_TOP);
+	tabs_length(tabRightBottomWindow, 150);
+	tabs_add_elem(tabRightBottomWindow, "Online", NULL);
+	tabs_add_elem(tabRightBottomWindow, "Status", NULL);
+
+	// 2.1 add a layout to panel : LayoutBottomRightOnline = 0, LayoutBottomRightStatus = 1
+	panelBottomRight = panel_create(); //panel_scroll(TRUE, TRUE);
+	Layout *LayoutBottomRight = layout_create(1, 3);
+	panel_layout(panelBottomRight, LayoutBottomRight);
+
+	LayoutBottomRightOnline = layout_create(1,4);
+	LayoutBottomRightStatus = layout_create(1,4);
+
+/**/
+	//panel_layout(panelBottomRight, LayoutBottomRightOnline);
+	layout_label(LayoutBottomRight, labelHeaderMaxIntegrator, 0,0);
+	//layout_panel(LayoutBottomRight, panelBottomRight, 0,2);
+
+
+
+	// 2.2 assign layout to panel
+	int layoutIndexBottomRightOnline = panel_layout(panelBottomRight, LayoutBottomRightOnline);
+	int layoutIndexBottomRightStatus = panel_layout(panelBottomRight, LayoutBottomRightStatus);
+		printf(" %d %d \n", layoutIndexBottomRightOnline, layoutIndexBottomRightStatus);
+
+	// 2.3 assign additional widgets to the panel
+	Layout *subLayoutBottomRightOnline = layout_create(1,4);
+	Layout *subLayoutBottomRightStatus = layout_create(1,4);
+	layout_margin(subLayoutBottomRightOnline, 5);
+        layout_margin(subLayoutBottomRightStatus, 5);
+
+	Font *font = font_create("Times New Roman", 12, ekFITALIC);
+	Edit *editSearch = edit_create(); edit_text(editSearch, "Search");
+	edit_font(editSearch, font);
+	edit_editable(editSearch, TRUE);
+	edit_autoselect(editSearch, TRUE);
+	layout_edit(subLayoutBottomRightOnline, editSearch, 0,1);
+
+	Panel *subPanelBottomRightOnline = panel_scroll(FALSE, TRUE);
+	panel_layout(subPanelBottomRightOnline, subLayoutBottomRightOnline);
+	layout_panel(LayoutBottomRightOnline, subPanelBottomRightOnline, 0,2);
+
+	layout_layout(LayoutBottomRightOnline,subLayoutBottomRightOnline, 0,3);
+
+	// 2.4 set the active layout = Online
+	panel_visible_layout(panelBottomRight, layoutIndexBottomRightOnline);
+	panel_update(panelBottomRight);
+
+	// 2.5 attach tabRightBottomWindow to layout */
+	layout_tabs(LayoutBottomRightOnline, tabRightBottomWindow, 0,0);
+	layout_tabs(LayoutBottomRightStatus, tabRightBottomWindow, 0,0);
+
+	//layout_vsize(LayoutBottomRightOnline, 0, 50);
+	//layout_vsize(LayoutBottomRightStatus, 0, 50);
+
+//tabs_OnSelect(tabRightBottomWindow, listener(app, i_OnClick_tabRightTop, App)); tabs_add_elem(tabRightBottomWindow, "Status", NULL); // tabs_OnSelect(tabRightBottomWindow, 
+//listener(app, i_OnClick_tabRightTop, App));
+
+	//-->splitview_panel()
+	splitview_panel(split3b, panelBottomRight);
+
+
+	//layout_splitview(layout3b, split3b, 0,0);
+   #else
         splitview_splitview(split2, split3b);
         layout_splitview(layout3b, split3b, 0,0);
-	//splitview_minsize0(split2, 1920*5/7); // splitview_minsize1(split2, 1920*1/7); // only can set minimum width of splitview2 LEFT section 
+	splitview_minsize0(split2, 1920*5/7); // splitview_minsize1(split2, 1920*1/7); // only can set minimum width of splitview2 LEFT section 
         //splitview_textview(split3b, textLeftTop3, FALSE);        // put the child object into split1b
 
 	//--> layout_imageview();
 		layoutB = layout_create(1,1);
-		//Label *maxAdapterLabel = label_create(); label_text(maxAdapterLabel, "maxAdapter");
-		//label_align(maxAdapterLabel, ekCENTER);
-		//layout_label(layoutB, maxAdapterLabel, 0,0);
-
 		maxAdapterStatusImageView = imageview_create();
 		maxAdapterStatusImage = image_from_file("/home/pi/nappgui_src/jacky/img/maxAdapterStatus.png", &error);
 		imageview_image(maxAdapterStatusImageView, maxAdapterStatusImage);
@@ -1682,10 +1951,6 @@ Panel *split_panel(App *app)
 
 	//--> layout_imageview();
                 layoutC = layout_create(1,1);
-                //Label *maxAdapterLabel = label_create(); label_text(maxAdapterLabel, "maxAdapter");
-                //label_align(maxAdapterLabel, ekCENTER);
-                //layout_label(layoutB, maxAdapterLabel, 0,0);
-
                 maxIntegratorStatusImageView = imageview_create();
                 maxIntegratorStatusImage = image_from_file("/home/pi/nappgui_src/jacky/img/maxIntegratorStatus.png", &error);
                 imageview_image(maxIntegratorStatusImageView, maxIntegratorStatusImage);
@@ -1698,6 +1963,7 @@ Panel *split_panel(App *app)
                 imageview_size(maxIntegratorStatusImageView, s2df(200,400));
                 imageview_scale(maxIntegratorStatusImageView, ekGUI_SCALE_AUTO);
 
+   #endif
 
    	//splitview_textview(split1, textRight, FALSE);
     	layout_splitview(layout1, split1, 0,0);	// 1
@@ -1707,7 +1973,7 @@ Panel *split_panel(App *app)
         //layout_splitview(layout, split1, 0, 0); // 1 - cannot be here
 	//splitview_textview(split2, textRightRight, FALSE);
 	//layout_splitview(layout, split2, 2,0);
-   #endif
+
 
     panel_layout(panel1, layout1);
 
@@ -1735,7 +2001,8 @@ static Panel *i_panel_original(App *app)
     ImageView *InterconnectivityImageView;
     ImageView *maxOrchestratorImageView;
     Image *InterconnectivityImage, *maxOrchestratorImage;
-    Tabs *tabStatus;
+    //Tabs *tabStatus;
+
     SplitView *SplitViewLeftRight;
     Panel *PanelLeft_SplitViewLeftRight, *PanelRight_SplitViewLeftRight;
     Panel *splitPanel;
@@ -1848,19 +2115,19 @@ static Panel *i_panel_original(App *app)
 
     /* attach tab controls to statusLayout */
     //TabsData *tdata = heap_new0(TabsData);
-    tabStatus = tabs_create(ekGUI_POS_TOP);
-    tabs_length(tabStatus, 300);
-    tabs_add_elem(tabStatus, "maxManage", NULL); tabs_OnSelect(tabStatus, listener(app, i_OnClick_tab, App));
-    tabs_add_elem(tabStatus, "maxEngine", NULL); tabs_OnSelect(tabStatus, listener(app, i_OnClick_tab, App));
-    tabs_add_elem(tabStatus, "maxAdapter", NULL); tabs_OnSelect(tabStatus, listener(app, i_OnClick_tab, App));
-    tabs_add_elem(tabStatus, "maxCore", NULL); tabs_OnSelect(tabStatus, listener(app, i_OnClick_tab, App));
-    tabs_add_elem(tabStatus, "maxOrchestrator", NULL); tabs_OnSelect(tabStatus, listener(app, i_OnClick_tab, App));
-    tabs_add_elem(tabStatus, "maxIntegrator", NULL); tabs_OnSelect(tabStatus, listener(app, i_OnClick_tab, App));
-    tabs_add_elem(tabStatus, "maxScale", NULL); tabs_OnSelect(tabStatus, listener(app, i_OnClick_tab, App));
-    tabs_add_elem(tabStatus, "maxMind", NULL); tabs_OnSelect(tabStatus, listener(app, i_OnClick_tab, App));
-    tabs_add_elem(tabStatus, "maxGate", NULL); tabs_OnSelect(tabStatus, listener(app, i_OnClick_tab, App));
-    tabs_add_elem(tabStatus, "maxLicense", NULL); tabs_OnSelect(tabStatus, listener(app, i_OnClick_tab, App));
-    tabs_add_elem(tabStatus, "maxServices", NULL); tabs_OnSelect(tabStatus, listener(app, i_OnClick_tab, App));
+    app->tabStatus = tabs_create(ekGUI_POS_TOP);
+    tabs_length(app->tabStatus, 300);
+    tabs_add_elem(app->tabStatus, "maxManage", NULL); tabs_OnSelect(app->tabStatus, listener(app, i_OnClick_tab, App));
+    tabs_add_elem(app->tabStatus, "maxEngine", NULL); tabs_OnSelect(app->tabStatus, listener(app, i_OnClick_tab, App));
+    tabs_add_elem(app->tabStatus, "maxAdapter", NULL); tabs_OnSelect(app->tabStatus, listener(app, i_OnClick_tab, App));
+    tabs_add_elem(app->tabStatus, "maxCore", NULL); tabs_OnSelect(app->tabStatus, listener(app, i_OnClick_tab, App));
+    tabs_add_elem(app->tabStatus, "maxOrchestrator", NULL); tabs_OnSelect(app->tabStatus, listener(app, i_OnClick_tab, App));
+    tabs_add_elem(app->tabStatus, "maxIntegrator", NULL); tabs_OnSelect(app->tabStatus, listener(app, i_OnClick_tab, App));
+    tabs_add_elem(app->tabStatus, "maxScale", NULL); tabs_OnSelect(app->tabStatus, listener(app, i_OnClick_tab, App));
+    tabs_add_elem(app->tabStatus, "maxMind", NULL); tabs_OnSelect(app->tabStatus, listener(app, i_OnClick_tab, App));
+    tabs_add_elem(app->tabStatus, "maxGate", NULL); tabs_OnSelect(app->tabStatus, listener(app, i_OnClick_tab, App));
+    tabs_add_elem(app->tabStatus, "maxLicense", NULL); tabs_OnSelect(app->tabStatus, listener(app, i_OnClick_tab, App));
+    tabs_add_elem(app->tabStatus, "maxServices", NULL); tabs_OnSelect(app->tabStatus, listener(app, i_OnClick_tab, App));
 
     /* attach tabStatus to statusLayout */
 //    layout_tabs(app->statusLayoutMaxEngine, tabStatus, 0,0);
@@ -1928,17 +2195,17 @@ static Panel *i_panel_original(App *app)
     panel_update(app->statusPanel);
 
     /* attach tabStatus to statusLayout */
-    layout_tabs(app->statusLayoutMaxManage, tabStatus, 0,0);
-    layout_tabs(app->statusLayoutMaxEngine, tabStatus, 0,0);
-    layout_tabs(app->statusLayoutMaxAdapter, tabStatus, 0,0);
-    layout_tabs(app->statusLayoutMaxCore, tabStatus, 0,0);
-    layout_tabs(app->statusLayoutMaxOrchestrator, tabStatus, 0,0);
-    layout_tabs(app->statusLayoutMaxIntegrator, tabStatus, 0,0);
-    layout_tabs(app->statusLayoutMaxScale, tabStatus, 0,0);
-    layout_tabs(app->statusLayoutMaxMind, tabStatus, 0,0);
-    layout_tabs(app->statusLayoutMaxGate, tabStatus, 0,0);
-    layout_tabs(app->statusLayoutMaxLicense, tabStatus, 0,0);
-    layout_tabs(app->statusLayoutMaxServices, tabStatus, 0,0);
+    layout_tabs(app->statusLayoutMaxManage, app->tabStatus, 0,0);
+    layout_tabs(app->statusLayoutMaxEngine, app->tabStatus, 0,0);
+    layout_tabs(app->statusLayoutMaxAdapter, app->tabStatus, 0,0);
+    layout_tabs(app->statusLayoutMaxCore, app->tabStatus, 0,0);
+    layout_tabs(app->statusLayoutMaxOrchestrator, app->tabStatus, 0,0);
+    layout_tabs(app->statusLayoutMaxIntegrator, app->tabStatus, 0,0);
+    layout_tabs(app->statusLayoutMaxScale, app->tabStatus, 0,0);
+    layout_tabs(app->statusLayoutMaxMind, app->tabStatus, 0,0);
+    layout_tabs(app->statusLayoutMaxGate, app->tabStatus, 0,0);
+    layout_tabs(app->statusLayoutMaxLicense, app->tabStatus, 0,0);
+    layout_tabs(app->statusLayoutMaxServices, app->tabStatus, 0,0);
 
     layout_vsize(app->statusLayoutMaxManage, 0, 300);
     layout_vsize(app->statusLayoutMaxEngine, 0, 300);
@@ -2300,6 +2567,230 @@ printf("nappmain.c (origin.x = %f, origin.y = %f\n", origin.x, origin.y);
 
 }
 
+/*---------------------------------------------------------------------------*/
+// Runs in new thread
+static uint32_t i_task_memMaxAdapter_main(App *app)
+{
+
+   while (1)
+   {
+	Mem_Stats memoryStat;
+	Mem_Stats *ptr;
+
+	const char *maxAdapterHost = "192.168.1.109";
+	const char *user = "pi";
+	const char *password = "molekhaven24";
+	char *bufferMem=NULL;
+	bool status;
+	char cmd[255];
+	bool pipe;
+	char *filename = "/tmp/maxAdapterMem";
+
+        bmutex_lock(app->mutex);
+
+	sprintf(cmd, " echo %s | /usr/bin/sudo -S /bin/bash -c 'cd /proc/ && /usr/bin/cat meminfo > %s' ", password, filename);
+	pipe = TRUE;
+
+	printf("cmd to run in i_task_memMaxAdapter_main() is %s \n", cmd);
+	bufferMem = run_remote_command(maxAdapterHost, user, password, cmd, pipe, bufferMem, app->textMaxAdapter, filename);
+	//#ifndef DEBUG
+	printf("%s : bufferMem returned from run_remote_command() is %s \n", __func__, bufferMem);
+	//#endif
+
+	ptr = getMem_Utilisation(bufferMem, &memoryStat, app);
+	if (ptr == NULL)
+	{
+		bthread_sleep(5000);
+		continue;
+	}
+
+	app->memtotal = ptr->memtotal;
+	app->memfree = ptr->memfree;
+	app->memavailable = ptr->memavailable;
+	printf("%s : app->memtotal = %llu \n", __func__, app->memtotal);
+	printf("%s : app->memfree = %llu \n", __func__, app->memfree);
+	printf("%s : app->memavailable = %llu \n", __func__, app->memavailable);
+
+	/*
+        sprintf(memused, "%llu", app->memtotal - app->memfree);
+        sprintf(memfree, "%llu", app->memfree);
+        sprintf(memtotal, "%llu", app->memtotal);
+
+        label_text(app->labelRAMUsedFigure, memused );
+        label_text(app->labelRAMFreeFigure, memfree);
+        label_text(app->labelRAMTotalFigure, memtotal);
+
+        textview_printf(app->textMaxAdapter, memused);
+        textview_printf(app->textMaxAdapter, memfree);
+        textview_printf(app->textMaxAdapter, memtotal);
+
+	diff = app->memtotal - app->memfree;
+	progress_value(app->progressRAMOverall, (float)(diff/app->memtotal));
+
+        textview_writef(app->textMaxAdapter, " \n");
+        textview_scroll_caret(app->textMaxAdapter);
+	*/
+        bmutex_unlock(app->mutex);
+	bthread_sleep(5000);
+   }
+
+}
+
+// Runs in GUI thread
+static void i_task_memMaxAdapter_update(App *app)
+{
+        // update the gui here
+	char memused[10], memfree[10], memtotal[10];
+	float diff;
+
+textview_writef(app->textMaxAdapter, "in i_task_memMaxAdapter_update \n");
+
+        sprintf(memused, "%llu", app->memtotal - app->memfree);
+        sprintf(memfree, "%llu", app->memfree);
+        sprintf(memtotal, "%llu", app->memtotal);
+
+        label_text(app->labelRAMUsedFigure, memused );
+        label_text(app->labelRAMFreeFigure, memfree);
+        label_text(app->labelRAMTotalFigure, memtotal);
+
+        textview_printf(app->textMaxAdapter, memused);
+        textview_printf(app->textMaxAdapter, memfree);
+        textview_printf(app->textMaxAdapter, memtotal);
+
+        diff = app->memtotal - app->memfree;
+        progress_value(app->progressRAMOverall, (float)(diff/app->memtotal));
+
+        textview_writef(app->textMaxAdapter, " \n");
+        textview_scroll_caret(app->textMaxAdapter);
+
+}
+
+
+// Runs in GUI thread
+static void i_task_memMaxAdapter_end(App *app)
+{
+        // finish task code here
+textview_writef(app->textMaxAdapter, "in i_task_memMaxAdapter_end \n");
+
+	bmutex_close(app->mutex);
+}
+
+
+/*---------------------------------------------------------------------------*/
+// Runs in new thread
+static uint32_t i_task_cpuMaxAdapter_main(App *app)
+{textview_writef(app->textMaxAdapter, "in i_task_memMaxAdapter_end \n");
+
+        // do the task work - do not touch any GUI object
+        CPU_Stats *arrayCPUStats1=NULL;
+        CPU_Stats *arrayCPUStats2=NULL;
+
+	const char *maxAdapterHost = "192.168.1.109";
+	const char *user = "pi";
+	const char *password = "molekhaven24";
+	char *buffer=NULL;
+	bool status;
+	size_t no_of_cpu=0;
+	char cmd[255];
+	bool pipe;
+	char *filename = "/tmp/maxAdapterCpu";
+
+        sprintf(cmd, " echo %s | /usr/bin/sudo -S /bin/bash -c 'cd /proc/ && /usr/bin/cat stat > %s' ", password, filename);
+	pipe = TRUE;
+
+	printf("cmd to run in i_task_cpuMaxAdapter_main() is %s \n", cmd);
+	buffer = run_remote_command(maxAdapterHost, user, password, cmd, pipe, buffer, app->textMaxAdapter, filename);
+	#ifdef DEBUG
+	printf("buffer returned from run_remote_command() is %s \n", buffer);
+	#endif
+
+        arrayCPUStats1 = getCPU_Utilisation(buffer, arrayCPUStats1);	// 1st snapshot
+	sleep(1);
+	arrayCPUStats2 = getCPU_Utilisation(buffer, arrayCPUStats2);    // 2nd snapshot
+
+
+	no_of_cpu = arrayCPUStats1[0].no_of_cpu;	//sizeof(arrayCPUStats1) / sizeof(arrayCPUStats1[0]);
+	printf("no_of_cpu = %ld \n", no_of_cpu);
+
+	for (size_t i=0; i< no_of_cpu; i++) {
+		if (arrayCPUStats1 != NULL) {
+   		   printf("[nappmain.c] cpu = %s, user = %llu, nice = %llu, system = %llu, idle = %llu, iowait = %llu, irq = %llu, softirq = %llu, steal = %llu \n",
+                        arrayCPUStats1[i].cpu_label,
+                        arrayCPUStats1[i].user,
+                        arrayCPUStats1[i].nice,
+                        arrayCPUStats1[i].system,
+                        arrayCPUStats1[i].idle,
+			arrayCPUStats1[i].iowait,
+			arrayCPUStats1[i].irq,
+			arrayCPUStats1[i].softirq,
+			arrayCPUStats1[i].steal);
+		}
+
+    		// Calculate totals for Sample 1
+    		unsigned long long idle1 = arrayCPUStats1[i].idle + arrayCPUStats1[i].iowait;
+    		unsigned long long non_idle1 = arrayCPUStats1[i].user + arrayCPUStats1[i].nice + arrayCPUStats1[i].system + arrayCPUStats1[i].irq +
+						arrayCPUStats1[i].softirq + arrayCPUStats1[i].steal;
+    		unsigned long long total1 = idle1 + non_idle1;
+
+    		// Calculate totals for Sample 2
+    		unsigned long long idle2 = arrayCPUStats2[i].idle + arrayCPUStats2[i].iowait;
+    		unsigned long long non_idle2 = arrayCPUStats2[i].user + arrayCPUStats2[i].nice + arrayCPUStats2[i].system + arrayCPUStats2[i].irq +
+						arrayCPUStats2[i].softirq + arrayCPUStats2[i].steal;
+    		unsigned long long total2 = idle2 + non_idle2;
+
+    		// Calculate deltas
+    		double total_delta = (double)(total2 - total1);
+    		double idle_delta = (double)(idle2 - idle1);
+
+    		// Avoid division by zero if no time passed
+    		if (total_delta == 0) {
+        		printf("CPU Utilization: 0.00%%\n");
+    		}
+		else {
+	    		// Calculate percentage
+    			double cpu_utilization = ((total_delta - idle_delta) / total_delta) * 100.0;
+    			printf("CPU Utilization: %.2f%%\n", cpu_utilization);
+		}
+	}
+
+	/*
+	switch (status)
+	{
+		case 1 : printf("Success : pipe = TRUE \n"); break;
+		case 0 : printf("Success : pipe = FALSE \n"); break;
+		case -1 : printf("Failure \n"); exit(status);
+	}
+	*/
+
+	textview_printf(app->textMaxAdapter, "no_of_cpu = %d \n", no_of_cpu);
+	for (size_t i=0; i< no_of_cpu; i++)
+	{
+		textview_printf(app->textMaxAdapter, "[%s]:[%d] = %f \n", arrayCPUStats1[i].cpu_label, i+1, arrayCPUStats1[i].user);
+
+	}
+
+        return 0;
+}
+
+// Runs in GUI thread
+static void i_task_cpuMaxAdapter_update(App *app)
+{
+        // update the gui here
+        bmutex_lock(app->mutex);
+        textview_writef(app->textMaxAdapter, " \n");
+        textview_scroll_caret(app->textMaxManage);
+        bmutex_unlock(app->mutex);
+
+}
+
+
+// Runs in GUI thread
+static void i_task_cpuMaxAdapter_end(App *data)
+{
+        // finish task code here
+}
+
+
 
 /*---------------------------------------------------------------------------*/
 // Runs in new thread
@@ -2340,7 +2831,10 @@ static App *i_create(void)
     //const real32_t updatecycle = 1.0f;
     //TaskData *tdata;
 
-    const double cycle = 0.04;
+    const float mongoose_updateCycle = (const float)0.04;	// 4 millisecond update frequency
+    const float maxAdapterCPU_updateCycle = (const float)5.00;	// 15 secs update frequency
+    const float maxAdapterMem_updateCycle = (const float)5.00;	// 15 secs update frequency
+
     Panel *panel;
     App *app = heap_new0(App);
     app->mutex = bmutex_create();
@@ -2433,14 +2927,26 @@ static App *i_create(void)
 
 
     read_json_config(app);
+    app->firstTimeRunMemUtilisation = TRUE;
+    app->firstTimeRunCpuUtilisation = TRUE;
 
-    // create a parallel thread
-    osapp_task(app, cycle, i_task_mongoose_main, i_task_mongoose_update, i_task_mongoose_end, App);
+    // create parallel threads
+    //osapp_task(app, mongoose_updateCycle, i_task_mongoose_main, i_task_mongoose_update, i_task_mongoose_end, App);
+    //osapp_task(app, maxAdapterCPU_updateCycle, i_task_cpuMaxAdapter_main, i_task_cpuMaxAdapter_update, i_task_cpuMaxAdapter_end, App);
+      osapp_task(app, maxAdapterMem_updateCycle, i_task_memMaxAdapter_main, i_task_memMaxAdapter_update, i_task_memMaxAdapter_end, App);
 
     return app;
 }
 
 /*---------------------------------------------------------------------------*/
+
+static void i_update(App *app, const real64_t prtime, const real64_t ctime)
+{
+    // Update program state every 40ms
+
+
+}
+
 
 static void i_destroy(App **app)
 {
@@ -2453,7 +2959,7 @@ static void i_destroy(App **app)
 
 
 #include <osapp/osmain.h>
-osmain(i_create, i_destroy, "", App)
+osmain_sync(0.04, i_create, i_destroy, i_update, "", App);
 
 // switch to osmain_sync() to invoke mongoose client every 40 msecs
 //osmain_sync(0.04, i_create, i_destroy, i_update, "", App)

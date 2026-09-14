@@ -17,6 +17,7 @@ static uint32_t i_task_maxIntegrator_Start(App *app)
 	const char *user = "pi";
 	const char *password = "molekhaven24";
 	char cmd[255];
+	char buffer[1024];
 	bool pipe;
 	//const char *cmd = "/usr/bin/sudo -S /bin/bash -c -n /usr/bin/systemctl restart maxintegrator --wait";
 //const char *cmd = "echo molekhaven24 | /usr/bin/sudo -S /bin/bash -c '/usr/bin/systemctl restart maxintegrator && sleep 2 && systemctl status maxintegrator > /tmp/ssh_test.log'";
@@ -26,7 +27,7 @@ static uint32_t i_task_maxIntegrator_Start(App *app)
 		"echo %s | /usr/bin/sudo -S /bin/bash -c '/usr/bin/systemctl restart maxintegrator && sleep 2 && systemctl status maxintegrator > /tmp/ssh_test.log'", password);
 
 	pipe = FALSE;
-	status = run_remote_command(maxIntegratorHost, user, password, cmd, pipe, NULL);
+	status = run_remote_command(maxIntegratorHost, user, password, cmd, pipe, buffer, app->textMaxIntegrator, NULL);
 	if (status == 0)
 		printf("maxIntegrator.service started successfully\n");
 	else
@@ -40,7 +41,7 @@ static uint32_t i_task_maxIntegrator_Start(App *app)
         sprintf(cmd,
                 "echo %s | /usr/bin/sudo -S /bin/bash -c 'journalctl -u maxintegrator.service -f'", password);
         pipe = TRUE;
-        status = run_remote_command(maxIntegratorHost, user, password, cmd, pipe, app->textMaxIntegrator);
+        status = run_remote_command(maxIntegratorHost, user, password, cmd, pipe, buffer, app->textMaxIntegrator, NULL);
  
 
         }
@@ -71,13 +72,14 @@ static uint32_t i_task_maxIntegrator_Stop(App *app)
 	const char *user = "pi";
 	const char *password = "molekhaven24";
 	char cmd[255];
+	char buffer[1024];
 	bool pipe;
 
 	sprintf(cmd,
 		"echo %s | /usr/bin/sudo -S /bin/bash -c '/usr/bin/systemctl stop maxintegrator && sleep 2 && systemctl status maxintegrator > /tmp/ssh_test.log'", password);
 
 	pipe = FALSE;
-	status = run_remote_command(maxIntegratorHost, user, password, cmd, pipe, NULL);
+	status = run_remote_command(maxIntegratorHost, user, password, cmd, pipe, buffer, app->textMaxIntegrator, NULL);
 	if (status == 0)
 		printf("maxIntegrator.service stopped successfully\n");
 	else
@@ -92,7 +94,7 @@ static uint32_t i_task_maxIntegrator_Stop(App *app)
         sprintf(cmd,
                 "echo %s | /usr/bin/sudo -S /bin/bash -c 'journalctl -u maxintegrator.service -f'", password);
         pipe = TRUE;
-        status = run_remote_command(maxIntegratorHost, user, password, cmd, pipe, app->textMaxIntegrator);
+        status = run_remote_command(maxIntegratorHost, user, password, cmd, pipe, buffer, app->textMaxIntegrator, NULL);
  
 
         }
@@ -334,7 +336,7 @@ printf("MaxIntegrator->Ldap (window size_x : %f, window size_y : %f)\n", window_
     /* move the dialog window to the centre of the screen */
     origin.x = app->sys_resolution.x / 2 - window_x / 2 ;
     origin.y = app->sys_resolution.y / 2 - window_y / 2 ;
-    window_origin(modalClient, origin );
+//    window_origin(modalClient, origin );
 
 textview_printf(app->text, "MaxIntegrator->Ldap (origin.x = %d, origin.y = %d\n", origin.x, origin.y);
 printf("MaxIntegrator->Ldap (origin.x = %f, origin.y = %f\n", origin.x, origin.y);

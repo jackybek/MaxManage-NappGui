@@ -247,7 +247,7 @@ void moveToCentre(Window *window, App *app)
         origin.x = app->sys_resolution.x / 2 - window_x / 2 ;
         origin.y = app->sys_resolution.y / 2 - window_y / 2 ;
 
-        window_origin(window, window_client_to_screen(window, origin));
+        //window_origin(window, window_client_to_screen(window, origin));
 
         textview_printf(app->text, "window_x (%f) window_y (%f) \n", window_x, window_y);
         textview_printf(app->text, "sys_resolution x (%f) sys_resolution y (%f) \n", app->sys_resolution.x, app->sys_resolution.y);

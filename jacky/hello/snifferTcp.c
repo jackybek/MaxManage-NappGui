@@ -13,6 +13,7 @@
 #include <pcap/pcap.h>
 #include <modbus/modbus.h>
 #include <modbus/modbus-tcp.h>
+#include "napp.h"
 
 #ifndef ETHERTYPE_POWERLINK
  #define ETHERTYPE_POWERLINK 0x88AB
@@ -27,15 +28,12 @@
 	 (c) >= 'A' && (c) <= 'F' ? (c) - 'A' + 10 : \
 	 (c) >= 'a' && (c) <= 'f' ? (c) - 'a' + 10 : 0)
 
-
-int snifferTcp(char* protocol);
-char* print_ip_mask(bpf_u_int32 ip);
-void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char *packet);
-bool check_mqtt_header(const unsigned char *buffer);
-bool check_ethernetIP_header(const unsigned char *buffer);
-bool check_opcua_header(const unsigned char *buffer);
-bool check_mbap_header(const unsigned char *buffer, struct pcap_pkthdr *header);
-
+typedef struct __attribute__((packed)) {
+    uint16_t transaction_id; /* Unique transaction pairing ID */
+    uint16_t protocol_id;    /* Always 0x0000 for Modbus TCP */
+    uint16_t length;         /* Remaining byte count (Unit ID + PDU) */
+    uint8_t  unit_id;        /* Routing slave/device address */
+} mbap_header_t;
 
 struct mbap_header {
 	uint16_t transaction_id;
@@ -43,6 +41,16 @@ struct mbap_header {
 	uint16_t length;
 	uint8_t unit_id;
 } mbap_header;
+
+
+discovery **snifferTcp(char* protocol, int iterations);
+
+char* print_ip_mask(bpf_u_int32 ip);
+void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char *packet);
+bool check_mqtt_header(const unsigned char *buffer);
+bool check_ethernetIP_header(const unsigned char *buffer);
+bool check_opcua_header(const unsigned char *buffer);
+bool check_mbap_header(const unsigned char *buffer, struct pcap_pkthdr *header);
 
 const char *mqtt_types[] = {
 	"Reserved", "CONNECT", "CONNACK", "PUBLISH", "PUBACK",
@@ -163,7 +171,63 @@ char* print_ip_mask(bpf_u_int32 ip) {
     //printf("%s\n", inet_ntoa(addr));
 }
 
-int snifferTcp(char* protocol)
+void get_modbus_device_identity(modbus_t *ctx) {
+    // 1. Prepare raw PDU command for Read Device ID (FC 43 = 0x2B, MEI = 0x0E)
+    // Request Basic Identification (0x01) starting from Object ID 0x00
+    uint8_t req[] = { 0x2B, 0x0E, 0x01, 0x00 };
+    uint8_t rsp[MODBUS_TCP_MAX_ADU_LENGTH];
+
+    printf("Sending Read Device Identification request...\n");
+
+    // libmodbus automatically attaches the 7-byte MBAP header to this PDU
+    int response_len = modbus_send_raw_request(ctx, req, sizeof(req));
+
+    // libmodbus automatically receives, verifies the MBAP header, and returns the response PDU
+    response_len = modbus_receive_confirmation(ctx, rsp);
+
+    if (response_len < 0) {
+        printf("Failed to get response from server.\n");
+        return;
+    }
+
+    // 2. Parse the response PDU (skipping the first few status bytes)
+    // rsp[0] = 0x2B (FC), rsp[1] = 0x0E (MEI), rsp[2] = Read Device ID code...
+    if (rsp[0] == 0x2B && rsp[1] == 0x0E) {
+        int num_objects = rsp[6]; // Number of objects returned
+        int index = 7;            // Objects data array starts at byte index 7
+
+        for (int i = 0; i < num_objects; i++) {
+            uint8_t obj_id = rsp[index++];
+            uint8_t obj_len = rsp[index++];
+
+            printf("Object ID [0x%02X] (Length %d): ", obj_id, obj_len);
+            // Print the string value carefully safely within bounds
+            for (int j = 0; j < obj_len; j++) {
+                putchar(rsp[index + j]);
+            }
+            putchar('\n');
+
+            index += obj_len; // Advance pointer to next object
+        }
+    } else {
+        printf("Unexpected response or Exception Code returned: 0x%02X\n", rsp[0]);
+    }
+}
+
+discovery **foundDevices;
+typedef struct {
+    uint8_t  function_code;       // Always 43 (0x2B)
+    uint8_t  mei_type;            // Modbus Encapsulated Interface (Always 14 / 0x0E)
+    uint8_t  read_device_id_code; // 1 = Basic stream access, 4 = Individual access
+    uint8_t  object_id;           // 0 = VendorName, 1 = ProductCode, 2 = MajorMinorRevision
+} ReadDeviceIdentRequest;
+
+typedef struct {
+    mbap_header_t header;
+    ReadDeviceIdentRequest payload;
+} ModbusIdentPacket;
+
+discovery **snifferTcp(char* protocol, int iterations_to_execute)
 {
 	pcap_t *handle;			/* Session handle */
 	const char *interface = "enp0s8";	/* The interface to sniff on */
@@ -178,11 +242,16 @@ int snifferTcp(char* protocol)
         struct ether_header *eth_header;
 
 
+	foundDevices = (discovery **)malloc(iterations_to_execute *  sizeof(discovery *) );
+	for(int i=0; i < iterations_to_execute; i++)
+		foundDevices[i] = (discovery *)malloc(sizeof(discovery));
+
+
 	/* Define the device */
 	int results = pcap_findalldevs(&allDevs, errbuf);
 	if (results == -1) {
 		fprintf(stderr, "Couldn't find default interface: %d %s\n", results, errbuf);
-		return(2);
+		return NULL;
 	}
 
 
@@ -198,15 +267,21 @@ int snifferTcp(char* protocol)
 	fptr = fopen("snifferTcp.log", "w+");
 	if (!fptr) {
 		printf("Error creating log file <snifferTcp.log> \n");
-		return (2);
+		return NULL;
 	}
 
+
   for (device = allDevs; device != NULL; device = device->next) {
+
+	iterations_to_execute--;
+	if (iterations_to_execute < 0)
+		goto FINISH;
+
         //printf("interface: %s - %s\n", device->name, device->description ? device->description : "No description");
 
         device = allDevs;
         printf("------------------------------------\n");
-        printf("Processing interface : %s %s\n", device->name, device->description);
+        printf("Processing interface (%s) : %s %s\n", interface, device->name, device->description);
         printf("------------------------------------\n");
 	/* Find the properties for the interface */
 	if (pcap_lookupnet(interface, &net, &mask, errbuf) == -1) {
@@ -224,7 +299,7 @@ int snifferTcp(char* protocol)
 	handle = pcap_open_live(interface, BUFSIZ, 1, 1000, errbuf);
 	if (handle == NULL) {
 		fprintf(stderr, "Couldn't open interface in promiscuous mode %s: %s\n", interface, errbuf);
-		return(2);
+		return NULL;
 	}
 	else
 		printf("Successfully open interface <%s> in promiscuous mode \n", interface);
@@ -262,24 +337,29 @@ int snifferTcp(char* protocol)
             printf("---------------------------\n");
 	    #endif
 
+		strcpy(foundDevices[iterations_to_execute-1]->source_ip, inet_ntoa(ip_header->ip_src) );
+		strcpy(foundDevices[iterations_to_execute-1]->dest_ip, inet_ntoa(ip_header->ip_dst) );
+		foundDevices[iterations_to_execute-1]->source_port = ntohs(tcp_header->source) ;
+		foundDevices[iterations_to_execute-1]->dest_port = ntohs(tcp_header->dest);
+
+
 	    #ifdef NOTE
 	    4.1 next check for MBAP header
             #endif
 
 	    if (choice == 1) {
-		#ifdef COMPILE_ERROR
 	    		/* Compile and apply the filter */
 	    		char filter_expModbus[] = "port 502";	/* The filter expression */
 	    		if (pcap_compile(handle, &fp, filter_expModbus, 0, net) == -1) {
 				fprintf(stderr, "Couldn't parse filter %s: %s\n", filter_expModbus, pcap_geterr(handle));
-				return(2);
+				return NULL;
 	    		}
 	    		else
 				printf("Successfully parse filter <%s> <%s> \n", interface, filter_expModbus);
 
 	    		if (pcap_setfilter(handle, &fp) == -1) {
 				fprintf(stderr, "Couldn't install filter %s %s: %s\n", interface, filter_expModbus, pcap_geterr(handle));
-				return(2);
+				return NULL;
 	    		}
 	    		else
 				printf("Successfully install filter <%s> <%s> \n", interface, filter_expModbus);
@@ -298,6 +378,7 @@ int snifferTcp(char* protocol)
   	     			printf("Modbus Slave IP  : %s | Port : %d \n", inet_ntoa(ip_header->ip_dst), ntohs(tcp_header->dest));
 				for (unsigned int i=0; i <  header.len; i++)
             			{
+					int slave_id;
 		        		if (tcp_header->dest == 502) {
 		  				printf("This is a MBAP request \n");
 	                			for (unsigned int i=0; i <  header.len; i++)
@@ -305,17 +386,43 @@ int snifferTcp(char* protocol)
                         				if (i == 67) printf("transaction id   : %02X %02X [%d] \n", packet_data[i], packet_data[i+1], packet_data[i]*16+packet_data[i+1]);
                         				if (i == 69) printf("protocol id      : %02X %02X      \n", packet_data[i], packet_data[i+1]);
                         				if (i == 71) printf("length           : %02X %02X [%d] \n", packet_data[i], packet_data[i+1], packet_data[i]*16+packet_data[i+1]);
-                        				if (i == 72) printf("slave id         : %02X      [%d] \n", packet_data[i], packet_data[i]);
+                        				if (i == 72) {
+								printf("slave id         : %02X      [%d] \n", packet_data[i], packet_data[i]);
+								slave_id = packet_data[i];
+							}
                         				if (i == 73) printf("function code    : %02X      [%d] \n", packet_data[i], packet_data[i]);
                         				if (i == 74) printf("start address    : %02X %02X [%d] \n", packet_data[i], packet_data[i+1]+1, packet_data[i]*16+packet_data[i+1]+1);
                         				if (i == 76) printf("quantity         : %02X %02X [%d] \n", packet_data[i], packet_data[i+1], packet_data[i]*16+packet_data[i+1]);
+
+
+							// we have to manually use libmodbus functions to query the device to get additional information (since they are not transmitted)
+							modbus_t *mb;
+							mb = modbus_new_tcp( inet_ntoa(ip_header->ip_dst), ntohs(tcp_header->dest) );
+							if (mb == NULL) {
+								printf("Error creating Modbus context to enquire device data : \n");
+								printf("ip : %s:%d \n", inet_ntoa(ip_header->ip_dst), ntohs(tcp_header->dest));
+								printf("slave id : %d \n", slave_id);
+							}
+							int retval = modbus_connect(mb);
+							if (retval != 0) {
+							        printf("Error connecting to Modbus Slave to enquire data : \n");
+                                	                        printf("ip : %s:%d \n", inet_ntoa(ip_header->ip_dst), ntohs(tcp_header->dest));
+                                        	                printf("slave id : %d \n", slave_id);
+                                                	}
+							else {
+								modbus_set_slave(mb, slave_id);
+								get_modbus_device_identity(mb);
+								modbus_close(mb);
+								modbus_free(mb);
+							}
                 				}
 					}
 					else if (tcp_header->source == 502) {
 						printf("This is a MBAP response \n");
 						if (i == 67) printf("transaction id   : %02X %02X [%d] \n", packet_data[i], packet_data[i+1], packet_data[i]*16+packet_data[i+1]);
 
-						const modbus_device_id_pdu *pdu = (const modbus_device_id_pdu *) (packet_data + sizeof(mbap_header));
+						#ifdef ERROR_DEFUNCT
+						const mbap_header_t *pdu = (const mbap_header_t *) (packet_data + sizeof(mbap_header_t));Read Device Identification function,
 						if (pdu->function_code != 0x2B || pdu->mei_type != 0x0E) {
 							printf("[-] Active Frame Notification: Not a Read Device Identification frame (FC=%02X, MEI=%02X) \n",
 							pdu->function_code, pdu->mei_type);
@@ -348,11 +455,13 @@ int snifferTcp(char* protocol)
 								object_ptr += obj_len;
 							}
 						}
+						#endif
 					} // tcp_header->source == 502)
+
 					goto NEXT;
 				} // for (int i=0; i <  header.len; i++)
+
 			} // if (!validHeader)
-		#endif
 	    } // if (choice == 1)
 	    else if (choice == 2) {
 	    	#ifdef NOTE
@@ -364,14 +473,14 @@ int snifferTcp(char* protocol)
 	    	char filter_expEtherIP[] = "port 44818";	// The filter expression
 	    	if (pcap_compile(handle, &fp, filter_expEtherIP, 0, net) == -1) {
 			fprintf(stderr, "Could not parse filter %s: %s\n", filter_expEtherIP, pcap_geterr(handle));
-			return(2);
+			return NULL;
 	    	}
 	    	else
 			printf("Successfully parse filter <%s> <%s>\n", interface, filter_expEtherIP);
 
 	    	if (pcap_setfilter(handle, &fp) == -1) {
 			fprintf(stderr, "Could not install filter %s %s: %s\n", interface, filter_expEtherIP, pcap_geterr(handle));
-			return(2);
+			return NULL;
 	    	}
 	    	else
 			printf("Successfully install filter <%s> <%s> \n", interface, filter_expEtherIP);
@@ -982,30 +1091,35 @@ int snifferTcp(char* protocol)
 			// sniff OPCUA		// 0x0806
 			case 0x0806:
 			{
-				printf("In case 0x0806 \n");
+				printf("In case 0x0806 : OPCUA \n");
 				break;
 			}
        	 		// sniff profiNet
  			case ETH_P_PROFINET : // 0x8892
 			{
+				printf("In case 0x8892 : ETH_P_PROFINET \n");
 				break;
 			}
 
        			// sniff etherCAT
        			case ETH_P_ETHERCAT :  // 0x88A4
 			{
-
+				printf("In case 0x00A4 : ETH_P_ETHERCAT \n");
 
 				break;
 			}
 
        			case ETHERTYPE_POWERLINK : // 0x88AB
 			{
-
+				printf("In case 0x88AB : ETHERTYPE_POWERLINK \n");
 				break;
 			}
 
-			default : break;
+			default :
+			{
+				printf("Unknown EtherNet packet \n");
+				break;
+			}
 		} // switch
      	} // else
 
@@ -1015,11 +1129,12 @@ int snifferTcp(char* protocol)
 
   } // for loop
 
+FINISH:
   /* And close the session */
   pcap_close(handle);
   fprintf(fptr, "\n");
   fflush(fptr);
   fclose(fptr);
 
-  return 0;
+  return foundDevices;
 }

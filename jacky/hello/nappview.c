@@ -73,9 +73,8 @@ static void ev_hide_flyout_ViewInterconnectivity(App *app, Event *e)
     app->View_Interconnectivity_IsShown = 0;
 
     /* !!!!!  somehow this cause the view menu to disappear !!!! */
-    /*
     menuitem_state(app->view_interconnectivity,ekGUI_OFF);
-    */
+
     unref(e);
 }
 
@@ -87,9 +86,7 @@ static void ev_hide_flyout_ViewProject(App *app, Event *e)
     app->View_Project_IsShown = 0;
 
     /* !!!!!  somehow this cause the view menu to disappear !!!! */
-    /*
     menuitem_state(app->view_project,ekGUI_OFF);
-    */
     unref(e);
 }
 
@@ -101,9 +98,7 @@ static void ev_hide_flyout_ViewAttributes(App *app, Event *e)
     app->View_Attributes_IsShown = 0;
 
     /* !!!!!  somehow this cause the view menu to disappear !!!! */
-    /*
     menuitem_state(app->view_attributes,ekGUI_OFF);
-    */
     unref(e);
 }
 
@@ -129,9 +124,7 @@ static void ev_hide_flyout_ViewAddressSpace(App *app, Event *e)
     app->View_AddressSpace_IsShown = 0;
 
     /* !!!!!  somehow this cause the view menu to disappear !!!! */
-    /*
     menuitem_state(app->view_addressspace,ekGUI_OFF);
-    */
     unref(e);
 }
 
@@ -144,9 +137,7 @@ static void ev_hide_flyout_ViewmaxAdapter(App *app, Event *e)
     app->View_maxAdapter_IsShown = 0;
 
     /* !!!!!  somehow this cause the view menu to disappear !!!! */
-    /*
     menuitem_state(app->view_maxAdapter,ekGUI_OFF);
-    */
     unref(e);
 }
 
@@ -173,9 +164,7 @@ static void ev_hide_flyout_ViewmaxIntegrator(App *app, Event *e)
     app->View_maxIntegrator_IsShown = 0;
 
     /* !!!!!  somehow this cause the view menu to disappear !!!! */
-    /*
     menuitem_state(app->view_maxIntegrator,ekGUI_OFF);
-    */
     unref(e);
 }
 
@@ -187,20 +176,23 @@ static void ev_hide_flyout_ViewLog(App *app, Event *e)
     app->View_Log_IsShown = 0;
 
     /* !!!!!  somehow this cause the view menu to disappear !!!! */
-    /*
     menuitem_state(app->view_log,ekGUI_OFF);
-    */
     unref(e);
 }
 
 static void ev_OnMove_flyout_ViewInterconnectivity(App *app, Event *e)
 {
-    textview_printf(app->text, "Flyout View->interconnectivity Move event \n", app->clicks);
+    textview_printf(app->textMaxManage, "Flyout View->interconnectivity Move event \n", app->clicks);
     unref(e);
 }
 
 static void ev_OnMove_flyout_ViewProject(App *app, Event *e)
 {
+
+    textview_printf(app->textMaxManage, "Flyout View->Project Move event \n", app->clicks);
+    unref(e);
+
+#ifdef KIV
     V2Df mycoordinate;
     S2Df mysize;
     float x_offset, y_offset;
@@ -210,16 +202,16 @@ static void ev_OnMove_flyout_ViewProject(App *app, Event *e)
     textview_scroll_caret(app->text);
     #endif
 
-#ifdef TEST
+    #ifndef TEST
     /* get the screen coordinate of itself */
-    //mycoordinate.x = window_get_origin(app->View_Project->flywin).x;
-    //mycoordinate.y = window_get_origin(app->View_Project->flywin).y;
+    mycoordinate.x = window_get_origin(app->View_Project->flywin).x;
+    mycoordinate.y = window_get_origin(app->View_Project->flywin).y;
     mysize.width = window_get_size(app->View_Project->flywin).width;
     mysize.height = window_get_size(app->View_Project->flywin).height;
 
     //textview_printf(app->text, "app->resolution %f %f \n", app->sys_resolution.x, app->sys_resolution.y);
     //textview_printf(app->text, "imaginaryLeftWindow %f %f \n", window_get_origin(app->imaginaryLeftWindow).x, window_get_origin(app->imaginaryLeftWindow).y);
-#endif
+    #endif
 
     /* now check if there ia overlapping of the app->window */
     /* compare the flywin left coordinate against the screen coordinate*/
@@ -297,6 +289,7 @@ static void ev_OnMove_flyout_ViewProject(App *app, Event *e)
     }
 
     unref(e);
+#endif
 }
 
 static void i_destroy_flyout(FlyOut **flyout)
@@ -363,9 +356,7 @@ void i_OnIdle_Interconnectivity_state(App *app, Event *e)
 	}
 
 	textview_printf(app->text, "nappview.c : Entering i_OnIdle_Interconnectivity_state() : %d \n", app->View_Interconnectivity_IsShown);
-/*
 	menuitem_state(app->view_interconnectivity, app->View_Interconnectivity_IsShown ? ekGUI_ON : ekGUI_OFF);
-*/
 	unref(e);
 }
 #endif
@@ -381,11 +372,11 @@ void ViewInterconnectivity(App *app, Window *parent_window)
 	ImageView *InterconnectivityImageView;
 	Image *InterconnectivityImage;
 
-	textview_printf(app->text, "nappview.c : Entering ViewInterconnectivity() \n");
+	textview_printf(app->textMaxEngine, "nappview.c : Entering ViewInterconnectivity() \n");
 	InterconnectivityImageView = imageview_create();
 	InterconnectivityImage = image_from_file("/home/pi/nappgui_src/jacky/img/interconnectivity.jpg", &error);
 	if (InterconnectivityImage!=NULL && error==ekFOK) {
-		textview_printf(app->text, "nappview.c : Here \n");
+		textview_printf(app->textMaxEngine, "nappview.c : Here \n");
 		/* hide */
                 layout_show_col(app->canvasLayout, 0, FALSE);
                 layout_show_row(app->canvasLayout, 0, FALSE);
@@ -400,7 +391,7 @@ void ViewInterconnectivity(App *app, Window *parent_window)
 	}
 	else
         {
-		textview_printf(app->text, "nappview.c : Error loading /home/pi/nappgui_src/jacky/img/interconnectivity.jpg\n");
+		textview_printf(app->textMaxEngine, "nappview.c : Error loading /home/pi/nappgui_src/jacky/img/interconnectivity.jpg\n");
         }
 
     if (app->View_Interconnectivity == NULL)
@@ -418,20 +409,20 @@ void ViewInterconnectivity(App *app, Window *parent_window)
         window_show(app->View_Interconnectivity->flywin);
 
         app->View_Interconnectivity_IsShown = 1; /* set the flag to true */
+
 	/* !!!!!  somehow this cause the menu to disappear !!!! */
-/*
         menuitem_state(app->view_interconnectivity, ekGUI_ON);
-*/
+
 	window_OnMoved(flyout->flywin, listener(app, ev_OnMove_flyout_ViewInterconnectivity, App));
 	window_OnClose(flyout->flywin, listener(app, ev_hide_flyout_ViewInterconnectivity, App));
     }
     else
     {
         /* the View->Interconnectivity flyout window already existed, check what is the current state ? */
-        textview_printf(app->text, "View->Interconnectivity flyout window already exist");
+        textview_printf(app->textMaxManage, "View->Interconnectivity flyout window already exist");
         if (app->View_Interconnectivity_IsShown == 0) /* it is currently hidden */
         {
-		textview_printf(app->text, "View_Interconnectivity_IsShown == 0, showing it now");
+		textview_printf(app->textMaxManage, "View_Interconnectivity_IsShown == 0, showing it now");
                 app->View_Interconnectivity_IsShown = 1;      /* set the flag to true */
 
 		//window_hide(app->View_Interconnectivity->flywin); /* hide it first*/
@@ -439,23 +430,23 @@ void ViewInterconnectivity(App *app, Window *parent_window)
                 window_show(app->View_Interconnectivity->flywin);     /* show it */
 
                 // defer until the callback is completed
-		// menuitem_state(app->view_interconnectivity, ekGUI_ON);
+		 menuitem_state(app->view_interconnectivity, ekGUI_ON);
         }
         else    /* it is currently shown */
         {
-		textview_printf(app->text, "View_Interconnectivity_IsShown == 1, hiding it now");
+		textview_printf(app->textMaxManage, "View_Interconnectivity_IsShown == 1, hiding it now");
                 app->View_Interconnectivity_IsShown = 0;       /* set the flag to false */
                 window_hide(app->View_Interconnectivity->flywin); /* hide it */
                 /* !!!!!  somehow this cause the menu to disappear !!!! */
 		// defer until the callback is completed
-                // menuitem_state(app->view_interconnectivity, ekGUI_OFF); => this caused the menu to disappear
+                 menuitem_state(app->view_interconnectivity, ekGUI_OFF); //=> this caused the menu to disappear
 
         }
     }
 
 
-        textview_printf(app->text, "menuitem_state(view->Interconnectivity is %d \n", menuitem_get_state(app->view_interconnectivity)); /* 0=ekGUI_OFF, 1=ekGUI_ON, 2= ekGUI_MIXED */
-        textview_scroll_caret(app->text);
+        textview_printf(app->textMaxEngine, "menuitem_state(view->Interconnectivity is %d \n", menuitem_get_state(app->view_interconnectivity)); /* 0=ekGUI_OFF, 1=ekGUI_ON, 2= ekGUI_MIXED */
+        textview_scroll_caret(app->textMaxEngine);
 
         layout = i_layout(flyout);
         panel = panel_create();
@@ -483,11 +474,8 @@ void ViewProject(App *app, Window *parent_window)
  /*       window_overlay(flyout->flywin, flyout->parent); */
         window_show(flyout->flywin); /* show the View->Project flyout window */
         app->View_Project_IsShown = 1; /* set the flag to true */
-
         /* !!!!!  somehow this cause the view menu to disappear !!!! */
-        /*
 	menuitem_state(app->view_project, ekGUI_ON);
-	*/
 
 	window_OnMoved(flyout->flywin, listener(app, ev_OnMove_flyout_ViewProject, App));
         window_OnClose(flyout->flywin, listener(app, ev_hide_flyout_ViewProject, App));
@@ -508,11 +496,8 @@ void ViewProject(App *app, Window *parent_window)
 		textview_printf(app->text, "View_Project_IsShown == 1, hiding it now");
                 window_hide(app->View_Project->flywin); /* hide it */
                 app->View_Project_IsShown = 0;       /* set the flag to false */
-
                 /* !!!!!  somehow this cause the view menu to disappear !!!! */
-		/*
 	 	menuitem_state(app->view_project, ekGUI_OFF);
-		*/
         }
     }
 
@@ -544,9 +529,7 @@ void ViewAttributes(App *app, Window *parent_window)
         window_show(flyout->flywin); /* show the View->Reference flyout window */
         app->View_Attributes_IsShown = 1; /* set the flag to true */
 /* !!!!!  somehow this cause the menu to disappear !!!! */
-/*
         menuitem_state(app->view_attributes, ekGUI_ON);
-*/
         window_OnClose(flyout->flywin, listener(app, ev_hide_flyout_ViewAttributes, App));
     }
     else
@@ -599,9 +582,7 @@ void ViewReferences(App *app, Window *parent_window)
 	window_show(flyout->flywin); /* show the View->Reference flyout window */
         app->View_References_IsShown = 1; /* set the flag to true */
 /* !!!!!  somehow this cause the menu to disappear !!!! */
-/*
       menuitem_state(app->view_references, ekGUI_ON);
-*/
 	window_OnClose(flyout->flywin, listener(app, ev_hide_flyout_ViewReferences, App));
     }
     else
@@ -621,9 +602,7 @@ void ViewReferences(App *app, Window *parent_window)
 		window_hide(app->View_References->flywin); /* hide it */
 		app->View_References_IsShown = 0;	/* set the flag to false */
 		/* !!!!!  somehow this cause the menu to disappear !!!! */
-/*
                 menuitem_state(app->view_references, ekGUI_OFF);
-*/
 	}
     }
 
@@ -656,9 +635,7 @@ void ViewAddressSpace(App *app, Window *parent_window)
         window_show(flyout->flywin); /* show the View->AddressSpace flyout window */
         app->View_AddressSpace_IsShown = 1; /* set the flag to true */
         /* !!!!!  somehow this cause the view menu to disappear !!!! */
-        /*
 	menuitem_state(app->view_addressspace, ekGUI_ON);
-	*/
         window_OnClose(flyout->flywin, listener(app, ev_hide_flyout_ViewAddressSpace, App));
     }
     else
@@ -679,9 +656,7 @@ void ViewAddressSpace(App *app, Window *parent_window)
                 app->View_AddressSpace_IsShown = 0;       /* set the flag to false */
 
 		/* !!!!!  somehow this cause the menu to disappear !!!! */
-		/*
 		menuitem_state(app->view_addressspace, ekGUI_OFF);
-		*/
         }
     }
 
@@ -712,9 +687,7 @@ void ViewmaxAdapter(App *app, Window *parent_window)
         window_show(flyout->flywin); /* show the View->AddressSpace flyout window */
         app->View_maxAdapter_IsShown = 1; /* set the flag to true */
         /* !!!!!  somehow this cause the view menu to disappear !!!! */
-        /*
-        menuitem_state(app->view_maxadapter, ekGUI_ON);
-        */
+        menuitem_state(app->view_maxAdapter, ekGUI_ON);
         window_OnClose(flyout->flywin, listener(app, ev_hide_flyout_ViewmaxAdapter, App));
     }
     else
@@ -735,9 +708,7 @@ void ViewmaxAdapter(App *app, Window *parent_window)
                 app->View_maxAdapter_IsShown = 0;       /* set the flag to false */
 
                 /* !!!!!  somehow this cause the menu to disappear !!!! */
-                /*
-                menuitem_state(app->view_maxadapter, ekGUI_OFF);
-                */
+                menuitem_state(app->view_maxAdapter, ekGUI_OFF);
         }
     }
 
@@ -769,9 +740,7 @@ void ViewmaxGate(App *app, Window *parent_window)
         window_show(flyout->flywin); /* show the View->AddressSpace flyout window */
         app->View_maxGate_IsShown = 1; /* set the flag to true */
         /* !!!!!  somehow this cause the view menu to disappear !!!! */
-        /*
         menuitem_state(app->view_maxGate, ekGUI_ON);
-        */
         window_OnClose(flyout->flywin, listener(app, ev_hide_flyout_ViewmaxGate, App));
     }
     else
@@ -792,9 +761,7 @@ void ViewmaxGate(App *app, Window *parent_window)
                 app->View_maxGate_IsShown = 0;       /* set the flag to false */
 
                 /* !!!!!  somehow this cause the menu to disappear !!!! */
-                /*
                 menuitem_state(app->view_maxGate, ekGUI_OFF);
-                */
         }
     }
 
@@ -828,9 +795,7 @@ void ViewmaxIntegrator(App *app, Window *parent_window)
         window_show(flyout->flywin); /* show the View->AddressSpace flyout window */
         app->View_maxIntegrator_IsShown = 1; /* set the flag to true */
         /* !!!!!  somehow this cause the view menu to disappear !!!! */
-        /*
         menuitem_state(app->view_maxIntegrator, ekGUI_ON);
-        */
         window_OnClose(flyout->flywin, listener(app, ev_hide_flyout_ViewmaxIntegrator, App));
     }
     else
@@ -851,9 +816,7 @@ void ViewmaxIntegrator(App *app, Window *parent_window)
                 app->View_maxIntegrator_IsShown = 0;       /* set the flag to false */
 
                 /* !!!!!  somehow this cause the menu to disappear !!!! */
-                /*
                 menuitem_state(app->view_maxIntegrator, ekGUI_OFF);
-                */
         }
     }
 
@@ -888,9 +851,7 @@ void ViewLog(App *app, Window *parent_window)
         app->View_Log_IsShown = 1; /* set the flag to true */
 
 /* !!!!!  somehow this cause the menu to disappear !!!! */
-/*
 	menuitem_state(app->view_log, ekGUI_ON);
-*/
         window_OnClose(flyout->flywin, listener(app, ev_hide_flyout_ViewLog, App));
     }
     else
@@ -910,9 +871,7 @@ void ViewLog(App *app, Window *parent_window)
                 window_hide(app->View_Log->flywin); /* hide it */
                 app->View_Log_IsShown = 0;       /* set the flag to false */
 		/* !!!!!  somehow this cause the menu to disappear !!!! */
-		/*
 		menuitem_state(app->view_log, ekGUI_OFF);
-		*/
         }
     }
 

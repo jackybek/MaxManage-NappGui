@@ -3,6 +3,172 @@
 #include <stdio.h>
 #include <string.h>
 #include "napp.h"
+#include <ctype.h>
+
+Mem_Stats *getMem_Utilisation(char *buffer, Mem_Stats *memoryStat, App *app)
+{
+	//FILE *fp;
+	char *initial_line=NULL;
+	char label[255];
+	long long unsigned value;
+	char unit[3];
+	long long bytes_written;
+	long size_read;
+
+    if (app->firstTimeRunMemUtilisation == TRUE) {
+	app->firstTimeRunMemUtilisation = FALSE;
+	app->fpRunMem = fopen("stats.mem", "w+");
+	if (!app->fpRunMem) {
+		perror("Failed to open file handle to write stats.mem");
+		return NULL;
+	}
+    }
+    else {
+	if (!app->fpRunMem) return NULL;
+
+	bytes_written = (long long) fwrite(buffer, sizeof(char), strlen(buffer), app->fpRunMem);
+	fflush(app->fpRunMem);
+	rewind(app->fpRunMem);
+	//fclose(fp);
+	//fopen("stats.mem", "r");
+
+	printf("[%s] number of bytes written = %lld \n", __func__, bytes_written);
+	printf("buffer is \n%s \n", buffer);
+
+	// read remote stream line by line
+	/* look for
+	MemTotal:        8131336 kB
+	MemFree:         6198548 kB
+	MemAvailable:    6650852 kB
+	*/
+
+	//fflush(fp);
+	//fclose(fp);
+	//fp = fopen("stats.mem", "r");
+	//if (!fp)
+	//	printf("Cannot open stats.mem \n");
+
+		// get the first line
+		printf("-----------------------------Start extracting required MEM information------------------------\n");
+		while ( getline(&initial_line, &size_read, app->fpRunMem) != -1 ) {
+			sscanf(initial_line, "%s %llu %s", label, &value, unit);
+			printf("label = %s, value = %llu, unit = %s \n", label, value, unit);
+
+			if (strncmp(label, "MemTotal", 8) == 0)
+				memoryStat->memtotal = value;
+			else if (strncmp(label, "MemFree", 7) == 0)
+				memoryStat->memfree = value;
+			else if (strncmp(label, "MemAvailable", 12) == 0)
+				memoryStat->memavailable = value;
+		}
+		free(initial_line);
+	}
+
+	return memoryStat;
+}
+
+//int getCPU_Utilisation(char* buffer, CPU_Stats *arrayCPUStats)
+CPU_Stats *getCPU_Utilisation(char* buffer, CPU_Stats *arrayCPUStats)
+{
+	FILE *fp;
+	//char buffer[1024], extract[255];
+	int total_cpu_count=0;
+	CPU_Stats stats;
+	char *initial_line=NULL, *subsequent_line=NULL, *processed_line=NULL, extract[255];
+	ssize_t read=0;
+	size_t size_read;
+	long int position=0L;
+	long long bytes_written=0;
+
+	fp = fopen("stats.cpu", "w+");
+	if (!fp) {
+		perror("Failed to open file handle to write stats.cpu");
+		return -1;
+	}
+
+	bytes_written = (long long)fwrite(buffer, sizeof(char), strlen(buffer), fp);
+	fflush(fp);
+
+	printf("[%s] number of bytes written = %lld \n", __func__, bytes_written);
+	printf("buffer is \n%s \n", buffer);
+
+
+	// read the remote stream line by line
+	// starts with cpu - overall stats
+	// cpu0 ... cpuN - individual states
+	fflush(fp);
+	fclose(fp);
+	fp = fopen("stats.cpu", "r");
+
+	// get the first line
+	printf("--------------------------------Start extracting required CPU information-------------------- \n");
+	//while(fp != NULL) {
+	while ( (read = getline(&initial_line, &size_read, fp)) != -1) {
+		strncpy(extract, initial_line+0, 3);
+		extract[0] = toupper(extract[0]);
+		extract[1] = toupper(extract[1]);
+		extract[2] = toupper(extract[2]);
+		extract[3] = '\0';
+		//to_uppercase(extract); printf("to_uppercase(extract) = %s \n", extract);
+		if ( strncmp( extract, "CPU", 3 ) == 0 ) {
+			// this is a valid line starting with 'cpu'
+			total_cpu_count++;
+			position = (long int)ftell(fp) - (long int)size_read;
+			printf("size_read = %ld, data read = %s \n", size_read, initial_line);
+			break;
+		}
+		else {
+			// skip to the next line to look for "CPU"
+		}
+	}
+
+	// get subsequent lines
+	while ( (read = getline(&subsequent_line, &size_read, fp)) > 0) {
+		strncpy(extract, subsequent_line+0, 4);
+                extract[0] = toupper(extract[0]);
+                extract[1] = toupper(extract[1]);
+                extract[2] = toupper(extract[2]);
+		extract[3] = toupper(extract[3]);
+		extract[4] = '\0';
+		//to_uppercase(extract);
+		if ( strncmp( extract, "CPU", 3 ) == 0) {
+			total_cpu_count++;
+			printf("subsquent line : size_read = %ld, data read = %s \n", size_read, subsequent_line);
+		}
+	}
+
+	printf("total number of cpu = %d \n", total_cpu_count);
+
+	fseek(fp, 0, SEEK_SET);	// reset fp to the beginning of the file
+	// allocate memory
+
+	arrayCPUStats = (CPU_Stats *) malloc( (size_t)total_cpu_count * sizeof(CPU_Stats) );
+
+	for (int i=0; i< total_cpu_count; i++) {
+		read = getline(&processed_line, &size_read, fp);
+		sscanf(processed_line, "%s %llu %llu %llu %llu", stats.cpu_label, &stats.user, &stats.nice, &stats.system, &stats.idle );
+		printf("processed line : %s %llu %llu %llu %llu \n", stats.cpu_label, stats.user, stats.nice, stats.system, stats.idle );
+
+		strcpy(arrayCPUStats[i].cpu_label, stats.cpu_label);
+		arrayCPUStats[i].user = stats.user;
+		arrayCPUStats[i].nice = stats.nice;
+		arrayCPUStats[i].system = stats.system;
+		arrayCPUStats[i].idle = stats.idle;
+		arrayCPUStats[i].no_of_cpu = total_cpu_count;
+
+		// inspect the contents
+		printf("cpu = %s, user = %llu, nice = %llu, system = %llu, idle = %llu \n",
+			arrayCPUStats[i].cpu_label,
+			arrayCPUStats[i].user,
+			arrayCPUStats[i].nice,
+			arrayCPUStats[i].system,
+			arrayCPUStats[i].idle,
+			arrayCPUStats[i].no_of_cpu);
+	}
+
+	//return total_cpu_count;
+	return arrayCPUStats;
+}
 
 
 static uint32_t i_task_maxAdapter_StopViewLiveLogs(App *app)
@@ -14,6 +180,7 @@ static uint32_t i_task_maxAdapter_StopViewLiveLogs(App *app)
         char cmd[255];
         int status;
 
+	//tabs_selected(app->tabStatus, 2);
         textview_printf(app->textMaxAdapter, "napp_maxAdapter.c : Entering maxAdapter_StopViewLiveLogs() \n");
 
         // stop the journalctl process
@@ -23,17 +190,17 @@ static uint32_t i_task_maxAdapter_StopViewLiveLogs(App *app)
 #ifdef switch
 	sprintf(cmd,
 		"echo %s | /usr/bin/sudo -S /bin/bash -c '/usr/bin/systemctl stop system-journald-audit.socket -f && sleep 2'", password);
-	status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, app->textMaxAdapter);
+	status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, NULL, app->textMaxAdapter, NULL);
         sprintf(cmd,
                 "echo %s | /usr/bin/sudo -S /bin/bash -c '/usr/bin/systemctl stop systemd-journald-dev-log.socket -f && sleep 2'", password);
-        status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, app->textMaxAdapter);
+        status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, NULL, app->textMaxAdapter, NULL);
         sprintf(cmd,
                 "echo %s | /usr/bin/sudo -S /bin/bash -c '/usr/bin/systemctl stop system-journald.socket -f && sleep 2 '", password);
-        status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, app->textMaxAdapter);
+        status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, NULL, app->textMaxAdapter, NULL);
 #else
 	sprintf(cmd,
 		"echo %s | /usr/bin/sudo -S /bin/bash -c '/usr/bin/systemctl stop system-journal.socket-audit.socket systemd-journald-dev-log.socket systemd-journald.socket'", password);
-	status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, app->textMaxAdapter);
+	status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, NULL, app->textMaxAdapter, NULL);
 	if (status == 1) {
 		textview_printf(app->textMaxAdapter, "Successfully stop live logs\n");
 	}
@@ -51,7 +218,7 @@ static uint32_t i_task_maxAdapter_StopViewLiveLogs(App *app)
 static void i_task_maxAdapter_StopViewLiveLogsupdate(App *app)
 {
         // update the gui here
-        //progress_undefined(app->bar, TRUE);
+        progress_undefined(app->bar, TRUE);
 
 }
 
@@ -62,6 +229,7 @@ static void i_task_maxAdapter_StopViewLiveLogsend(App *app)
         progress_undefined(app->bar, FALSE);
 
 }
+
 static uint32_t i_task_maxAdapter_StartViewLiveLogs(App *app)
 {
 	bool pipe = TRUE;
@@ -71,6 +239,7 @@ static uint32_t i_task_maxAdapter_StartViewLiveLogs(App *app)
 	char cmd[255];
 	int status;
 
+	//tabs_selected(app->tabStatus, 2);
         textview_printf(app->text, "napp_maxAdapter.c : Entering maxAdapter_StartViewLiveLogs() \n");
 
 	// grep the journal output and pipe into a widget
@@ -79,7 +248,7 @@ static uint32_t i_task_maxAdapter_StartViewLiveLogs(App *app)
 
 	sprintf(cmd,
 		"echo %s | /usr/bin/sudo -S /bin/bash -c '/usr/bin/systemctl restart systemd-journald.socket -f && sleep 2'", password);
-	status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, app->textMaxAdapter);
+	status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, NULL, app->textMaxAdapter, NULL);
 	if (status == 1) {
 		textview_printf(app->textMaxAdapter, "Successfully started systemd-journal.socket \n");
 	}
@@ -89,7 +258,7 @@ static uint32_t i_task_maxAdapter_StartViewLiveLogs(App *app)
 
         sprintf(cmd,
                 "echo %s | /usr/bin/sudo -S /bin/bash -c '/usr/bin/systemctl restart systemd-journald-dev-log.socket -f && sleep 2'", password);
-        status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, app->textMaxAdapter);
+        status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, NULL, app->textMaxAdapter, NULL);
 	if (status == 1) {
 		textview_printf(app->textMaxAdapter, "Successfully started systemd-journald-dev-log.socket \n");
 	}
@@ -99,7 +268,7 @@ static uint32_t i_task_maxAdapter_StartViewLiveLogs(App *app)
 
         sprintf(cmd,
                 "echo %s | /usr/bin/sudo -S /bin/bash -c '/usr/bin/systemctl restart systemd-journald-audit.socket -f && sleep 2'", password);
-        status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, app->textMaxAdapter);
+        status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, NULL, app->textMaxAdapter, NULL);
 	if (status == 1) {
 		textview_printf(app->textMaxAdapter, "Successfully started systemd-journald-audit.socket \n");
 	}
@@ -116,7 +285,7 @@ static uint32_t i_task_maxAdapter_StartViewLiveLogs(App *app)
 static void i_task_maxAdapter_StartViewLiveLogsupdate(App *app)
 {
         // update the gui here
-        //progress_undefined(app->bar, TRUE);
+        progress_undefined(app->bar, TRUE);
 
 }
 
@@ -140,11 +309,12 @@ static uint32_t i_task_maxAdapter_Start(App *app)
 //const char *cmd = "echo molekhaven24 | /usr/bin/sudo -S /bin/bash -c '/usr/bin/systemctl restart maxintegrator && sleep 2 && systemctl status maxintegrator > /tmp/ssh_test.log'";
 
 
+	//tabs_selected(app->tabStatus, 2);
         sprintf(cmd,
                 "echo %s | /usr/bin/sudo -S /bin/bash -c '/usr/bin/systemctl restart maxadapter && sleep 2 && systemctl status maxadapter > /tmp/ssh_test.log'", password);
 
 	pipe = FALSE;
-        status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, app->textMaxAdapter);
+        status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, NULL, app->textMaxAdapter, NULL);
         if (status == 0)
                 printf("maxadapter.service started successfully\n");
         else
@@ -159,7 +329,7 @@ static uint32_t i_task_maxAdapter_Start(App *app)
         sprintf(cmd,
                 "echo %s | /usr/bin/sudo -S /bin/bash -c 'journalctl -u maxadapter.service -f'", password);
         pipe = TRUE;
-        status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, app->textMaxAdapter);
+        status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, NULL, app->textMaxAdapter, NULL);
 
         //execlp("journalctl", "journalctl", "-u", "maxadapter.service", "-f", NULL);
 
@@ -172,7 +342,7 @@ static uint32_t i_task_maxAdapter_Start(App *app)
 static void i_task_maxAdapter_Startupdate(App *app)
 {
         // update the gui here
-        //progress_undefined(app->bar, TRUE);
+        progress_undefined(app->bar, TRUE);
 
 }
 
@@ -192,12 +362,13 @@ static uint32_t i_task_maxAdapter_Stop(App *app)
         char cmd[255];
 	bool pipe;
 
+	//tabs_selected(app->tabStatus, 2);
 
         sprintf(cmd,
                 "echo %s | /usr/bin/sudo -S /bin/bash -c '/usr/bin/systemctl stop maxadapter && sleep 2 && systemctl status maxadapter > /tmp/ssh_test.log'", password);
 
 	pipe = FALSE;
-        status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, app->textMaxAdapter);
+        status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, NULL, app->textMaxAdapter, NULL);
         if (status == 0)
                 printf("maxadapter.service stopped successfully\n");
         else
@@ -223,21 +394,27 @@ static void i_task_maxAdapter_Stopend(App *app)
 
 void maxAdapterStart(App *app, Window *parent_window)
 {
+	float wait=0.04f;
 
         // create a parallel thread
-        osapp_task(app, .04, i_task_maxAdapter_Start, i_task_maxAdapter_Startupdate, i_task_maxAdapter_Startend, App);
+	//tabs_selected(app->tabStatus, 2);
+        osapp_task(app, wait, i_task_maxAdapter_Start, i_task_maxAdapter_Startupdate, i_task_maxAdapter_Startend, App);
 
 }
 
 void maxAdapterStop(App *app, Window *parent_window)
 {
+	float wait=0.04f;
         // create a parallel thread
-        osapp_task(app, .04, i_task_maxAdapter_Stop, i_task_maxAdapter_Stopupdate, i_task_maxAdapter_Stopend, App);
+	//tabs_selected(app->tabStatus, 2);
+        osapp_task(app, wait, i_task_maxAdapter_Stop, i_task_maxAdapter_Stopupdate, i_task_maxAdapter_Stopend, App);
 }
 
 
 void maxAdapterHistorianServer(App *app, Window *parent_window)
 {
+	//tabs_selected(app->tabStatus, 2);
+
 Layout *MainLayout, *GenLayout, *AuthLayout, *DecisionLayout;
 Button *radio_anonymous, *radio_username_password, *radio_certificate_key;
 Button *check_store;
@@ -259,8 +436,8 @@ Button *check_store;
     /* Button *pushCertificate, *pushPrivateKey; */
     /* Button *radio_anonymous, *radio_username_password, *radio_certificate_key; */
     /* Button *check_store; */
-    textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+    textview_scroll_caret(app->textMaxAdapter);
 
     /* creates a modal window */
     modalClient = window_create(ekWINDOW_EDGE | ekWINDOW_TITLE | ekWINDOW_CLOSE);
@@ -448,15 +625,15 @@ Button *check_store;
     window_x = window_get_size(modalClient).width;
     window_y = window_get_size(modalClient).height;
 
-textview_printf(app->text, "MaxAdapter->Historian (size_x : %f, size_y : %f)\n", window_x, window_y);
+textview_printf(app->textMaxAdapter, "MaxAdapter->Historian (size_x : %f, size_y : %f)\n", window_x, window_y);
 printf("MaxAdapter->Historian (window size_x : %f, window size_y : %f)\n", window_x, window_y);
 
     /* move the dialog window to the centre of the screen */
     origin.x = app->sys_resolution.x / 2 - window_x / 2 ;
     origin.y = app->sys_resolution.y / 2 - window_y / 2 ;
-    window_origin(modalClient, origin );
+//    window_origin(modalClient, origin );
 
-textview_printf(app->text, "MaxAdapter->Historian (origin.x = %f, origin.y = %f\n", origin.x, origin.y);
+textview_printf(app->textMaxAdapter, "MaxAdapter->Historian (origin.x = %f, origin.y = %f\n", origin.x, origin.y);
 printf("MaxAdapter->Historian (origin.x = %f, origin.y = %f\n", origin.x, origin.y);
 
 
@@ -480,16 +657,20 @@ void maxAdapterAlarmsAndConditions(App *app, Window *parent_window)
 
 void maxAdapterEvents(App *app, Window *parent_window)
 {
+	//tabs_selected(app->tabStatus, 2);
 
 }
 
 void maxAdapterLogsManagement(App *app, Window *parent_window)
 {
+	//tabs_selected(app->tabStatus, 2);
 
 }
 
 void maxAdapterReverseConnect(App *app, Window *parent_window)
 {
+	//tabs_selected(app->tabStatus, 2);
+
 Layout *MainLayout, *GenLayout, *AuthLayout, *DecisionLayout;
 
     Window *modalClient;
@@ -503,8 +684,8 @@ Layout *MainLayout, *GenLayout, *AuthLayout, *DecisionLayout;
     Edit *edit_port, *edit_clientip;
 
     Button *pushSave, *pushCancel;
-    textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
-    textview_scroll_caret(app->text);
+    textview_printf(app->textMaxAdapter, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+    textview_scroll_caret(app->textMaxAdapter);
 
     /* creates a modal window */
     modalClient = window_create(ekWINDOW_EDGE | ekWINDOW_TITLE | ekWINDOW_CLOSE);
@@ -649,7 +830,7 @@ Layout *MainLayout, *GenLayout, *AuthLayout, *DecisionLayout;
     window_x = window_get_size(modalClient).width;
     window_y = window_get_size(modalClient).height;
 
-textview_printf(app->text, "MaxAdapter->reverseConnect (size_x : %f, size_y : %f)\n", window_x, window_y);
+textview_printf(app->textMaxAdapter, "MaxAdapter->reverseConnect (size_x : %f, size_y : %f)\n", window_x, window_y);
 printf("MaxAdapter->reverseConnect (window size_x : %f, window size_y : %f)\n", window_x, window_y);
 
     /* move the dialog window to the centre of the screen */
@@ -657,7 +838,7 @@ printf("MaxAdapter->reverseConnect (window size_x : %f, window size_y : %f)\n", 
     origin.y = app->sys_resolution.y / 2 - window_y / 2 ;
     window_origin(modalClient, origin );
 
-textview_printf(app->text, "MaxAdapter->reverseConnect (origin.x = %f, origin.y = %f\n", origin.x, origin.y);
+textview_printf(app->textMaxAdapter, "MaxAdapter->reverseConnect (origin.x = %f, origin.y = %f\n", origin.x, origin.y);
 printf("MaxAdapter->reverseConnect (origin.x = %f, origin.y = %f\n", origin.x, origin.y);
 
 
@@ -675,18 +856,26 @@ printf("MaxAdapter->reverseConnect (origin.x = %f, origin.y = %f\n", origin.x, o
 
 void maxAdapterStartupParameters(App *app, Window *parent_window)
 {
+	#ifdef ERROR
+	tabs_selected(app->tabStatus, 2);
+               layout_textview(app->statusLayoutMaxAdapter, app->textMaxAdapter, 0, 1);
+                panel_visible_layout(app->statusPanel, app->layoutIndexMaxAdapter);
+                panel_update(app->statusPanel);
+                textview_scroll_visible(app->textMaxAdapter, TRUE, TRUE);
+	#endif
+
         ferror_t error= ekFOK;
         ImageView *imgView;
         ImageView *maxAdapterStartupParametersView;
         Image *maxAdapterStartupParametersImage;
 
-        textview_printf(app->text, "napp_maxAdapter.c : Entering maxAdapterStartupParameters() \n");
+        textview_printf(app->textMaxAdapter, "napp_maxAdapter.c : Entering maxAdapterStartupParameters() \n");
         maxAdapterStartupParametersView = imageview_create();
         maxAdapterStartupParametersImage = image_from_file("/home/pi/nappgui_src/jacky/img/startupParameters.jpg", &error);
 printf("Error  = %d \n", error);
 
         if (maxAdapterStartupParametersImage!=NULL && error==ekFOK) {
-                textview_printf(app->text, "napp_maxAdapter.c : Here \n");
+                textview_printf(app->textMaxAdapter, "napp_maxAdapter.c : Here \n");
                 /* hide */
                 layout_show_col(app->canvasLayout, 0, FALSE);
                 layout_show_row(app->canvasLayout, 0, FALSE);
@@ -700,7 +889,7 @@ printf("Error  = %d \n", error);
                 layout_show_row(app->canvasLayout, 0, TRUE);
         }
         else
-                textview_printf(app->text, "maxAdapter.c : Error loading /home/pi/nappgui_src/jacky/img/startupParameters.jpg\n");
+                textview_printf(app->textMaxAdapter, "maxAdapter.c : Error loading /home/pi/nappgui_src/jacky/img/startupParameters.jpg\n");
 
 }
 
@@ -712,16 +901,24 @@ void maxAdapterCommunicationsProtocol(App *app, Window *parent_window)
 
 void maxAdapterViewStatistics(App *app, Window *parent_window)
 {
+	#ifdef ERROR
+	tabs_selected(app->tabStatus, 2);
+               layout_textview(app->statusLayoutMaxAdapter, app->textMaxAdapter, 0, 1);
+                panel_visible_layout(app->statusPanel, app->layoutIndexMaxAdapter);
+                panel_update(app->statusPanel);
+                textview_scroll_visible(app->textMaxAdapter, TRUE, TRUE);
+	#endif
+
         ferror_t error= ekFOK;
         ImageView *imgView;
         ImageView *maxAdapterViewStatisticsView;
         Image *maxAdapterViewStatisticsImage;
 
-        textview_printf(app->text, "napp_maxAdapter.c : Entering maxAdapterViewStatistics() \n");
+        textview_printf(app->textMaxAdapter, "napp_maxAdapter.c : Entering maxAdapterViewStatistics() \n");
         maxAdapterViewStatisticsView = imageview_create();
         maxAdapterViewStatisticsImage = image_from_file("/home/pi/nappgui_src/jacky/img/maxAdapterViewStatistics.png", &error);
         if (maxAdapterViewStatisticsImage!=NULL && error==ekFOK) {
-                textview_printf(app->text, "napp_maxAdapter.c : Here \n");
+                textview_printf(app->textMaxAdapter, "napp_maxAdapter.c : Here \n");
                 /* hide */
                 layout_show_col(app->canvasLayout, 0, FALSE);
                 layout_show_row(app->canvasLayout, 0, FALSE);
@@ -735,13 +932,20 @@ void maxAdapterViewStatistics(App *app, Window *parent_window)
                 layout_show_row(app->canvasLayout, 0, TRUE);
         }
         else
-                textview_printf(app->text, "napp_maxAdapter.c : Error loading /home/pi/nappgui_src/jacky/img/maxAdapterViewStatistics.png\n");
+                textview_printf(app->textMaxAdapter, "napp_maxAdapter.c : Error loading /home/pi/nappgui_src/jacky/img/maxAdapterViewStatistics.png\n");
 
 }
 
 
 void maxAdapterViewLiveLogs(App *app, Window *parent_window, bool StartOrStop)
 {
+	#ifdef ERROR
+	tabs_selected(app->tabStatus, 2);
+               layout_textview(app->statusLayoutMaxAdapter, app->textMaxAdapter, 0, 1);
+                panel_visible_layout(app->statusPanel, app->layoutIndexMaxAdapter);
+                panel_update(app->statusPanel);
+                textview_scroll_visible(app->textMaxAdapter, TRUE, TRUE);
+	#endif
 
         // create a parallel thread
 	if (StartOrStop == TRUE) // start
@@ -750,37 +954,196 @@ void maxAdapterViewLiveLogs(App *app, Window *parent_window, bool StartOrStop)
 		osapp_task(app, .04, i_task_maxAdapter_StopViewLiveLogs, i_task_maxAdapter_StopViewLiveLogsupdate, i_task_maxAdapter_StopViewLiveLogsend, App);
 }
 
-void maxAdapterDiscoverDevices(App *app, Window *parentWindow)
+
+// Runs in a new thread
+static uint32_t i_task_maxAdapter_StartDiscover(App *app, Event *e)
+{
+	#ifdef ERROR
+	tabs_selected(app->tabStatus, 2);
+               layout_textview(app->statusLayoutMaxAdapter, app->textMaxAdapter, 0, 1);
+                panel_visible_layout(app->statusPanel, app->layoutIndexMaxAdapter);
+                panel_update(app->statusPanel);
+                textview_scroll_visible(app->textMaxAdapter, TRUE, TRUE);
+	#endif
+	char* type;
+
+    textview_printf(app->textMaxAdapter, "Button <Start> click (%d)\n", app->clicks);
+    textview_scroll_caret(app->textMaxAdapter);
+
+    window_stop_modal(app->modalWindow, 300);   /* 300 - value to be returned */
+    unref(e);
+
+	progress_undefined(app->bar, TRUE);
+
+	type = "ModbusTCP";
+	int num_of_iterations_to_run=10;
+	textview_printf(app->textMaxAdapter, "start discovery : type = %s, number of iterations to run : %d \n", type, num_of_iterations_to_run);
+	int results = snifferTcp(type, num_of_iterations_to_run);
+
+	textview_printf(app->textMaxAdapter, "napp_maxAdapter.c : maxAdapterDiscoverDevices() : %d \n", results);
+}
+
+// Runs in GUI thread
+static void i_task_maxAdapter_StartDiscoverupdate(App *app)
+{
+        // update the gui here
+        //progress_undefined(app->bar, TRUE);
+
+}
+
+// Runs in GUI thread
+static void i_task_maxAdapter_StartDiscoverend(App *app)
+{
+        // update the gui here
+        progress_undefined(app->bar, FALSE);
+
+}
+
+#ifdef NO_NEED
+// Runs in a new thread
+static uint32_t i_task_maxAdapter_StopDiscover(App *app)
 {
 
+}
+
+// Runs in GUI thread
+static void i_task_maxAdapter_StopDiscoverupdate(App *app)
+{
+        // update the gui here
+        //progress_undefined(app->bar, TRUE);
+
+}
+
+// Runs in GUI thread
+static void i_task_maxAdapter_StopDiscoverend(App *app)
+{
+        // update the gui here
+        //progress_undefined(app->bar, TRUE);
+
+}
+#endif
+
+void i_OnClick_AdapterDiscoverButtonStart(App *app, Event *e)
+{
+	//tabs_selected(app->tabStatus, 2);
+
+	float wait=0.04f;
+	// create a parallel thread
+        osapp_task(app, wait, i_task_maxAdapter_StartDiscover, i_task_maxAdapter_StartDiscoverupdate, i_task_maxAdapter_StartDiscoverend, App);
+        //else // StartOrStop == FALSE // stop
+        //        osapp_task(app, .04, i_task_maxAdapter_StopDiscover, i_task_maxAdapter_StopDiscoverupdate, i_task_maxAdapter_StopDiscoverend, App);
+}
+
+void maxAdapterDiscoverDevices(App *app, Window *parentWindow)
+{
+	#ifdef ERROR
+	tabs_selected(app->tabStatus, 2);
+               layout_textview(app->statusLayoutMaxAdapter, app->textMaxAdapter, 0, 1);
+                panel_visible_layout(app->statusPanel, app->layoutIndexMaxAdapter);
+                panel_update(app->statusPanel);
+                textview_scroll_visible(app->textMaxAdapter, TRUE, TRUE);
+	#endif
+
+	Panel *panel;
+	Window *modalClient;
+	ModalData *data;
+	Layout *MainLayout, *GenLayout, *AuthLayout, *DecisionLayout;
+	Label *label_warning1, *label_warning2, *label_warning3, *label_warning4, *label_warning5;
+	Button *pushStart, *pushCancel;
+
+	panel = panel_create();
+	modalClient = window_create(ekWINDOW_EDGE | ekWINDOW_TITLE | ekWINDOW_CLOSE);
+    	window_title(modalClient, "maxAdapter - Discovery devices");
+
+    	/*ModalData *data = i_modal_data(parent_window);*/
+    	data = heap_new(ModalData);
+    	data->parent = parentWindow;
+    	data->type = UINT32_MAX;
+
+	MainLayout = layout_create(1,4);
+	GenLayout = layout_create(2, 6); /* col, row */
+	DecisionLayout = layout_create(5, 1);
+
+	label_warning1 = label_create();
+	label_warning2 = label_create();
+	label_warning3 = label_create();
+	label_warning4 = label_create();
+	label_warning5 = label_create();
+	label_text(label_warning1, "This will scan the network for devices that matches the protocol type");
+	label_text(label_warning2, "Warning : This will take some time to complete");
+	label_text(label_warning3, "");
+	label_text(label_warning4, "");
+	label_text(label_warning5, "Do you want to proceed ?");
+
+	layout_label(GenLayout, label_warning1, 0, 1);
+	layout_label(GenLayout, label_warning2, 0, 2);
+	layout_label(GenLayout, label_warning3, 0, 3);
+	layout_label(GenLayout, label_warning4, 0, 4);
+	layout_label(GenLayout, label_warning5, 0, 5);
+
+	pushStart = button_push(); button_text(pushStart, "  Start  "); button_OnClick(pushStart, listener(app, i_OnClick_AdapterDiscoverButtonStart, App));
+	pushCancel = button_push(); button_text(pushCancel, "Cancel"); button_OnClick(pushCancel, listener(app, i_OnClick_ButtonCancel, App));
+
+	/* Section 3 : col = 10, row = 1 */
+    	layout_button(DecisionLayout, pushStart, 2, 0);
+    	layout_button(DecisionLayout, pushCancel, 3, 0);
+
+    	/* assigns GenLayout, AuthLayout and DecisionLayout into MainLayout (2,3) */
+    	layout_layout(MainLayout, GenLayout, 0, 0);
+//    layout_layout(MainLayout, AuthLayout, 0,1);
+    	layout_layout(MainLayout, DecisionLayout, 0,2);
 
 
+	panel_layout(panel, MainLayout);
+	panel_data(panel, &data, i_destroy_modal_data, ModalData);
 
+    /* assigns the panel to the window and saves the handle to app */
+    app->modalWindow = modalClient;
+    window_panel(modalClient, panel);
+    /* sets the default button to Cancel */
+    window_defbutton(modalClient, pushCancel);
+    window_modal(modalClient, parentWindow);
 
 }
 
 void maxAdapterAutoGenerate(App *app, Window *parentWindow)
 {
+	#ifdef ERROR
+	tabs_selected(app->tabStatus, 2);
+               layout_textview(app->statusLayoutMaxAdapter, app->textMaxAdapter, 0, 1);
+                panel_visible_layout(app->statusPanel, app->layoutIndexMaxAdapter);
+                panel_update(app->statusPanel);
+                textview_scroll_visible(app->textMaxAdapter, TRUE, TRUE);
+	#endif
 
 }
 
 void maxAdapterSimRun(App *app, Window *parentWindow)
 {
+	#ifdef ERROR
+	tabs_selected(app->tabStatus, 2);
+               layout_textview(app->statusLayoutMaxAdapter, app->textMaxAdapter, 0, 1);
+                panel_visible_layout(app->statusPanel, app->layoutIndexMaxAdapter);
+                panel_update(app->statusPanel);
+                textview_scroll_visible(app->textMaxAdapter, TRUE, TRUE);
+	#endif
 
 }
 
 void maxAdapterNodesetEditor(App *app, Window *parentWindow)
 {
+	// tabs_selected(app->tabStatus, 2);
+
         ferror_t error= ekFOK;
         ImageView *imgView;
         ImageView *maxAdapterNodesetEditorImageView;
         Image *maxAdapterNodesetEditorImage;
 
-        textview_printf(app->text, "napp_maxAdapter.c : Entering maxAdapterNodesetEditor() \n");
+        textview_printf(app->textMaxAdapter, "napp_maxAdapter.c : Entering maxAdapterNodesetEditor() \n");
         maxAdapterNodesetEditorImageView = imageview_create();
         maxAdapterNodesetEditorImage = image_from_file("/home/pi/nappgui_src/jacky/img/editDeviceNodeset.jpg", &error);
         if (maxAdapterNodesetEditorImage!=NULL && error==ekFOK) {
-                textview_printf(app->text, "napp_maxAdapter.c : Here \n");
+                textview_printf(app->textMaxAdapter, "napp_maxAdapter.c : Here \n");
                 /* hide */
                 layout_show_col(app->canvasLayout, 0, FALSE);
                 layout_show_row(app->canvasLayout, 0, FALSE);
@@ -794,22 +1157,24 @@ void maxAdapterNodesetEditor(App *app, Window *parentWindow)
                 layout_show_row(app->canvasLayout, 0, TRUE);
         }
         else
-                textview_printf(app->text, "napp_maxAdapter.c : Error loading /home/pi/nappgui_src/jacky/img/editDeviceNodeset.jpg\n");
+                textview_printf(app->textMaxAdapter, "napp_maxAdapter.c : Error loading /home/pi/nappgui_src/jacky/img/editDeviceNodeset.jpg\n");
 
 }
 
 void maxAdapterManualConfiguration(App *app, Window *parentWindow)
 {
+	//tabs_selected(app->tabStatus, 2);
+
         ferror_t error= ekFOK;
         ImageView *imgView;
         ImageView *maxAdapterManualConfigurationImageView;
         Image *maxAdapterManualConfigurationImage;
 
-        textview_printf(app->text, "napp_maxAdapter.c : Entering maxAdapterManualConfiguration() \n");
+        textview_printf(app->textMaxAdapter, "napp_maxAdapter.c : Entering maxAdapterManualConfiguration() \n");
         maxAdapterManualConfigurationImageView = imageview_create();
         maxAdapterManualConfigurationImage = image_from_file("/home/pi/nappgui_src/jacky/img/maxAdapter.jpg", &error);
         if (maxAdapterManualConfigurationImage!=NULL && error==ekFOK) {
-                textview_printf(app->text, "napp_maxAdapter.c : Here \n");
+                textview_printf(app->textMaxAdapter, "napp_maxAdapter.c : Here \n");
                 /* hide */
                 layout_show_col(app->canvasLayout, 0, FALSE);
                 layout_show_row(app->canvasLayout, 0, FALSE);
@@ -823,5 +1188,5 @@ void maxAdapterManualConfiguration(App *app, Window *parentWindow)
                 layout_show_row(app->canvasLayout, 0, TRUE);
         }
         else
-                textview_printf(app->text, "napp_maxAdapter.c : Error loading /home/pi/nappgui_src/jacky/img/maxAdapter.jpg\n");
+                textview_printf(app->textMaxAdapter, "napp_maxAdapter.c : Error loading /home/pi/nappgui_src/jacky/img/maxAdapter.jpg\n");
 }

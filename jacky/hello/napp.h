@@ -5,6 +5,49 @@
 #include "mongoose.h"
 #include <ogl3d/ogl3d.h>
 
+typedef struct {
+    char cpu_label[10];
+    unsigned long long user;
+    unsigned long long nice;
+    unsigned long long system;
+    unsigned long long idle;
+    unsigned long long iowait;
+    unsigned long long irq;
+    unsigned long long softirq;
+    unsigned long long steal;
+    unsigned short no_of_cpu;
+} CPU_Stats;
+
+typedef struct {
+    unsigned long long memtotal;
+    unsigned long long memfree;
+    unsigned long long memavailable;
+} Mem_Stats;
+
+enum protocol {
+        MBAP=1,
+        ETHERNET_IP=2,
+        PROFINET=3,
+        ETHERCAT=4,
+        POWERLINK=5,
+        OPCUA=6,
+        MQTT=7,
+        TCPHL7=8,
+        BACNET=9,
+};
+
+typedef struct _discovery {
+        int header_len;
+        char source_ip[20];
+        char dest_ip[20];
+        int source_port;
+        int dest_port;
+        char* payload;
+        int payload_len;
+
+        enum protocol payload_type;     // MBAP=1, Ethernet/IP, ProfiNet, EtherCAT, PowerLink, OPCUA, MQTT, TcpHL7, BacNet
+} discovery;
+
        typedef struct _CKeyValuePair {
                 char *key;
                 char *value;
@@ -154,6 +197,7 @@ struct _app_t
 
     Layout *buttonLayout, *canvasLayout;
     Progress *bar;
+    Tabs *tabStatus;
 
     TableView *dataTableLeftTop1;
 
@@ -161,6 +205,14 @@ struct _app_t
     Panel *panelATop, *panelABottom;
     Layout *layoutATop, *layoutABottom;
     OGLCtx *gl_context;
+    SplitView *split2b;
+
+    Label *labelRAMUsedFigure, *labelRAMFreeFigure, *labelRAMTotalFigure;
+    long long unsigned memtotal, memfree, memavailable;
+    bool firstTimeRunCpuUtilisation, firstTimeRunMemUtilisation;
+    FILE *fpRunMem, *fpRunCpu;
+
+    Progress *progressRAMOverall;
 
     TextView *text;
     TextView *textMaxEngine, *textMaxCore, *textMaxAdapter, *textMaxOrchestrator, *textMaxIntegrator, *textMaxScale, *textMaxMind, *textMaxGate, *textMaxLicense, *textMaxServices;
@@ -292,6 +344,12 @@ void maxAdapterAutoGenerate(App *app, Window *parent_window);
 void maxAdapterSimulateAndConnect(App *app, Window *parent_window);
 void maxAdapterEditDeviceNodeset(App *app, Window *parent_window);
 void maxAdapterManualConfiguration(App *app, Window *parent_window);
+void maxAdapterDiscoverDevices(App *app, Window *parentWindow);
+void maxAdapterAutoGenerate(App *app, Window *parentWindow);
+void maxAdapterSimRun(App *app, Window *parentWindow);
+void maxAdapterNodesetEditor(App *app, Window *parentWindow);
+void maxAdapterManualConfiguration(App *app, Window *parentWindow);
+void maxAdapterViewLiveLogs(App *app, Window *parent_window, bool StartOrStop);
 
 void maxServicesUsersAccount(App *app, Window *parent_window);
 void maxServicesSystemsAccount(App *app, Window *parent_window);
@@ -310,17 +368,17 @@ void maxIntegratorOPCUAServer(App *app, Window *parent_window);
 void maxIntegratorGDSServer(App *app, Window *parent_window);
 void maxIntegratorLDSServer(App *app, Window *parent_window);
 void maxIntegratorHistorianServer(App *app, Window *parent_window);
-
-void maxAdapterDiscoverDevices(App *app, Window *parentWindow);
-void maxAdapterAutoGenerate(App *app, Window *parentWindow);
-void maxAdapterSimRun(App *app, Window *parentWindow);
-void maxAdapterNodesetEditor(App *app, Window *parentWindow);
-void maxAdapterManualConfiguration(App *app, Window *parentWindow);
+void maxIntegratorRabbitAqmpServer(App *app, Window *parent_window);
+void maxIntegratorMqttServer(App *app, Window *parent_window);
+void maxIntegratorViewStatistics(App *app, Window *parent_window);
+void maxIntegratorViewLiveLogs(App *app, Window *parent_window);
 
 void maxScaleSetupInstance(App *app, Window *parentWindow);
 void maxScaleConfiguration(App *app, Window *parentWindow);
 
 void maxOrchestratorDefineDataflow(App *app, Window *parent_window);
+void maxOrchestratorStart(App *app, Window *parent_window);
+void maxOrchestratorStop(App *app, Window *parent_window);
 
 void maxMindDigitalTwin(App *app, Window *parentWindow);
 void maxMindRealTimeAnalytics(App *app, Window *parentWindow);
@@ -530,6 +588,9 @@ void i_OnClick_maxServices_systemsaccount(App *app, Event *e);
 void i_OnClick_maxServices_generatesslcertificates(App *app, Event *e);
 void i_OnClick_maxAdapter_reverseconnect(App *app, Event *e);
 void i_OnClick_maxAdapter_startupparameters(App *app, Event *e);
+
+void i_OnTreeDataTableLeftTop1(AppData *data, Event *e);
+void i_OnTreeDataTableCentreBottom1(App *app, Event *e);
 void i_OnTreeDataTableLeftBottom1(AppData *app, Event *e);
 
 void LoginDialog(App *app, Window *parent_window);
@@ -543,16 +604,13 @@ void FileExportToXML(App *app, Window *parent_window);
 void FileExportToJSON(App *app, Window *parent_window);
 void i_OnClick_webview_WindowClose(App *app, Event *e);
 
-void maxAdapterViewLiveLogs(App *app, Window *parent_window, bool StartOrStop);
-
-void maxIntegratorRabbitAqmpServer(App *app, Window *parent_window);
-void maxIntegratorMqttServer(App *app, Window *parent_window);
-
-void maxIntegratorViewStatistics(App *app, Window *parent_window);
-void maxIntegratorViewLiveLogs(App *app, Window *parent_window);
-
-void maxOrchestratorStart(App *app, Window *parent_window);
-void maxOrchestratorStop(App *app, Window *parent_window);
-
-
 void mgtimer_fn(void *arg);
+
+
+char *run_remote_command(const char *hostname, const char *username, const char *password, const char *command, bool pipe, char *buffer, TextView *widget, char *filename);
+//int getCPU_Utilisation(char* buffer, CPU_Stats *arrayCPUStats);
+CPU_Stats *getCPU_Utilisation(char* buffer, CPU_Stats *arrayCPUStats);
+Mem_Stats *getMem_Utilisation(char* buffer, Mem_Stats *, App *app);
+void to_uppercase(char *str);
+
+

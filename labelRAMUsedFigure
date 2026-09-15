@@ -1,0 +1,2342 @@
+nappclient.c:                app->nocertificate = 1;
+nappclient.c:                app->nocertificate = 0;
+nappclient.c:                app->certificate = selected_file;
+nappclient.c:        textview_printf(app->text, "Filename is (%s), nofilename = %d \n", app->certificate, app->nocertificate);
+nappclient.c:        textview_scroll_caret(app->text);
+nappclient.c:        if (app->certificate != NULL) /* prevents an empty filename */
+nappclient.c:                app->fp_certificate = fopen(app->certificate, "r");
+nappclient.c:                if (app->fp_certificate)
+nappclient.c:                        app->nocertificate = 0;
+nappclient.c:                        fclose(app->fp_certificate);
+nappclient.c:                app->noprivatekey = 1;
+nappclient.c:                app->noprivatekey = 0;
+nappclient.c:                app->privatekey = selected_file;
+nappclient.c:        textview_printf(app->text, "Filename is (%s), nofilename = %d \n", app->privatekey, app->noprivatekey);
+nappclient.c:        textview_scroll_caret(app->text);
+nappclient.c:        if (app->privatekey != NULL) /* prevents an empty filename */
+nappclient.c:                app->fp_privatekey = fopen(app->privatekey, "r");
+nappclient.c:                if (app->fp_privatekey)
+nappclient.c:                        app->noprivatekey = 0;
+nappclient.c:                        fclose(app->fp_privatekey);
+nappclient.c:    textview_printf(app->text, "Button <Cancel> click (%d)\n", app->clicks);
+nappclient.c:    textview_scroll_caret(app->text);
+nappclient.c:    window_stop_modal(app->modalWindow, 300);   /* 300 - value to be returned */
+nappclient.c:    textview_printf(app->text, "Certificate->Load click (%d)\n", app->clicks);
+nappclient.c:    textview_scroll_caret(app->text);
+nappclient.c:    app->clicks += 1;
+nappclient.c:    CertificateOpen(app, app->window);
+nappclient.c:    textview_printf(app->text, "PrivateKey->Load click (%d)\n", app->clicks);
+nappclient.c:    textview_scroll_caret(app->text);
+nappclient.c:    app->clicks += 1;
+nappclient.c:    PrivateKeyOpen(app, app->window);
+nappclient.c:    textview_printf(app->text, "radiobutton Anonymous->click (%d)\n", app->clicks);
+nappclient.c:    textview_scroll_caret(app->text);
+nappclient.c:    app->clicks += 1;
+nappclient.c:    textview_printf(app->text, "radiobutton Username/password->click (%d)\n", app->clicks);
+nappclient.c:    textview_scroll_caret(app->text);
+nappclient.c:    app->clicks += 1;
+nappclient.c:    textview_printf(app->text, "radiobutton Certificate/key->click (%d)\n", app->clicks);
+nappclient.c:    textview_scroll_caret(app->text);
+nappclient.c:    app->clicks += 1;
+nappclient.c:        /* handle to target window to align centre to app->window centre */
+nappclient.c:        origin.x = app->sys_resolution.x / 2 - window_x / 2 ;
+nappclient.c:        origin.y = app->sys_resolution.y / 2 - window_y / 2 ;
+nappclient.c:        textview_printf(app->text, "window_x (%f) window_y (%f) \n", window_x, window_y);
+nappclient.c:        textview_printf(app->text, "sys_resolution x (%f) sys_resolution y (%f) \n", app->sys_resolution.x, app->sys_resolution.y);
+nappclient.c:        textview_printf(app->text, "origin.x (%f) origin.y (%f) \n", origin.x, origin.y);
+nappclient.c:    textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+nappclient.c:    textview_scroll_caret(app->text);
+nappclient.c:    app->modalWindow = modalClient;
+nappclient.c:    window_destroy(&app->modalWindow);
+nappclient.c:    textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+nappclient.c:    textview_scroll_caret(app->text);
+nappclient.c:    app->modalWindow = modalClient;
+nappclient.c:    window_destroy(&app->modalWindow);
+nappclient.c:    textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+nappclient.c:    textview_scroll_caret(app->text);
+nappclient.c:    app->modalWindow = modalClient;
+nappclient.c:    window_destroy(&app->modalWindow);
+nappclient.c:    textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+nappclient.c:    textview_scroll_caret(app->text);
+nappclient.c:    app->modalWindow = modalClient;
+nappclient.c:    window_destroy(&app->modalWindow);
+nappclient.c:    textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+nappclient.c:    textview_scroll_caret(app->text);
+nappclient.c:    app->modalWindow = modalClient;
+nappclient.c:    window_destroy(&app->modalWindow);
+nappclient.c:    textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+nappclient.c:    textview_scroll_caret(app->text);
+nappclient.c:    app->modalWindow = modalClient;
+nappclient.c:    window_destroy(&app->modalWindow);
+nappclient.c:    textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+nappclient.c:    textview_scroll_caret(app->text);
+nappclient.c:    app->modalWindow = modalClient;
+nappclient.c:    window_destroy(&app->modalWindow);
+nappfile.c:		app->nofilename = 1;
+nappfile.c:		app->nofilename = 0;
+nappfile.c:		app->savedFile = selected_file;
+nappfile.c:	textview_printf(app->text, "Filename is (%s), nofilename = %d \n", app->savedFile, app->nofilename);
+nappfile.c:        textview_scroll_caret(app->text);
+nappfile.c:	if (app->savedFile != NULL) /* prevents an empty filename */
+nappfile.c:		app->fp = fopen(app->savedFile, "r+w");
+nappfile.c:		if (app->fp)
+nappfile.c:			app->nofilename = 0;
+nappfile.c:			fclose(app->fp);
+nappfile.c:    textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+nappfile.c:    textview_scroll_caret(app->text);
+nappfile.c:    textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+nappfile.c:    textview_scroll_caret(app->text);
+nappfile.c:        textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+nappfile.c:        textview_scroll_caret(app->text);
+nappfile.c:        if (app->nofilename == 1) /* this means that this is the first time, then launch comwin_save_file() */
+nappfile.c:		textview_printf(app->text, "In FileSave IF section : Filename is %s \n", saved_file);
+nappfile.c:	        textview_scroll_caret(app->text);
+nappfile.c:			app->nofilename = 1;
+nappfile.c:				textview_printf(app->text, "In FileSave IF strstr section, before fwrite() : saved_file is %s, app->savedFile is %s, nofilename is %d \n",
+nappfile.c:						saved_file, app->savedFile, app->nofilename);
+nappfile.c:			        textview_scroll_caret(app->text);
+nappfile.c:				app->fp = fopen(saved_file, "w+"); /* somehow this statement failed !!! */
+nappfile.c:				if (app->fp)
+nappfile.c:					textview_printf(app->text, "In FileSave IF strstr section, now performing fwrite()");
+nappfile.c:				        textview_scroll_caret(app->text);
+nappfile.c:					fclose(app->fp);
+nappfile.c:					app->savedFile = saved_file;
+nappfile.c:					app->nofilename = 0;
+nappfile.c:                                	window_title(app->window, title);
+nappfile.c:					textview_printf(app->text, "Error creating file : %s", saved_file);
+nappfile.c:                                	textview_scroll_caret(app->text);
+nappfile.c:					app->savedFile = NULL;
+nappfile.c:					app->nofilename = 1;
+nappfile.c:			else if(strstr(app->savedFile, ".xml") != NULL)
+nappfile.c:			else if(strstr(app->savedFile, ".json") != NULL)
+nappfile.c:				textview_printf(app->text, "Error undefined file type : %s", saved_file);
+nappfile.c:                                textview_scroll_caret(app->text);
+nappfile.c:				app->savedFile = NULL;
+nappfile.c:				app->nofilename = 1;
+nappfile.c:		textview_printf(app->text, "In FileSave() ELSE section : Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+nappfile.c:                textview_scroll_caret(app->text);
+nappfile.c:		/*app->fp = fopen(app->savedFile, "r+w");*/
+nappfile.c:		/*fclose(app->fp);*/
+nappfile.c:        textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+nappfile.c:        textview_scroll_caret(app->text);
+nappfile.c:                        app->nofilename = 1;
+nappfile.c:                        app->savedFile = saved_file;
+nappfile.c:                        app->nofilename = 0;
+nappfile.c:                        app->fp = fopen(saved_file, "w+");
+nappfile.c:                        if (app->fp)
+nappfile.c:                                textview_printf(app->text, "In FileSaveAs IF(app->fp) section : Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+nappfile.c:		                textview_scroll_caret(app->text);
+nappfile.c:                                fclose(app->fp);
+nappfile.c:				window_title(app->window, title);
+nappfile.c:	if (app->fp != NULL)
+nappfile.c:		fclose(app->fp);
+nappfile.c:	app->nofilename = 1;
+nappfile.c:	app->savedFile = NULL;
+nappfile.c:    	app->View_Project_IsShown = 0;
+nappfile.c:    	app->View_AddressSpace_IsShown = 0;
+nappfile.c:    	app->View_Log_IsShown = 0;
+nappfile.c:    	app->View_Attributes_IsShown = 0;
+nappfile.c:    	app->View_References_IsShown = 0;
+nappfile.c:	window_title(app->window, "MaxMachines demonstration");
+nappfile.c:	textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+nappfile.c:        textview_scroll_caret(app->text);
+napphello.c:        /* handle to target window to align centre to app->window centre */
+napphello.c:        origin.x = app->sys_resolution.x / 2 - window_x / 2 ;
+napphello.c:	origin.y = app->sys_resolution.y / 2 - window_y / 2 ;
+napphello.c:        textview_printf(app->text, "window_x (%f) window_y (%f) \n", window_x, window_y);
+napphello.c:        textview_printf(app->text, "sys_resolution x (%f) sys_resolution y (%f) \n", app->sys_resolution.x, app->sys_resolution.y);
+napphello.c:        textview_printf(app->text, "origin.x (%f) origin.y (%f) \n", origin.x, origin.y);
+napphello.c:    textview_printf(app->text, "Button click (%d)\n", app->clicks);
+napphello.c:    app->clicks += 1;
+napphello.c:    textview_printf(app->text, "Button <Cancel> click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    window_stop_modal(app->modalWindow, 300);	/* 300 - value to be returned */
+napphello.c:		app->nofilename = 1;
+napphello.c:		app->nofilename = 0;
+napphello.c:		app->savedFile = selected_file;
+napphello.c:	textview_printf(app->text, "Filename is (%s), nofilename = %d \n", app->savedFile, app->nofilename);
+napphello.c:        textview_scroll_caret(app->text);
+napphello.c:	if (app->savedFile != NULL) /* prevents an empty filename */
+napphello.c:		app->fp = fopen(app->savedFile, "r+w");
+napphello.c:		if (app->fp)
+napphello.c:			app->nofilename = 0;
+napphello.c:			fclose(app->fp);
+napphello.c:    textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:        textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+napphello.c:        textview_scroll_caret(app->text);
+napphello.c:        if (app->nofilename == 1) /* this means that this is the first time, then launch comwin_save_file() */
+napphello.c:		textview_printf(app->text, "In FileSave IF section : Filename is %s \n", saved_file);
+napphello.c:	        textview_scroll_caret(app->text);
+napphello.c:			app->nofilename = 1;
+napphello.c:				textview_printf(app->text, "In FileSave IF strstr section, before fwrite() : saved_file is %s, app->savedFile is %s, nofilename is %d \n",
+napphello.c:						saved_file, app->savedFile, app->nofilename);
+napphello.c:			        textview_scroll_caret(app->text);
+napphello.c:				app->fp = fopen(saved_file, "w+"); /* somehow this statement failed !!! */
+napphello.c:				if (app->fp)
+napphello.c:					textview_printf(app->text, "In FileSave IF strstr section, now performing fwrite()");
+napphello.c:				        textview_scroll_caret(app->text);
+napphello.c:					fclose(app->fp);
+napphello.c:					app->savedFile = saved_file;
+napphello.c:					app->nofilename = 0;
+napphello.c:                                	window_title(app->window, title);
+napphello.c:					textview_printf(app->text, "Error creating file : %s", saved_file);
+napphello.c:                                	textview_scroll_caret(app->text);
+napphello.c:					app->savedFile = NULL;
+napphello.c:					app->nofilename = 1;
+napphello.c:			else if(strstr(app->savedFile, ".xml") != NULL)
+napphello.c:			else if(strstr(app->savedFile, ".json") != NULL)
+napphello.c:				textview_printf(app->text, "Error undefined file type : %s", saved_file);
+napphello.c:                                textview_scroll_caret(app->text);
+napphello.c:				app->savedFile = NULL;
+napphello.c:				app->nofilename = 1;
+napphello.c:		textview_printf(app->text, "In FileSave() ELSE section : Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+napphello.c:                textview_scroll_caret(app->text);
+napphello.c:		/*app->fp = fopen(app->savedFile, "r+w");*/
+napphello.c:		/*fclose(app->fp);*/
+napphello.c:        textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+napphello.c:        textview_scroll_caret(app->text);
+napphello.c:                        app->nofilename = 1;
+napphello.c:                        app->savedFile = saved_file;
+napphello.c:                        app->nofilename = 0;
+napphello.c:                        app->fp = fopen(saved_file, "w+");
+napphello.c:                        if (app->fp)
+napphello.c:                                textview_printf(app->text, "In FileSaveAs IF(app->fp) section : Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+napphello.c:		                textview_scroll_caret(app->text);
+napphello.c:                                fclose(app->fp);
+napphello.c:				window_title(app->window, title);
+napphello.c:	if (app->fp != NULL)
+napphello.c:		fclose(app->fp);
+napphello.c:	app->nofilename = 1;
+napphello.c:	app->savedFile = NULL;
+napphello.c:    	app->View_Project_IsShown = 0;
+napphello.c:    	app->View_AddressSpace_IsShown = 0;
+napphello.c:    	app->View_Log_IsShown = 0;
+napphello.c:    	app->View_Attributes_IsShown = 0;
+napphello.c:    	app->View_References_IsShown = 0;
+napphello.c:	window_title(app->window, "open62541 OPC UA demonstration");
+napphello.c:	textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+napphello.c:        textview_scroll_caret(app->text);
+napphello.c:    textview_printf(app->text, "Flyout View->Project Hide event click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    window_hide(app->View_Project->flywin);
+napphello.c:    app->View_Project_IsShown = 0;
+napphello.c:    textview_printf(app->text, "Flyout View->Address Space Hide event click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    window_hide(app->View_AddressSpace->flywin);
+napphello.c:    app->View_AddressSpace_IsShown = 0;
+napphello.c:    textview_printf(app->text, "Flyout View->Log Hide event click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    window_hide(app->View_Log->flywin);
+napphello.c:    app->View_Log_IsShown = 0;
+napphello.c:    textview_printf(app->text, "Flyout View->Attributes Hide event click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    window_hide(app->View_Attributes->flywin);
+napphello.c:    app->View_Attributes_IsShown = 0;
+napphello.c:    textview_printf(app->text, "Flyout View->References Hide event click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    window_hide(app->View_References->flywin);
+napphello.c:    app->View_References_IsShown = 0;
+napphello.c:    textview_printf(app->text, "Flyout View->Project Move event detected \n");
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    //mycoordinate.x = window_get_origin(app->View_Project->flywin).x;
+napphello.c:    //mycoordinate.y = window_get_origin(app->View_Project->flywin).y;
+napphello.c:    mysize.width = window_get_size(app->View_Project->flywin).width;
+napphello.c:    mysize.height = window_get_size(app->View_Project->flywin).height;
+napphello.c:    textview_printf(app->text, "app->resolution %f %f \n", app->sys_resolution.x, app->sys_resolution.y);
+napphello.c:    //textview_printf(app->text, "imaginaryLeftWindow %f %f \n", window_get_origin(app->imaginaryLeftWindow).x, window_get_origin(app->imaginaryLeftWindow).y);
+napphello.c:    /* now check if there ia overlapping of the app->window */
+napphello.c:    /* original - if (mycoordinate.x < app->screen_coordinate.x) */
+napphello.c:    if (mycoordinate.x + mysize.width * 0.50 > app->screen_coordinate.x) {
+napphello.c:        if ( (mycoordinate.x + mysize.width * 0.25) < app->screen_coordinate.x) {
+napphello.c:	        textview_printf(app->text,
+napphello.c:			"Flyout View->Project Move event Left border (X) breach detected : mycoordinate.x (%f) mysize.width*0.25 (%f) app->screen_coordinate.x (%f) \n",
+napphello.c:			mycoordinate.x,  mysize.width * 0.25, app->screen_coordinate.x);
+napphello.c:	        textview_scroll_caret(app->text);
+napphello.c:		window_show(app->imaginaryLeftWindow);
+napphello.c:		window_hide(app->imaginaryLeftWindow);
+napphello.c:    	window_hide(app->imaginaryLeftWindow);
+napphello.c:    if (mycoordinate.y + mysize.height *0.50 > app->screen_coordinate.y) {
+napphello.c:	if (mycoordinate.y + mysize.height * 0.25 < app->screen_coordinate.y) {
+napphello.c:		textview_printf(app->text, "Flyout View->Project Move event detected : Top border (Y) breached \n");
+napphello.c:		textview_scroll_caret(app->text);
+napphello.c:		window_show(app->imaginaryTopWindow);
+napphello.c:		window_hide(app->imaginaryTopWindow);
+napphello.c:	window_hide(app->imaginaryTopWindow);
+napphello.c:    /* original - if (mycoordinate.x + mysize.width * 0.50 > app->screen_coordinate.x + app->sys_resolution.x) */
+napphello.c:    x_offset = app->screen_coordinate.x + app->sys_resolution.x - mysize.width;
+napphello.c:   	/* original - if (mycoordinate.x + mysize.width * 0.25 > app->screen_coordinate.x + app->sys_resolution.x) */
+napphello.c:		textview_printf(app->text, "Flyout View->Project Move event detected : Right border (X) breached \n");
+napphello.c:		textview_scroll_caret(app->text);
+napphello.c:		window_show(app->imaginaryRightWindow);
+napphello.c:		window_hide(app->imaginaryRightWindow);
+napphello.c:	window_hide(app->imaginaryRightWindow);
+napphello.c:    y_offset = app->screen_coordinate.y + app->sys_resolution.y;
+napphello.c:    textview_printf(app->text, "Here : y_offset %f, mycoordinate.y %f, mysize.height %f \n", y_offset, mycoordinate.y, mysize.height);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    /*there is a 212 difference between app->window and view->project due to the height of the flyout window (view->project) */
+napphello.c:        textview_printf(app->text, "Flyout View->Project Move event detected : Bottom border (Y) breached \n");
+napphello.c:        textview_scroll_caret(app->text);
+napphello.c:	app->sys_resolution.x = window_get_size(app->View_Project->flywin).width;
+napphello.c:        app->sys_resolution.y = window_get_size(app->View_Project->flywin).height;
+napphello.c:    textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->modalWindow = modalServer;
+napphello.c:    window_destroy(&app->modalWindow);
+napphello.c:    textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->modalWindow = modalServer;
+napphello.c:    window_destroy(&app->modalWindow);
+napphello.c:    textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    window_destroy(&app->modalWindow);
+napphello.c:    textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    window_destroy(&app->modalWindow);
+napphello.c:    textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    window_destroy(&app->modalWindow);
+napphello.c:    textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    window_destroy(&app->modalWindow);
+napphello.c:    textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    window_destroy(&app->modalWindow);
+napphello.c:    if (app->View_Project == NULL)   /* the View->Project flyout window is not yet created */
+napphello.c:        app->View_Project = flyout; /* save the handle of the View->Project flyout window in the main App */
+napphello.c:        app->View_Project_IsShown = 1; /* set the flag to true */
+napphello.c:	menuitem_state(app->view_project, ekGUI_ON);
+napphello.c:        if (app->View_Project_IsShown == 0) /* it is currently hidden */
+napphello.c:                window_show(app->View_Project->flywin);     /* show it */
+napphello.c:                app->View_Project_IsShown = 1;      /* set the flag to true */
+napphello.c:		menuitem_state(app->view_project, ekGUI_ON);
+napphello.c:                window_hide(app->View_Project->flywin); /* hide it */
+napphello.c:                app->View_Project_IsShown = 0;       /* set the flag to false */
+napphello.c:	 	/* menuitem_state(app->view_project, ekGUI_OFF); */
+napphello.c:    if (app->View_AddressSpace == NULL)   /* the View->AddressSpace flyout window is not yet created */
+napphello.c:        app->View_AddressSpace = flyout; /* save the handle of the View->AddressSpace flyout window in the main App */
+napphello.c:        app->View_AddressSpace_IsShown = 1; /* set the flag to true */
+napphello.c:	menuitem_state(app->view_addressspace, ekGUI_ON);
+napphello.c:        if (app->View_AddressSpace_IsShown == 0) /* it is currently hidden */
+napphello.c:                window_show(app->View_AddressSpace->flywin);     /* show it */
+napphello.c:                app->View_AddressSpace_IsShown = 1;      /* set the flag to true */
+napphello.c:		menuitem_state(app->view_addressspace, ekGUI_ON);
+napphello.c:                window_hide(app->View_AddressSpace->flywin); /* hide it */
+napphello.c:                app->View_AddressSpace_IsShown = 0;       /* set the flag to false */
+napphello.c:		/* menuitem_state(app->view_addressspace, ekGUI_OFF); */
+napphello.c:    if (app->View_Log == NULL)   /* the View->Log flyout window is not yet created */
+napphello.c:        app->View_Log = flyout; /* save the handle of the View->Log flyout window in the main App */
+napphello.c:        app->View_Log_IsShown = 1; /* set the flag to true */
+napphello.c:	menuitem_state(app->view_log, ekGUI_ON);
+napphello.c:        if (app->View_Log_IsShown == 0) /* it is currently hidden */
+napphello.c:                window_show(app->View_Log->flywin);     /* show it */
+napphello.c:                app->View_Log_IsShown = 1;      /* set the flag to true */
+napphello.c:		menuitem_state(app->view_log, ekGUI_ON);
+napphello.c:                window_hide(app->View_Log->flywin); /* hide it */
+napphello.c:                app->View_Log_IsShown = 0;       /* set the flag to false */
+napphello.c:		/* menuitem_state(app->view_log, ekGUI_OFF); */
+napphello.c:    if (app->View_Attributes == NULL)   /* the View->Attributes flyout window is not yet created */
+napphello.c:        app->View_Attributes = flyout; /* save the handle of the View->Attributes flyout window in the main App */
+napphello.c:        app->View_Attributes_IsShown = 1; /* set the flag to true */
+napphello.c:        menuitem_state(app->view_attributes, ekGUI_ON);
+napphello.c:        if (app->View_Attributes_IsShown == 0) /* it is currently hidden */
+napphello.c:                window_show(app->View_Attributes->flywin);     /* show it */
+napphello.c:                app->View_Attributes_IsShown = 1;      /* set the flag to true */
+napphello.c:		menuitem_state(app->view_attributes, ekGUI_ON);
+napphello.c:                window_hide(app->View_Attributes->flywin); /* hide it */
+napphello.c:                app->View_Attributes_IsShown = 0;       /* set the flag to false */
+napphello.c:		/*menuitem_state(app->view_attributes, ekGUI_OFF); */
+napphello.c:    if (app->View_References == NULL)	/* the View->Reference flyout window is not yet created */
+napphello.c:        app->View_References = flyout; /* save the handle of the View->Reference flyout window in the main App */
+napphello.c:        app->View_References_IsShown = 1; /* set the flag to true */
+napphello.c:        menuitem_state(app->view_references, ekGUI_ON);
+napphello.c:	if (app->View_References_IsShown == 0) /* it is currently hidden */
+napphello.c:		window_show(app->View_References->flywin);     /* show it */
+napphello.c:        	app->View_References_IsShown = 1;      /* set the flag to true */
+napphello.c:                menuitem_state(app->view_references, ekGUI_ON);
+napphello.c:		window_hide(app->View_References->flywin); /* hide it */
+napphello.c:		app->View_References_IsShown = 0;	/* set the flag to false */
+napphello.c:                /* menuitem_state(app->view_references, ekGUI_OFF); */
+napphello.c:   	textview_printf(app->text, "menuitem_state(view->References is %d \n", menuitem_get_state(app->view_references)); /* 0=ekGUI_OFF, 1=ekGUI_ON, 2= ekGUI_MIXED */
+napphello.c:        textview_scroll_caret(app->text);
+napphello.c:	//app->screen_coordinate.x = window_get_origin(app->window).x;
+napphello.c:	//app->screen_coordinate.y = window_get_origin(app->window).y;
+napphello.c:        textview_printf(app->text, "App->screen coordinate :  %f, %f\n", app->screen_coordinate.x, app->screen_coordinate.y);
+napphello.c:        textview_scroll_caret(app->text);
+napphello.c:        app->sys_resolution.x = window_get_size(app->window).width;
+napphello.c:        app->sys_resolution.y = window_get_size(app->window).height;
+napphello.c:        textview_printf(app->text, "App->screen size :  %f, %f\n", app->sys_resolution.x, app->sys_resolution.y);
+napphello.c:        textview_scroll_caret(app->text);
+napphello.c:        layout_vsize(app->canvasLayout, 0, 600);
+napphello.c:        layout_vsize(app->statusLayout, 0, 400);
+napphello.c:    textview_printf(app->text, "File->New Menu click (%d)\n", app->clicks);
+napphello.c:        textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    /*createAttributesWindow(app->window);*/
+napphello.c:    textview_printf(app->text, "File->Open Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    FileOpen(app, app->window);
+napphello.c:    textview_printf(app->text, "File->Save Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    FileSave(app, app->window);
+napphello.c:    textview_printf(app->text, "View->Save As Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    FileSaveAs(app, app->window);
+napphello.c:    textview_printf(app->text, "View->Close Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    FileClose(app, app->window);
+napphello.c:    textview_printf(app->text, "View->Project Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    ViewProject(app, app->window);
+napphello.c:    textview_printf(app->text, "View->Address Space Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    ViewAddressSpace(app, app->window);
+napphello.c:    textview_printf(app->text, "View->Log Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    ViewLog(app, app->window);
+napphello.c:    textview_printf(app->text, "View->Attributes Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    ViewAttributes(app, app->window);
+napphello.c:    textview_printf(app->text, "View->References Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    ViewReferences(app, app->window);
+napphello.c:    textview_printf(app->text, "View->File Toolbar Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    textview_printf(app->text, "View->Server Toolbar  Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    textview_printf(app->text, "View->Document Toolbar  Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    textview_printf(app->text, "Server->Add Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    ServerAdd(app, app->window);
+napphello.c:    textview_printf(app->text, "Server->Remove Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    ServerRemove(app, app->window);
+napphello.c:    textview_printf(app->text, "Server->Connect Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    ServerConnect(app, app->window);
+napphello.c:    textview_printf(app->text, "Server->Disconnect Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    ServerDisconnect(app, app->window);
+napphello.c:    textview_printf(app->text, "Server->Properties Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    ServerProperties(app, app->window);
+napphello.c:    textview_printf(app->text, "Server->Change User Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    ServerChangeUser(app, app->window);
+napphello.c:    textview_printf(app->text, "Server->Change Password Menu click (%d)\n", app->clicks);
+napphello.c:    app->clicks += 1;
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    ServerChangePassword(app, app->window);
+napphello.c:    textview_printf(app->text, "Document->Add Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    textview_printf(app->text, "Document->Remove Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    textview_printf(app->text, "Document->Hide/ Unhide all dock widgets Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    textview_printf(app->text, "Settings->Plugins Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    textview_printf(app->text, "Settings->Configure->OPCSvr Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    textview_printf(app->text, "Settings->Configure->LDS Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    textview_printf(app->text, "Settings->Configure->GDS Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    textview_printf(app->text, "Settings->Configure->MSB Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    textview_printf(app->text, "Settings->Manage Certificates Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    textview_printf(app->text, "Help->Manual Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    textview_printf(app->text, "Help->What's This? Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    textview_printf(app->text, "Help->License Status Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    textview_printf(app->text, "Help->Check for UpdatesMenu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    textview_printf(app->text, "Help->About Menu click (%d)\n", app->clicks);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    app->clicks += 1;
+napphello.c:    app->top_menu = menu_create();
+napphello.c:    topmenu = app->top_menu;
+napphello.c:    osapp_menubar(topmenu, app->window);
+napphello.c:    osapp_menubar(submenu_file, app->window);
+napphello.c:    osapp_menubar(submenu_view, app->window);
+napphello.c:      app->view_project = menuitem_create(); menuitem_enabled(app->view_project, 1); menuitem_visible(app->view_project, 1);
+napphello.c:      app->view_addressspace =  menuitem_create(); menuitem_enabled(app->view_addressspace, 1); menuitem_visible(app->view_addressspace, 1);
+napphello.c:      app->view_log = menuitem_create(); menuitem_enabled(app->view_log, 1); menuitem_visible(app->view_log, 1);
+napphello.c:      app->view_attributes = menuitem_create(); menuitem_enabled(app->view_attributes, 1); menuitem_visible(app->view_attributes, 1);
+napphello.c:      app->view_references = menuitem_create(); menuitem_enabled(app->view_references, 1); menuitem_visible(app->view_references, 1);
+napphello.c:      app->view_filetoolbar = menuitem_create(); menuitem_enabled(app->view_filetoolbar, 1); menuitem_visible(app->view_filetoolbar, 1);
+napphello.c:      app->view_servertoolbar = menuitem_create(); menuitem_enabled(app->view_servertoolbar, 1); menuitem_visible(app->view_servertoolbar, 1);
+napphello.c:      app->view_documenttoolbar = menuitem_create(); menuitem_enabled(app->view_documenttoolbar, 1); menuitem_visible(app->view_documenttoolbar, 1);
+napphello.c:      menuitem_text(app->view_project,         "Project           ");  menuitem_state(app->view_project, ekGUI_ON);
+napphello.c:      menuitem_text(app->view_addressspace,    "Address Space     ");  menuitem_state(app->view_addressspace, ekGUI_ON);
+napphello.c:      menuitem_text(app->view_log,             "Log               ");  menuitem_state(app->view_log, ekGUI_ON);
+napphello.c:      menuitem_text(app->view_attributes,      "Attributes        ");  menuitem_state(app->view_attributes, ekGUI_ON);
+napphello.c:      menuitem_text(app->view_references,      "References        ");  menuitem_state(app->view_references, ekGUI_ON);
+napphello.c:      menuitem_text(app->view_filetoolbar,     "File Toolbar      ");  menuitem_state(app->view_filetoolbar, ekGUI_ON);
+napphello.c:      menuitem_text(app->view_servertoolbar,   "Server Toolbar    ");  menuitem_state(app->view_servertoolbar, ekGUI_ON);
+napphello.c:      menuitem_text(app->view_documenttoolbar, "Document Toolbar  ");  menuitem_state(app->view_documenttoolbar, ekGUI_ON);
+napphello.c:      menu_add_item(submenu_view, app->view_project);  menuitem_image(app->view_project, image_view_project);
+napphello.c:      menu_add_item(submenu_view, app->view_addressspace); menuitem_image(app->view_addressspace, image_view_addressspace);
+napphello.c:      menu_add_item(submenu_view, app->view_log); menuitem_image(app->view_log, image_view_log);
+napphello.c:      menu_add_item(submenu_view, app->view_attributes); menuitem_image(app->view_attributes, image_view_attributes);
+napphello.c:      menu_add_item(submenu_view, app->view_references); menuitem_image(app->view_references, image_view_references);
+napphello.c:      menu_add_item(submenu_view, app->view_filetoolbar); menuitem_image(app->view_filetoolbar, image_view_filetoolbar);
+napphello.c:      menu_add_item(submenu_view, app->view_servertoolbar); menuitem_image(app->view_servertoolbar, image_view_servertoolbar);
+napphello.c:      menu_add_item(submenu_view, app->view_documenttoolbar); menuitem_image(app->view_documenttoolbar, image_view_documenttoolbar);
+napphello.c:      menuitem_OnClick(app->view_project, listener(app, i_OnClick_view_project, App));
+napphello.c:      menuitem_OnClick(app->view_addressspace, listener(app, i_OnClick_view_addressspace, App));
+napphello.c:      menuitem_OnClick(app->view_log, listener(app, i_OnClick_view_log, App));
+napphello.c:      menuitem_OnClick(app->view_attributes, listener(app, i_OnClick_view_attributes, App));
+napphello.c:      menuitem_OnClick(app->view_references, listener(app, i_OnClick_view_references, App));
+napphello.c:      menuitem_OnClick(app->view_filetoolbar, listener(app, i_OnClick_view_filetoolbar, App));
+napphello.c:      menuitem_OnClick(app->view_servertoolbar, listener(app, i_OnClick_view_servertoolbar, App));
+napphello.c:      menuitem_OnClick(app->view_documenttoolbar, listener(app, i_OnClick_view_documenttoolbar, App));
+napphello.c:    osapp_menubar(submenu_server, app->window);
+napphello.c:    osapp_menubar(submenu_document, app->window);
+napphello.c:    osapp_menubar(submenu_settings, app->window);
+napphello.c:      osapp_menubar(submenu_settings_configure, app->window);
+napphello.c:    osapp_menubar(submenu_help, app->window);
+napphello.c:    Panel *panel = panel_create();		/* base level panel i.e. app->window -> panel */
+napphello.c:    app->buttonLayout = buttonLayout;
+napphello.c:    app->canvasLayout = canvasLayout;
+napphello.c:    app->statusLayout = statusLayout;
+napphello.c:    /* this is used when view_project windows crosses the boundaries of app->window */
+napphello.c:    imaginary_leftright_struct.width = app->sys_resolution.x / 4 ; /*canvasSize.width / 4; /* app->sys_resolution.x / 4; */
+napphello.c:    imaginary_leftright_struct.height = app->sys_resolution.y; /* app->sys_resolution.y; /* canvasSize.height; 	/* app->sys_resolution.y; */
+napphello.c:    imaginary_topbottom_struct.width =  app->sys_resolution.x; /*app->sys_resolution.x; /*canvasSize.width; /* app->sys_resolution.x; */
+napphello.c:    imaginary_topbottom_struct.height = app->sys_resolution.y / 2; /* app->sys_resolution.y / 4; /*canvasSize.height / 4; */
+napphello.c:    /*textview_printf(app->text, "imaginary sizes = AAA\n");*/ /* app->sys_resolution.x /4,
+napphello.c:								   app->sys_resolution.y,
+napphello.c:								   app->sys_resolution.x,
+napphello.c:								   app->sys_resolution.y /4);*/
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    textview_printf(app->text, "I am here \n");
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:	textview_printf(app->text, "leftright : width, height, topbottom : width, height %f %f %f %f \n",
+napphello.c:    app->imaginaryLeftWindow = window_create(ekWINDOW_EDGE);
+napphello.c:    window_panel(app->imaginaryLeftWindow, imaginaryLeftPanel);
+napphello.c:    app->imaginaryTopWindow = window_create(ekWINDOW_EDGE);
+napphello.c:    window_panel(app->imaginaryTopWindow, imaginaryTopPanel);
+napphello.c:    app->imaginaryRightWindow = window_create(ekWINDOW_EDGE);
+napphello.c:    window_panel(app->imaginaryRightWindow, imaginaryRightPanel);
+napphello.c:    app->imaginaryBottomWindow = window_create(ekWINDOW_EDGE);
+napphello.c:    window_panel(app->imaginaryBottomWindow, imaginaryBottomPanel);
+napphello.c:    imaginary_leftright_struct.width = window_get_size(app->window).width / 4;
+napphello.c:    imaginary_leftright_struct.height = window_get_size(app->window).height; /* to review the formulae */
+napphello.c:    imaginary_topbottom_struct.width =  window_get_size(app->window).width;
+napphello.c:    imaginary_topbottom_struct.height = window_get_size(app->window).height / 2; /* to review the formulae */
+napphello.c:    window_client_size(app->imaginaryLeftWindow, imaginary_leftright_struct );
+napphello.c:    window_client_size(app->imaginaryTopWindow, imaginary_topbottom_struct );
+napphello.c:    window_client_size(app->imaginaryRightWindow, imaginary_leftright_struct );
+napphello.c:    window_client_size(app->imaginaryBottomWindow, imaginary_topbottom_struct );
+napphello.c:    window_origin(app->imaginaryLeftWindow, app->screen_coordinate);
+napphello.c:    app->text = text;
+napphello.c:    app->nofilename = 1;	/* at initial launch, there is no filename indicated */
+napphello.c:    app->window = window_create(ekWINDOW_EDGE | ekWINDOW_TITLE | ekWINDOW_MAX | ekWINDOW_MIN | ekWINDOW_CLOSE | ekWINDOW_RESIZE);
+napphello.c:    window_title(app->window, "open62541 OPC UA demonstration");
+napphello.c:    window_origin(app->window, v2df(500, 200)); 	/* move window to position */
+napphello.c:    window_panel(app->window, panel); /* create a panel and attach to app->window */
+napphello.c:    app->sys_resolution.x = window_get_size(app->window).width;
+napphello.c:    app->sys_resolution.y = window_get_size(app->window).height;
+napphello.c:    //app->screen_coordinate.x = window_get_origin(app->window).x;
+napphello.c:    //app->screen_coordinate.y = window_get_origin(app->window).y;
+napphello.c:    textview_printf(app->text, "app->window size : width %f height %f \n", app->sys_resolution.x, app->sys_resolution.y);
+napphello.c:    textview_scroll_caret(app->text);
+napphello.c:    window_show(app->window);
+napphello.c:    /*createSubWindows(app->window); */
+napphello.c:    ViewProject(app, app->window);
+napphello.c:    ViewAddressSpace(app, app->window);
+napphello.c:    ViewLog(app, app->window);
+napphello.c:    ViewAttributes(app, app->window);
+napphello.c:    ViewReferences(app, app->window);
+napphello.c:    window_OnClose(app->window, listener(app, i_OnClose, App));
+napphello.c:    window_OnMoved(app->window, listener(app, i_OnMoved_AppWindow, App));
+napphello.c:    window_OnResize(app->window, listener(app, i_OnResize_AppWindow, App));
+napphello.c:    window_show(app->imaginaryLeftWindow);
+napphello.c:    window_show(app->imaginaryTopWindow);
+napphello.c:    window_show(app->imaginaryRightWindow);
+napphello.c:    window_show(app->imaginaryBottomWindow);
+napphello.c:menuitem_state(app->view_project, ekGUI_ON);
+napphello.c:menuitem_state(app->view_addressspace, ekGUI_ON);
+napphello.c:menuitem_state(app->view_log, ekGUI_ON);
+napphello.c:menuitem_state(app->view_attributes, ekGUI_ON);
+napphello.c:menuitem_state(app->view_references, ekGUI_ON);
+napphelp.c:	window_destroy(&app->PopupBrowserCompany);
+napphelp.c:	app->PopupBrowserCompany = NULL;
+napphelp.c:	if (app->PopupBrowserCompany == NULL)
+napphelp.c:		app->PopupBrowserCompany = window;
+napphelp.c:    textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+napphelp.c:    textview_scroll_caret(app->text);
+napphelp.c:    app->modalWindow = modalClient;
+napphelp.c:    /* handle to target window to align centre to app->window centre */
+napphelp.c:textview_printf(app->textMaxManage, "Help->About (size_x : %f, size_y : %f)\n", window_x, window_y);
+napphelp.c:    origin.x = app->sys_resolution.x / 2 - window_x / 2 ;
+napphelp.c:    origin.y = app->sys_resolution.y / 2 - window_y / 2 ;
+napphelp.c:textview_printf(app->text, "Help->About (origin.x = %f, origin.y = %f\n", origin.x, origin.y);
+napphelp.c:    window_destroy(&app->modalWindow);
+nappmain.c:    textview_printf(app->textMaxManage, "Project->New Menu click (%d)\n", app->clicks);
+nappmain.c:    textview_scroll_caret(app->textMaxManage);
+nappmain.c:    app->clicks += 1;
+nappmain.c:    FileNew(app, app->window);
+nappmain.c:    textview_printf(app->textMaxManage, "Project->Open Menu click (%d)\n", app->clicks);
+nappmain.c:    textview_scroll_caret(app->textMaxManage);
+nappmain.c:    app->clicks += 1;
+nappmain.c:    FileOpen(app, app->window);
+nappmain.c:    textview_printf(app->textMaxManage, "Project->Save Menu click (%d)\n", app->clicks);
+nappmain.c:    textview_scroll_caret(app->textMaxManage);
+nappmain.c:    app->clicks += 1;
+nappmain.c:    FileSave(app, app->window);
+nappmain.c:    textview_printf(app->textMaxManage, "Project->Save As button click (%d)\n", app->clicks);
+nappmain.c:    textview_scroll_caret(app->textMaxManage);
+nappmain.c:    app->clicks += 1;
+nappmain.c:    FileSaveAs(app, app->window);
+nappmain.c:    textview_printf(app->textMaxManage, "Project->Close buttion click (%d)\n", app->clicks);
+nappmain.c:    textview_scroll_caret(app->textMaxManage);
+nappmain.c:    app->clicks += 1;
+nappmain.c:    FileClose(app, app->window);
+nappmain.c:    textview_printf(app->textMaxManage, "Project->Quit button click (%d)\n", app->clicks);
+nappmain.c:    textview_scroll_caret(app->textMaxManage);
+nappmain.c:    app->clicks += 1;
+nappmain.c:    FileQuit(app, app->window);
+nappmain.c:    textview_printf(app->textMaxManage, "maxEngine->View Statistics Button click (%d)\n", app->clicks);
+nappmain.c:    textview_scroll_caret(app->textMaxManage);
+nappmain.c:    app->clicks += 1;
+nappmain.c:    maxEngineViewStatistics(app, app->window);
+nappmain.c:    textview_printf(app->textMaxManage, "maxEngine->View Live Logs Button click (%d)\n", app->clicks);
+nappmain.c:    textview_scroll_caret(app->textMaxManage);
+nappmain.c:    app->clicks += 1;
+nappmain.c:    maxEngineViewLiveLogs(app, app->window);
+nappmain.c:    textview_printf(app->textMaxManage, "maxCore->Register maxAdapters Button click (%d)\n", app->clicks);
+nappmain.c:    textview_scroll_caret(app->textMaxManage);
+nappmain.c:    app->clicks += 1;
+nappmain.c:    maxCoreRegisterAdapters(app, app->window);
+nappmain.c:    textview_printf(app->textMaxManage, "MaxCore->View statistics click (%d)\n", app->clicks);
+nappmain.c:    textview_scroll_caret(app->textMaxManage);
+nappmain.c:    app->clicks += 1;
+nappmain.c:    textview_printf(app->textMaxManage, "MaxCore->Register maxAdapter click (%d)\n", app->clicks);
+nappmain.c:    textview_scroll_caret(app->textMaxManage);
+nappmain.c:    app->clicks += 1;
+nappmain.c:    textview_printf(app->textMaxManage, "maxCore->Startup Parameters Button click (%d)\n", app->clicks);
+nappmain.c:    textview_scroll_caret(app->textMaxManage);
+nappmain.c:    app->clicks += 1;
+nappmain.c:    maxCoreStartupParameters(app, app->window);
+nappmain.c:    textview_printf(app->textMaxManage, "MaxCore->View Live Logs click (%d)\n", app->clicks);
+nappmain.c:    textview_scroll_caret(app->textMaxManage);
+nappmain.c:    app->clicks += 1;
+nappmain.c:    textview_printf(app->textMaxManage, "maxServices->Users Account button click (%d)\n", app->clicks);
+nappmain.c:    textview_scroll_caret(app->textMaxManage);
+nappmain.c:    app->clicks += 1;
+nappmain.c:    maxServicesUsersAccount(app, app->window);
+nappmain.c:    textview_printf(app->textMaxManage, "maxServices->Systems Account Button click (%d)\n", app->clicks);
+nappmain.c:    textview_scroll_caret(app->textMaxManage);
+nappmain.c:    app->clicks += 1;
+nappmain.c:    maxServicesSystemsAccount(app, app->window);
+nappmain.c:    textview_printf(app->textMaxManage, "maxServices->Generate SSL Certificate Button click (%d)\n", app->clicks);
+nappmain.c:    textview_scroll_caret(app->textMaxManage);
+nappmain.c:    app->clicks += 1;
+nappmain.c:    maxServicesGenerateSSLCertificates(app, app->window);
+nappmain.c:    textview_printf(app->textMaxManage, "MaxAdapter->Reverse Connect click (%d)\n", app->clicks);
+nappmain.c:    textview_scroll_caret(app->textMaxManage);
+nappmain.c:    app->clicks += 1;
+nappmain.c:    textview_printf(app->textMaxManage, "MaxAdapter->Startup parameters click (%d)\n", app->clicks);
+nappmain.c:    textview_scroll_caret(app->textMaxManage);
+nappmain.c:    app->clicks += 1;
+nappmain.c:       //     app->cache = app_fill_cache(app, rect->strow, rect->edrow, rect->stcol, rect->edcol);
+nappmain.c:        //    app_delete_cache(app->cache);
+nappmain.c:        case 0 : textview_printf(app->textMaxManage, "p->index = %d (maxManage) \n", p->index);
+nappmain.c:                layout_textview(app->statusLayoutMaxManage, app->textMaxManage, 0, 1);
+nappmain.c:                panel_visible_layout(app->statusPanel, app->layoutIndexMaxManage);
+nappmain.c:                panel_update(app->statusPanel);
+nappmain.c:                textview_scroll_visible(app->textMaxManage, TRUE, TRUE);
+nappmain.c:	case 1 : textview_printf(app->textMaxEngine, "p->index = %d (maxEngine) \n", p->index);
+nappmain.c:		layout_textview(app->statusLayoutMaxEngine, app->textMaxEngine, 0, 1);
+nappmain.c:		panel_visible_layout(app->statusPanel, app->layoutIndexMaxEngine);
+nappmain.c:    		panel_update(app->statusPanel);
+nappmain.c:		textview_scroll_visible(app->textMaxEngine, TRUE, TRUE);
+nappmain.c:	case 2 : textview_printf(app->textMaxAdapter, "p->index = %d (maxAdapter) \n", p->index);
+nappmain.c:		layout_textview(app->statusLayoutMaxAdapter, app->textMaxAdapter, 0, 1);
+nappmain.c:    		panel_visible_layout(app->statusPanel, app->layoutIndexMaxAdapter);
+nappmain.c:    		panel_update(app->statusPanel);
+nappmain.c:		textview_scroll_visible(app->textMaxAdapter, TRUE, TRUE);
+nappmain.c:	case 3 : textview_printf(app->textMaxCore, "p->index = %d (maxCore) \n", p->index);
+nappmain.c:		layout_textview(app->statusLayoutMaxCore, app->textMaxCore, 0, 1);
+nappmain.c:		panel_visible_layout(app->statusPanel, app->layoutIndexMaxCore);
+nappmain.c:                panel_update(app->statusPanel);
+nappmain.c:		textview_scroll_visible(app->textMaxCore, TRUE, TRUE);
+nappmain.c:	case 4 : textview_printf(app->textMaxOrchestrator, "p->index = %d (maxOrchestrator) \n", p->index);
+nappmain.c:		layout_textview(app->statusLayoutMaxOrchestrator, app->textMaxOrchestrator, 0, 1);
+nappmain.c:		panel_visible_layout(app->statusPanel, app->layoutIndexMaxOrchestrator);
+nappmain.c:                panel_update(app->statusPanel);
+nappmain.c:		textview_scroll_visible(app->textMaxOrchestrator, TRUE, TRUE);
+nappmain.c:	case 5 : textview_printf(app->textMaxIntegrator, "p->index = %d (maxIntegrator) \n", p->index);
+nappmain.c:		layout_textview(app->statusLayoutMaxIntegrator, app->textMaxIntegrator, 0, 1);
+nappmain.c:		panel_visible_layout(app->statusPanel, app->layoutIndexMaxIntegrator);
+nappmain.c:                panel_update(app->statusPanel);
+nappmain.c:		textview_scroll_visible(app->textMaxIntegrator, TRUE, TRUE);
+nappmain.c:	case 6 : textview_printf(app->textMaxScale, "p->index = %d (maxScale) \n", p->index);
+nappmain.c:		layout_textview(app->statusLayoutMaxScale, app->textMaxScale, 0, 1);
+nappmain.c:		panel_visible_layout(app->statusPanel, app->layoutIndexMaxScale);
+nappmain.c:                panel_update(app->statusPanel);
+nappmain.c:		textview_scroll_visible(app->textMaxScale, TRUE, TRUE);
+nappmain.c:	case 7 : textview_printf(app->textMaxMind, "p->index = %d (maxMind) \n", p->index);
+nappmain.c:		layout_textview(app->statusLayoutMaxMind, app->textMaxMind, 0, 1);
+nappmain.c:		panel_visible_layout(app->statusPanel, app->layoutIndexMaxMind);
+nappmain.c:                panel_update(app->statusPanel);
+nappmain.c:		textview_scroll_visible(app->textMaxMind, TRUE, TRUE);
+nappmain.c:	case 8 : textview_printf(app->textMaxGate, "p->index = %d (maxGate) \n", p->index);
+nappmain.c:		layout_textview(app->statusLayoutMaxGate, app->textMaxGate, 0, 1);
+nappmain.c:		panel_visible_layout(app->statusPanel, app->layoutIndexMaxGate);
+nappmain.c:                panel_update(app->statusPanel);
+nappmain.c:		textview_scroll_visible(app->textMaxGate, TRUE, TRUE);
+nappmain.c:	case 9 : textview_printf(app->textMaxLicense, "p->index = %d (maxLicense) \n", p->index);
+nappmain.c:                layout_textview(app->statusLayoutMaxLicense, app->textMaxLicense, 0, 1);
+nappmain.c:		panel_visible_layout(app->statusPanel, app->layoutIndexMaxLicense);
+nappmain.c:                panel_update(app->statusPanel);
+nappmain.c:		textview_scroll_visible(app->textMaxLicense, TRUE, TRUE);
+nappmain.c:	case 10 : textview_printf(app->textMaxServices, "p->index = %d (maxServices) \n", p->index);
+nappmain.c:                layout_textview(app->statusLayoutMaxServices, app->textMaxServices, 0, 1);
+nappmain.c:		panel_visible_layout(app->statusPanel, app->layoutIndexMaxServices);
+nappmain.c:                panel_update(app->statusPanel);
+nappmain.c:		textview_scroll_visible(app->textMaxServices, TRUE, TRUE);
+nappmain.c:    app->clicks += 1;
+nappmain.c:	else textview_printf(app->textMaxManage, "Error loading image for buttonFileNew\n");
+nappmain.c:	layout_button(app->buttonLayout, buttonProjectNew, 0, 0);
+nappmain.c:        layout_button(app->buttonLayout, buttonProjectOpen, 1, 0);
+nappmain.c:        layout_button(app->buttonLayout, buttonProjectSave, 2,0);
+nappmain.c:        layout_button(app->buttonLayout, buttonProjectSaveAs, 3,0);
+nappmain.c:        layout_button(app->buttonLayout, buttonProjectClose, 4,0);
+nappmain.c: 	layout_button(app->buttonLayout, buttonProjectQuit, 5,0);
+nappmain.c:        layout_button(app->buttonLayout, buttonViewInterconnectivity, 6,0);
+nappmain.c:        layout_button(app->buttonLayout, buttonViewProject, 7,0);
+nappmain.c:        layout_button(app->buttonLayout, buttonViewAddressSpace, 8,0);
+nappmain.c:        layout_button(app->buttonLayout, buttonViewLog, 9,0);
+nappmain.c:        layout_button(app->buttonLayout, buttonViewAttributes, 10,0);
+nappmain.c:        layout_button(app->buttonLayout, buttonViewReferences, 11,0);
+nappmain.c:        layout_button(app->buttonLayout, buttonmaxEngineOneClickStartInstance, 12,0);
+nappmain.c:	layout_button(app->buttonLayout, buttonmaxEngineOneClickStopInstance, 13,0);
+nappmain.c:	layout_button(app->buttonLayout, buttonmaxEngineViewStatistics, 14,0);
+nappmain.c:	layout_button(app->buttonLayout, buttonmaxEngineViewLiveLogs, 15,0);
+nappmain.c:	layout_button(app->buttonLayout, buttonmaxCoreStartInstance, 16,0);
+nappmain.c:	layout_button(app->buttonLayout, buttonmaxCoreStopInstance, 17,0);
+nappmain.c:	layout_button(app->buttonLayout, buttonmaxCoreRegistermaxAdapters, 18,0);
+nappmain.c:	layout_button(app->buttonLayout, buttonmaxCoreViewStatistics, 19,0);
+nappmain.c:	layout_button(app->buttonLayout, buttonmaxCoreViewLiveLogs, 20,0);
+nappmain.c:	layout_button(app->buttonLayout, buttonmaxCoreWebSocketService, 21,0);
+nappmain.c:	layout_button(app->buttonLayout, buttonmaxAdapterStartInstance, 22,0);
+nappmain.c:        layout_button(app->buttonLayout, buttonmaxAdapterStopInstance, 23,0);
+nappmain.c:	layout_button(app->buttonLayout, buttonmaxAdapterAlarmsAndConditions, 24,0);
+nappmain.c:	layout_button(app->buttonLayout, buttonmaxAdapterEvents, 25,0);
+nappmain.c:	layout_button(app->buttonLayout, buttonmaxAdapterLogsManagement, 26,0);
+nappmain.c:	layout_button(app->buttonLayout, buttonmaxAdapterReverseConnect, 27,0);
+nappmain.c:	layout_button(app->buttonLayout, buttonmaxServiceUsersAccount, 28,0);
+nappmain.c:	layout_button(app->buttonLayout, buttonmaxServiceSystemsAccount, 29,0);
+nappmain.c:	layout_button(app->buttonLayout, buttonmaxServiceGenerateSSLCertificates, 30,0);
+nappmain.c:/*	layout_button(app->buttonLayout, buttonmaxCoreRegistermaxAdapters, 31,0);
+nappmain.c:	layout_button(app->buttonLayout, buttonmaxAdapterStartupParameters, 32,0);
+nappmain.c:	layout_button(app->buttonLayout, buttonmaxAdapterCommunicationsProtocols, 33,0);
+nappmain.c:	layout_button(app->buttonLayout, buttonmaxAdapterViewStatistics, 34,0);
+nappmain.c:	layout_button(app->buttonLayout, buttonmaxIntegratorRadiusServer, 35,0);
+nappmain.c:	layout_button(app->buttonLayout, buttonmaxIntegratorLdapServer, 36,0);
+nappmain.c:	layout_button(app->buttonLayout, buttonmaxIntegratorIdentityAndAccessServer, 37,0);
+nappmain.c:	layout_button(app->buttonLayout, buttonmaxIntegratorGlobalDirectoryServer, 38,0);
+nappmain.c:	//layout_button(app->buttonLayout, buttonmaxIntegratorLocalDirectoryServer, 0,1);
+nappmain.c:	//layout_button(app->buttonLayout, buttonmaxIntegratorSyslogServer, 0,2);
+nappmain.c:	//layout_button(app->buttonLayout, buttonmaxIntegratorHistorianServer, 0,3);
+nappmain.c:	//layout_button(app->buttonLayout, buttonmaxIntegratorMessageBroker, 0,4);
+nappmain.c:	//layout_button(app->buttonLayout, buttonmaxIntegratorWebAPIServer, 0,5);
+nappmain.c:	//layout_button(app->buttonLayout, buttonmaxIntegratorWebSocketServer, 0,6);
+nappmain.c:	//layout_button(app->buttonLayout, buttonmaxAdapterDiscoverDevices, 0,7);
+nappmain.c:	//layout_button(app->buttonLayout, buttonmaxAdapterAutoGenerate, 0,8),
+nappmain.c:	//layout_button(app->buttonLayout, buttonmaxAdapterSimulateAndConnect, 0,9);
+nappmain.c:	//layout_button(app->buttonLayout, buttonmaxAdapterEditDeviceNodeset, 0,10);
+nappmain.c:	//layout_button(app->buttonLayout, buttonmaxAdapterManualConfiguration, 0,11);
+nappmain.c:	//layout_button(app->buttonLayout, buttonmaxGateStartInstance, 0,12);
+nappmain.c:	//layout_button(app->buttonLayout, buttonmaxGateStopInstance, 0,13);
+nappmain.c:	//layout_button(app->buttonLayout, buttonmaxGateInspectInstance, 0,14);
+nappmain.c:	//layout_button(app->buttonLayout, buttonmaxGateManualConfiguration, 0,15);
+nappmain.c:	//layout_button(app->buttonLayout, buttonmaxScaleSetupInstance, 0,16);
+nappmain.c:        //layout_button(app->buttonLayout, buttonmaxScaleConfiguration, 0,17);
+nappmain.c:        //layout_button(app->buttonLayout, buttonmaxOrchestratorStartInstance, 0,18);
+nappmain.c:        //layout_button(app->buttonLayout, buttonmaxOrchestratorStopInstance, 0,19);
+nappmain.c:        //layout_button(app->buttonLayout, buttonmaxOrchestratorDefineDataFlow, 0,20);
+nappmain.c:        //layout_button(app->buttonLayout, buttonmaxMindDigitalTwin, 0,21);
+nappmain.c:        //layout_button(app->buttonLayout, buttonmaxMindRealTimeAnalytics, 0,22);
+nappmain.c:        //layout_button(app->buttonLayout, buttonmaxMindMachineLearning, 0,23);
+nappmain.c:        //layout_button(app->buttonLayout, buttonHelpManual, 0,24);
+nappmain.c:        //layout_button(app->buttonLayout, buttonHelpWhatsThis, 0,25);
+nappmain.c:        //layout_button(app->buttonLayout, buttonHelpLicenseStatus, 0,26);
+nappmain.c:        //layout_button(app->buttonLayout, buttonHelpCheckForUpdates, 0,27);
+nappmain.c:        //layout_button(app->buttonLayout, buttonHelpAboutMaxMachines, 0,28);
+nappmain.c:	app->dataTableLeftTop1 = tableLeftTop1;
+nappmain.c:	app->split2b = splitview_horizontal(); // split into TOP, BOTTOM
+nappmain.c:	splitview_minsize0(app->split2b, 300); splitview_minsize1(app->split2b, 300);	// minimum height of splitview TOP and BOTTOM section
+nappmain.c:	splitview_splitview(split1, app->split2b);	// put a secondary splitview into the primary splitview
+nappmain.c:	layout_splitview(layout2b, app->split2b, 0,0);
+nappmain.c:        app->layoutATop = layout_create(1,1);
+nappmain.c:	layout_hexpand(app->layoutATop, 0);
+nappmain.c:	layout_vexpand(app->layoutATop, 0);
+nappmain.c:	layout_splitview(app->layoutATop, app->split2b, 0,0);	// layout2b
+nappmain.c:		splitview_webview(app->split2b, webview, FALSE);
+nappmain.c:                splitview_tableview(app->split2b, tableCentreTop1, FALSE);
+nappmain.c:		splitview_tableview(app->split2b, tableCentreBottom1, FALSE);
+nappmain.c:        //        app->panelATop = panel_scroll(TRUE, TRUE); //app->panelABottom = panel_scroll(TRUE, TRUE);
+nappmain.c:        //        panel_layout(app->panelATop, app->layoutATop); //panel_layout(app->panelABottom, app->layoutABottom);
+nappmain.c:	app->progressRAMOverall = progress_create();
+nappmain.c:	progress_value(app->progressRAMOverall, 0);
+nappmain.c:	progress_width(app->progressRAMOverall, 4);
+nappmain.c:	layout_progress(LayoutTopRightStatus, app->progressRAMOverall, 0,5);
+nappmain.c:	app->labelRAMUsedFigure = label_create(); label_text(app->labelRAMUsedFigure, "0 MB"); //label_width(app->labelRAMUsedFigure, 5);
+nappmain.c:	app->labelRAMFreeFigure = label_create(); label_text(app->labelRAMFreeFigure, "0 MB"); //label_width(app->labelRAMFreeFigure, 5);
+nappmain.c:	app->labelRAMTotalFigure = label_create(); label_text(app->labelRAMTotalFigure, "0 MB"); //label_width(app->labelRAMTotalFigure, 5);
+nappmain.c:	layout_label(subLayoutTopRightRAMStatus, app->labelRAMUsedFigure, 0,2);
+nappmain.c:	layout_label(subLayoutTopRightRAMStatus, app->labelRAMFreeFigure, 1,2);
+nappmain.c:	layout_label(subLayoutTopRightRAMStatus, app->labelRAMTotalFigure, 2,2);
+nappmain.c:    app->canvasLayout = layout_create(1,1);
+nappmain.c:    app->buttonLayout = layout_create(30,2);	// maximum col = 30
+nappmain.c:    layout_hsize(app->canvasLayout, 0, 5*1920/7 );	// 5/7 x 1920
+nappmain.c:    layout_vsize(app->canvasLayout, 0, 1200);
+nappmain.c:    app->text = textview_create();
+nappmain.c:    app->textMaxManage = textview_create(); textview_printf(app->textMaxManage, "initial text in MaxManage Textview object\n");
+nappmain.c:    app->textMaxEngine = textview_create(); textview_printf(app->textMaxEngine, "initial text in MaxEngine Textview object\n");
+nappmain.c:    app->textMaxAdapter = textview_create(); textview_printf(app->textMaxAdapter, "initial text in MaxAdapter Textview object\n");
+nappmain.c:    app->textMaxCore = textview_create(); textview_printf(app->textMaxCore, "initial text in MaxCore Textview object\n");
+nappmain.c:    app->textMaxOrchestrator = textview_create(); textview_printf(app->textMaxOrchestrator, "initial text in MaxOrchestrator Textview object\n");
+nappmain.c:    app->textMaxIntegrator = textview_create(); textview_printf(app->textMaxIntegrator, "initial text in MaxIntegrator Textview object\n");
+nappmain.c:    app->textMaxScale = textview_create(); textview_printf(app->textMaxScale, "initial text in MaxScale Textview object\n");
+nappmain.c:    app->textMaxMind = textview_create(); textview_printf(app->textMaxMind, "initial text in MaxMind Textview object\n");
+nappmain.c:    app->textMaxGate = textview_create(); textview_printf(app->textMaxGate, "initial text in MaxGate Textview object\n");
+nappmain.c:    app->textMaxLicense = textview_create(); textview_printf(app->textMaxLicense, "initial text in MaxLicense Textview object\n");
+nappmain.c:    app->textMaxServices = textview_create(); textview_printf(app->textMaxServices, "initial text in MaxServices Textview object\n");
+nappmain.c:    layout_imageview(app->canvasLayout, maxOrchestratorImageView, 0,0);
+nappmain.c://    layout_splitview(app->canvasLayout, SplitViewLeftRight, 0,0);
+nappmain.c:    app->tabStatus = tabs_create(ekGUI_POS_TOP);
+nappmain.c:    tabs_length(app->tabStatus, 300);
+nappmain.c:    tabs_add_elem(app->tabStatus, "maxManage", NULL); tabs_OnSelect(app->tabStatus, listener(app, i_OnClick_tab, App));
+nappmain.c:    tabs_add_elem(app->tabStatus, "maxEngine", NULL); tabs_OnSelect(app->tabStatus, listener(app, i_OnClick_tab, App));
+nappmain.c:    tabs_add_elem(app->tabStatus, "maxAdapter", NULL); tabs_OnSelect(app->tabStatus, listener(app, i_OnClick_tab, App));
+nappmain.c:    tabs_add_elem(app->tabStatus, "maxCore", NULL); tabs_OnSelect(app->tabStatus, listener(app, i_OnClick_tab, App));
+nappmain.c:    tabs_add_elem(app->tabStatus, "maxOrchestrator", NULL); tabs_OnSelect(app->tabStatus, listener(app, i_OnClick_tab, App));
+nappmain.c:    tabs_add_elem(app->tabStatus, "maxIntegrator", NULL); tabs_OnSelect(app->tabStatus, listener(app, i_OnClick_tab, App));
+nappmain.c:    tabs_add_elem(app->tabStatus, "maxScale", NULL); tabs_OnSelect(app->tabStatus, listener(app, i_OnClick_tab, App));
+nappmain.c:    tabs_add_elem(app->tabStatus, "maxMind", NULL); tabs_OnSelect(app->tabStatus, listener(app, i_OnClick_tab, App));
+nappmain.c:    tabs_add_elem(app->tabStatus, "maxGate", NULL); tabs_OnSelect(app->tabStatus, listener(app, i_OnClick_tab, App));
+nappmain.c:    tabs_add_elem(app->tabStatus, "maxLicense", NULL); tabs_OnSelect(app->tabStatus, listener(app, i_OnClick_tab, App));
+nappmain.c:    tabs_add_elem(app->tabStatus, "maxServices", NULL); tabs_OnSelect(app->tabStatus, listener(app, i_OnClick_tab, App));
+nappmain.c://    layout_tabs(app->statusLayoutMaxEngine, tabStatus, 0,0);
+nappmain.c:    textview_size(app->textMaxManage, textSize);
+nappmain.c:    textview_size(app->textMaxEngine, textSize);
+nappmain.c:    textview_size(app->textMaxAdapter, textSize);
+nappmain.c:    textview_size(app->textMaxCore, textSize);
+nappmain.c:    textview_size(app->textMaxOrchestrator, textSize);
+nappmain.c:    textview_size(app->textMaxIntegrator, textSize);
+nappmain.c:    textview_size(app->textMaxScale, textSize);
+nappmain.c:    textview_size(app->textMaxMind, textSize);
+nappmain.c:    textview_size(app->textMaxGate, textSize);
+nappmain.c:    textview_size(app->textMaxLicense, textSize);
+nappmain.c:    textview_size(app->textMaxServices, textSize);
+nappmain.c:    app->statusPanel = panel_create();
+nappmain.c:    app->statusLayoutMaxManage = layout_create(1,2);
+nappmain.c:    app->statusLayoutMaxEngine = layout_create(1,2);
+nappmain.c:    app->statusLayoutMaxAdapter = layout_create(1,2);
+nappmain.c:    app->statusLayoutMaxCore = layout_create(1,2);
+nappmain.c:    app->statusLayoutMaxOrchestrator = layout_create(1,2);
+nappmain.c:    app->statusLayoutMaxIntegrator = layout_create(1,2);
+nappmain.c:    app->statusLayoutMaxScale = layout_create(1,2);
+nappmain.c:    app->statusLayoutMaxMind = layout_create(1,2);
+nappmain.c:    app->statusLayoutMaxGate = layout_create(1,2);
+nappmain.c:    app->statusLayoutMaxLicense = layout_create(1,2);
+nappmain.c:    app->statusLayoutMaxServices = layout_create(1,2);
+nappmain.c:    app->layoutIndexMaxManage = panel_layout(app->statusPanel, app->statusLayoutMaxManage);
+nappmain.c:    app->layoutIndexMaxEngine = panel_layout(app->statusPanel, app->statusLayoutMaxEngine);
+nappmain.c:    app->layoutIndexMaxAdapter = panel_layout(app->statusPanel, app->statusLayoutMaxAdapter);
+nappmain.c:    app->layoutIndexMaxCore  = panel_layout(app->statusPanel, app->statusLayoutMaxCore);
+nappmain.c:    app->layoutIndexMaxOrchestrator = panel_layout(app->statusPanel, app->statusLayoutMaxOrchestrator);
+nappmain.c:    app->layoutIndexMaxIntegrator = panel_layout(app->statusPanel, app->statusLayoutMaxIntegrator);
+nappmain.c:    app->layoutIndexMaxScale = panel_layout(app->statusPanel, app->statusLayoutMaxScale);
+nappmain.c:    app->layoutIndexMaxMind = panel_layout(app->statusPanel, app->statusLayoutMaxMind);
+nappmain.c:    app->layoutIndexMaxGate = panel_layout(app->statusPanel, app->statusLayoutMaxGate);
+nappmain.c:    app->layoutIndexMaxLicense = panel_layout(app->statusPanel, app->statusLayoutMaxLicense);
+nappmain.c:    app->layoutIndexMaxServices = panel_layout(app->statusPanel, app->statusLayoutMaxServices);
+nappmain.c:	    printf(" %d %d \n", app->layoutIndexMaxEngine, app->layoutIndexMaxAdapter);
+nappmain.c:    layout_textview(app->statusLayoutMaxManage, app->textMaxManage, 0,1);
+nappmain.c:    layout_textview(app->statusLayoutMaxEngine, app->textMaxEngine, 0,1);
+nappmain.c:	    printf(" %d %d \n", app->layoutIndexMaxEngine, app->layoutIndexMaxAdapter);
+nappmain.c:    layout_textview(app->statusLayoutMaxAdapter, app->textMaxAdapter, 0,1);
+nappmain.c:	    printf(" %d %d \n", app->layoutIndexMaxEngine, app->layoutIndexMaxAdapter);
+nappmain.c:    layout_textview(app->statusLayoutMaxCore, app->textMaxCore, 0,1);
+nappmain.c:    layout_textview(app->statusLayoutMaxOrchestrator, app->textMaxOrchestrator, 0,1);
+nappmain.c:    layout_textview(app->statusLayoutMaxIntegrator, app->textMaxIntegrator, 0,1);
+nappmain.c:    layout_textview(app->statusLayoutMaxScale, app->textMaxScale, 0,1);
+nappmain.c:    layout_textview(app->statusLayoutMaxMind, app->textMaxMind, 0,1);
+nappmain.c:    layout_textview(app->statusLayoutMaxGate, app->textMaxGate, 0,1);
+nappmain.c:    layout_textview(app->statusLayoutMaxLicense, app->textMaxLicense, 0,1);
+nappmain.c:    layout_textview(app->statusLayoutMaxServices, app->textMaxServices, 0,1);
+nappmain.c:    panel_visible_layout(app->statusPanel, app->layoutIndexMaxEngine);
+nappmain.c:    panel_update(app->statusPanel);
+nappmain.c:    layout_tabs(app->statusLayoutMaxManage, app->tabStatus, 0,0);
+nappmain.c:    layout_tabs(app->statusLayoutMaxEngine, app->tabStatus, 0,0);
+nappmain.c:    layout_tabs(app->statusLayoutMaxAdapter, app->tabStatus, 0,0);
+nappmain.c:    layout_tabs(app->statusLayoutMaxCore, app->tabStatus, 0,0);
+nappmain.c:    layout_tabs(app->statusLayoutMaxOrchestrator, app->tabStatus, 0,0);
+nappmain.c:    layout_tabs(app->statusLayoutMaxIntegrator, app->tabStatus, 0,0);
+nappmain.c:    layout_tabs(app->statusLayoutMaxScale, app->tabStatus, 0,0);
+nappmain.c:    layout_tabs(app->statusLayoutMaxMind, app->tabStatus, 0,0);
+nappmain.c:    layout_tabs(app->statusLayoutMaxGate, app->tabStatus, 0,0);
+nappmain.c:    layout_tabs(app->statusLayoutMaxLicense, app->tabStatus, 0,0);
+nappmain.c:    layout_tabs(app->statusLayoutMaxServices, app->tabStatus, 0,0);
+nappmain.c:    layout_vsize(app->statusLayoutMaxManage, 0, 300);
+nappmain.c:    layout_vsize(app->statusLayoutMaxEngine, 0, 300);
+nappmain.c:    layout_vsize(app->statusLayoutMaxAdapter, 0, 300);
+nappmain.c:    layout_vsize(app->statusLayoutMaxCore, 0, 300);
+nappmain.c:    layout_vsize(app->statusLayoutMaxOrchestrator, 0, 300);
+nappmain.c:    layout_vsize(app->statusLayoutMaxIntegrator, 0, 300);
+nappmain.c:    layout_vsize(app->statusLayoutMaxScale, 0, 300);
+nappmain.c:    layout_vsize(app->statusLayoutMaxGate, 0, 300);
+nappmain.c:    layout_vsize(app->statusLayoutMaxLicense, 0, 300);
+nappmain.c:    layout_vsize(app->statusLayoutMaxServices, 0, 300);
+nappmain.c:    textview_scroll_visible(app->textMaxManage, TRUE, TRUE);
+nappmain.c:    textview_scroll_visible(app->textMaxEngine, TRUE, TRUE);
+nappmain.c:    textview_scroll_visible(app->textMaxAdapter, TRUE, TRUE);
+nappmain.c:    textview_scroll_visible(app->textMaxCore, TRUE, TRUE);
+nappmain.c:    textview_scroll_visible(app->textMaxOrchestrator, TRUE, TRUE);
+nappmain.c:    textview_scroll_visible(app->textMaxScale, TRUE, TRUE);
+nappmain.c:    textview_scroll_visible(app->textMaxGate, TRUE, TRUE);
+nappmain.c:    textview_scroll_visible(app->textMaxLicense, TRUE, TRUE);
+nappmain.c:    textview_scroll_visible(app->textMaxServices, TRUE, TRUE);
+nappmain.c:    printf(" %d %d \n", app->layoutIndexMaxEngine, app->layoutIndexMaxAdapter);
+nappmain.c:    /* this is used when view_project windows crosses the boundaries of app->window */
+nappmain.c:    app->bar = progress_create();
+nappmain.c:    progress_width(app->bar, 50.0);
+nappmain.c:    layout_layout(baseLayout, app->buttonLayout, 0,0);
+nappmain.c:    layout_panel(baseLayout, app->statusPanel, 0,2);
+nappmain.c:    layout_progress(baseLayout, app->bar, 0,3);
+nappmain.c:        //app->screen_coordinate.x = window_get_origin(app->window).x;
+nappmain.c:        //app->screen_coordinate.y = window_get_origin(app->window).y;
+nappmain.c:        textview_printf(app->textMaxManage, "App->screen coordinate :  %f, %f\n", app->screen_coordinate.x, app->screen_coordinate.y);
+nappmain.c:        textview_scroll_caret(app->textMaxManage);
+nappmain.c:        app->sys_resolution.x = window_get_size(app->window).width;
+nappmain.c:        app->sys_resolution.y = window_get_size(app->window).height;
+nappmain.c:        textview_printf(app->textMaxManage, "App->screen size :  %f, %f\n", app->sys_resolution.x, app->sys_resolution.y);
+nappmain.c:        textview_scroll_caret(app->textMaxManage);
+nappmain.c:        layout_vsize(app->canvasLayout, 0, 1000);
+nappmain.c:        layout_vsize(app->statusLayoutMaxEngine, 0, 50);
+nappmain.c:		textview_printf(app->textMaxManage, "version = %s, author = %s, company = %s \n", basicInfo.version, basicInfo.author, basicInfo.company);
+nappmain.c:		textview_printf(app->textMaxManage, "sensor_ip = %s, sensor_port = %s, UAServer_ip = %s, UAServer_port = %s, UAServer_userid = %s, UAServer_password = %s, UAServer_hashpassword = %s \n",
+nappmain.c:		textview_printf(app->textMaxManage, "env_sslcertificateloc = %s, env_privatekeyloc = %s, env_trustlistloc = %s \n",
+nappmain.c:    window_stop_modal(app->modalWindow, 300);   /* 300 - value to be returned */
+nappmain.c:    app->sys_resolution.x = window_get_size(app->window).width;
+nappmain.c:    app->sys_resolution.y = window_get_size(app->window).height;
+nappmain.c:    //app->screen_coordinate.x = window_get_origin(app->window).x;
+nappmain.c:    //app->screen_coordinate.y = window_get_origin(app->window).y;
+nappmain.c:    textview_printf(app->textMaxManage, "app->window size : width %f height %f \n", app->sys_resolution.x, app->sys_resolution.y);
+nappmain.c:    textview_scroll_caret(app->textMaxManage);
+nappmain.c:    app->modalWindow = modalLogin;
+nappmain.c:    /* handle to target window to align centre to app->window centre */
+nappmain.c:    origin.x = app->sys_resolution.x / 2 - window_x / 2 ;
+nappmain.c:    origin.y = app->sys_resolution.y / 2 - window_y / 2 ;
+nappmain.c:textview_printf(app->textMaxManage, "nappmain.c (size_x : %f, size_y : %f)\n", window_x, window_y);
+nappmain.c:textview_printf(app->textMaxManage, "nappmain.c (app->sys_resolution.x = %f, app->sys-resolution.y = %f\n", app->sys_resolution.x, app->sys_resolution.y);
+nappmain.c:printf("nappmain.c (app->sys_resolution.x = %f, app->sys_resolution.y = %f\n", app->sys_resolution.x, app->sys_resolution.y);
+nappmain.c:textview_printf(app->textMaxManage, "nappmain.c (origin.x = %f, origin.y = %f\n", origin.x, origin.y);
+nappmain.c:    window_destroy(&app->modalWindow);
+nappmain.c:	bufferMem = run_remote_command(maxAdapterHost, user, password, cmd, pipe, bufferMem, app->textMaxAdapter, filename);
+nappmain.c:	app->memtotal = ptr->memtotal;
+nappmain.c:	app->memfree = ptr->memfree;
+nappmain.c:	app->memavailable = ptr->memavailable;
+nappmain.c:	printf("%s : app->memtotal = %llu \n", __func__, app->memtotal);
+nappmain.c:	printf("%s : app->memfree = %llu \n", __func__, app->memfree);
+nappmain.c:	printf("%s : app->memavailable = %llu \n", __func__, app->memavailable);
+nappmain.c:        bmutex_lock(app->mutex);
+nappmain.c:        sprintf(memused, "%llu", app->memtotal - app->memfree);
+nappmain.c:        sprintf(memfree, "%llu", app->memfree);
+nappmain.c:        sprintf(memtotal, "%llu", app->memtotal);
+nappmain.c:        label_text(app->labelRAMUsedFigure, memused );
+nappmain.c:        label_text(app->labelRAMFreeFigure, memfree);
+nappmain.c:        label_text(app->labelRAMTotalFigure, memtotal);
+nappmain.c:        textview_printf(app->textMaxAdapter, memused);
+nappmain.c:        textview_printf(app->textMaxAdapter, memfree);
+nappmain.c:        textview_printf(app->textMaxAdapter, memtotal);
+nappmain.c:        textview_writef(app->textMaxAdapter, " \n");
+nappmain.c:        textview_scroll_caret(app->textMaxAdapter);
+nappmain.c:        bmutex_unlock(app->mutex);
+nappmain.c:        bmutex_lock(app->mutex);
+nappmain.c:	sprintf(memused, "%llu", app->memtotal - app->memfree);
+nappmain.c:	sprintf(memfree, "%llu", app->memfree );
+nappmain.c:	sprintf(memtotal, "%llu", app->memtotal );
+nappmain.c:	label_text(app->labelRAMUsedFigure, memused );
+nappmain.c:	label_text(app->labelRAMFreeFigure, memfree);
+nappmain.c:	label_text(app->labelRAMTotalFigure, memtotal);
+nappmain.c:	textview_printf(app->textMaxAdapter, memused);
+nappmain.c:	textview_printf(app->textMaxAdapter, memfree);
+nappmain.c:	textview_printf(app->textMaxAdapter, memtotal);
+nappmain.c:        textview_writef(app->textMaxAdapter, " \n");
+nappmain.c:        textview_scroll_caret(app->textMaxAdapter);
+nappmain.c:        bmutex_unlock(app->mutex);
+nappmain.c:	buffer = run_remote_command(maxAdapterHost, user, password, cmd, pipe, buffer, app->textMaxAdapter, filename);
+nappmain.c:	textview_printf(app->textMaxAdapter, "no_of_cpu = %d \n", no_of_cpu);
+nappmain.c:		textview_printf(app->textMaxAdapter, "[%s]:[%d] = %f \n", arrayCPUStats1[i].cpu_label, i+1, arrayCPUStats1[i].user);
+nappmain.c:        bmutex_lock(app->mutex);
+nappmain.c:        textview_writef(app->textMaxAdapter, " \n");
+nappmain.c:        textview_scroll_caret(app->textMaxManage);
+nappmain.c:        bmutex_unlock(app->mutex);
+nappmain.c:        bmutex_lock(app->mutex);
+nappmain.c:        textview_writef(app->textMaxManage, "Websocket Connection opened.. waiting for handshake .. \n");
+nappmain.c:        textview_scroll_caret(app->textMaxManage);
+nappmain.c:        bmutex_unlock(app->mutex);
+nappmain.c:    app->mutex = bmutex_create();
+nappmain.c:    if (app->mutex == NULL)
+nappmain.c:    app->nofilename = 1;        /* at initial launch, there is no filename indicated */
+nappmain.c:    app->window = window_create(ekWINDOW_EDGE | ekWINDOW_TITLE | ekWINDOW_MAX | ekWINDOW_MIN | ekWINDOW_CLOSE | ekWINDOW_RESIZE);
+nappmain.c:    window_title(app->window, "MaxMachines Product Demonstration");
+nappmain.c:    window_origin(app->window, v2df(500, 200));         /* move window to position */
+nappmain.c:    window_panel(app->window, panel); /* create a panel and attach to app->window */
+nappmain.c:    window_maximize(app->window);
+nappmain.c:    window_show(app->window);
+nappmain.c://    app->sys_resolution.x = window_get_size(app->window).width;
+nappmain.c://    app->sys_resolution.y = window_get_size(app->window).height;
+nappmain.c://    app->screen_coordinate.x = window_get_origin(app->window).x;
+nappmain.c://    app->screen_coordinate.y = window_get_origin(app->window).y;
+nappmain.c://    textview_printf(app->textMaxManage, "app->window size : width %f height %f \n", app->sys_resolution.x, app->sys_resolution.y);
+nappmain.c://    textview_scroll_caret(app->textMaxManage);
+nappmain.c:    app->view_fileToolbar_IsShown = TRUE;
+nappmain.c:    app->view_viewToolbar_IsShown = TRUE;
+nappmain.c:    app->view_maxEngineToolbar_IsShown = TRUE;
+nappmain.c:    app->view_maxIntegratorToolbar_IsShown = TRUE;
+nappmain.c:    app->view_maxAdapterToolbar_IsShown = TRUE;
+nappmain.c:    app->view_maxGateToolbar_IsShown = TRUE;
+nappmain.c:    app->view_maxScaleToolbar_IsShown = TRUE;
+nappmain.c:    app->view_maxOrchestratorToolbar_IsShown = TRUE;
+nappmain.c:    app->view_maxMindToolbar_IsShown = TRUE;
+nappmain.c:    app->view_maxLicenseToolbar_IsShown = TRUE;
+nappmain.c:    LoginDialog(app, app->window);
+nappmain.c:    /*createSubWindows(app->window); */
+nappmain.c:    ViewProject(app, app->window);
+nappmain.c:    ViewAddressSpace(app, app->window);
+nappmain.c:    ViewLog(app, app->window);
+nappmain.c:    ViewAttributes(app, app->window);
+nappmain.c:    ViewReferences(app, app->window);
+nappmain.c:    window_OnClose(app->window, listener(app, i_OnClose, App));
+nappmain.c:    window_OnMoved(app->window, listener(app, i_OnMoved_AppWindow, App));
+nappmain.c:    window_OnResize(app->window, listener(app, i_OnResize_AppWindow, App));
+nappmain.c:    window_show(app->imaginaryLeftWindow);
+nappmain.c:    window_show(app->imaginaryTopWindow);
+nappmain.c:    window_show(app->imaginaryRightWindow);
+nappmain.c:    window_show(app->imaginaryBottomWindow);
+napp_maxAdapter.c:	//tabs_selected(app->tabStatus, 2);
+napp_maxAdapter.c:        textview_printf(app->textMaxAdapter, "napp_maxAdapter.c : Entering maxAdapter_StopViewLiveLogs() \n");
+napp_maxAdapter.c:	status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, NULL, app->textMaxAdapter, NULL);
+napp_maxAdapter.c:        status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, NULL, app->textMaxAdapter, NULL);
+napp_maxAdapter.c:        status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, NULL, app->textMaxAdapter, NULL);
+napp_maxAdapter.c:	status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, NULL, app->textMaxAdapter, NULL);
+napp_maxAdapter.c:		textview_printf(app->textMaxAdapter, "Successfully stop live logs\n");
+napp_maxAdapter.c:		textview_printf(app->textMaxAdapter, "failed to stop live logs\n");
+napp_maxAdapter.c:        progress_undefined(app->bar, TRUE);
+napp_maxAdapter.c:        progress_undefined(app->bar, FALSE);
+napp_maxAdapter.c:	//tabs_selected(app->tabStatus, 2);
+napp_maxAdapter.c:        textview_printf(app->text, "napp_maxAdapter.c : Entering maxAdapter_StartViewLiveLogs() \n");
+napp_maxAdapter.c:                // run the journalctl command and pipe to app->textMaxAdapter (widget)
+napp_maxAdapter.c:	status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, NULL, app->textMaxAdapter, NULL);
+napp_maxAdapter.c:		textview_printf(app->textMaxAdapter, "Successfully started systemd-journal.socket \n");
+napp_maxAdapter.c:		textview_printf(app->textMaxAdapter, "failed to start systemd-journal.socket \n");
+napp_maxAdapter.c:        status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, NULL, app->textMaxAdapter, NULL);
+napp_maxAdapter.c:		textview_printf(app->textMaxAdapter, "Successfully started systemd-journald-dev-log.socket \n");
+napp_maxAdapter.c:		textview_printf(app->textMaxAdapter, "failed to start systemd-journald-dev-log.socket \n");
+napp_maxAdapter.c:        status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, NULL, app->textMaxAdapter, NULL);
+napp_maxAdapter.c:		textview_printf(app->textMaxAdapter, "Successfully started systemd-journald-audit.socket \n");
+napp_maxAdapter.c:		textview_printf(app->textMaxAdapter, "failed to start systemd-journald-audit.socket \n");
+napp_maxAdapter.c:        progress_undefined(app->bar, TRUE);
+napp_maxAdapter.c:        progress_undefined(app->bar, FALSE);
+napp_maxAdapter.c:	//tabs_selected(app->tabStatus, 2);
+napp_maxAdapter.c:        status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, NULL, app->textMaxAdapter, NULL);
+napp_maxAdapter.c:        if (app->maxAdapter_viewLiveLogs_IsShown)
+napp_maxAdapter.c:                // run the journalctl command and pipe to app->textMaxAdapter (widget)
+napp_maxAdapter.c:        status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, NULL, app->textMaxAdapter, NULL);
+napp_maxAdapter.c:        progress_undefined(app->bar, TRUE);
+napp_maxAdapter.c:        progress_undefined(app->bar, FALSE);
+napp_maxAdapter.c:	//tabs_selected(app->tabStatus, 2);
+napp_maxAdapter.c:        status = run_remote_command(maxAdapterHost, user, password, cmd, pipe, NULL, app->textMaxAdapter, NULL);
+napp_maxAdapter.c:        //progress_undefined(app->bar, TRUE);
+napp_maxAdapter.c:        progress_undefined(app->bar, FALSE);
+napp_maxAdapter.c:	//tabs_selected(app->tabStatus, 2);
+napp_maxAdapter.c:	//tabs_selected(app->tabStatus, 2);
+napp_maxAdapter.c:	//tabs_selected(app->tabStatus, 2);
+napp_maxAdapter.c:    textview_printf(app->textMaxAdapter, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+napp_maxAdapter.c:    textview_scroll_caret(app->textMaxAdapter);
+napp_maxAdapter.c:    app->modalWindow = modalClient;
+napp_maxAdapter.c:   /* handle to target window to align centre to app->window centre */
+napp_maxAdapter.c:textview_printf(app->textMaxAdapter, "MaxAdapter->Historian (size_x : %f, size_y : %f)\n", window_x, window_y);
+napp_maxAdapter.c:    origin.x = app->sys_resolution.x / 2 - window_x / 2 ;
+napp_maxAdapter.c:    origin.y = app->sys_resolution.y / 2 - window_y / 2 ;
+napp_maxAdapter.c:textview_printf(app->textMaxAdapter, "MaxAdapter->Historian (origin.x = %f, origin.y = %f\n", origin.x, origin.y);
+napp_maxAdapter.c:    window_destroy(&app->modalWindow);
+napp_maxAdapter.c:	//tabs_selected(app->tabStatus, 2);
+napp_maxAdapter.c:	//tabs_selected(app->tabStatus, 2);
+napp_maxAdapter.c:	//tabs_selected(app->tabStatus, 2);
+napp_maxAdapter.c:    textview_printf(app->textMaxAdapter, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+napp_maxAdapter.c:    textview_scroll_caret(app->textMaxAdapter);
+napp_maxAdapter.c:    app->modalWindow = modalClient;
+napp_maxAdapter.c:    /* handle to target window to align centre to app->window centre */
+napp_maxAdapter.c:textview_printf(app->textMaxAdapter, "MaxAdapter->reverseConnect (size_x : %f, size_y : %f)\n", window_x, window_y);
+napp_maxAdapter.c:    origin.x = app->sys_resolution.x / 2 - window_x / 2 ;
+napp_maxAdapter.c:    origin.y = app->sys_resolution.y / 2 - window_y / 2 ;
+napp_maxAdapter.c:textview_printf(app->textMaxAdapter, "MaxAdapter->reverseConnect (origin.x = %f, origin.y = %f\n", origin.x, origin.y);
+napp_maxAdapter.c:    window_destroy(&app->modalWindow);
+napp_maxAdapter.c:	tabs_selected(app->tabStatus, 2);
+napp_maxAdapter.c:               layout_textview(app->statusLayoutMaxAdapter, app->textMaxAdapter, 0, 1);
+napp_maxAdapter.c:                panel_visible_layout(app->statusPanel, app->layoutIndexMaxAdapter);
+napp_maxAdapter.c:                panel_update(app->statusPanel);
+napp_maxAdapter.c:                textview_scroll_visible(app->textMaxAdapter, TRUE, TRUE);
+napp_maxAdapter.c:        textview_printf(app->textMaxAdapter, "napp_maxAdapter.c : Entering maxAdapterStartupParameters() \n");
+napp_maxAdapter.c:                textview_printf(app->textMaxAdapter, "napp_maxAdapter.c : Here \n");
+napp_maxAdapter.c:                layout_show_col(app->canvasLayout, 0, FALSE);
+napp_maxAdapter.c:                layout_show_row(app->canvasLayout, 0, FALSE);
+napp_maxAdapter.c:                imgView = layout_get_imageview(app->canvasLayout, 0,0); // get the handle to the imageView in the layout
+napp_maxAdapter.c:                layout_imageview(app->canvasLayout, imgView, 0,0); // assign the new imageView back to the layout
+napp_maxAdapter.c:                layout_show_col(app->canvasLayout, 0, TRUE);
+napp_maxAdapter.c:                layout_show_row(app->canvasLayout, 0, TRUE);
+napp_maxAdapter.c:                textview_printf(app->textMaxAdapter, "maxAdapter.c : Error loading /home/pi/nappgui_src/jacky/img/startupParameters.jpg\n");
+napp_maxAdapter.c:	tabs_selected(app->tabStatus, 2);
+napp_maxAdapter.c:               layout_textview(app->statusLayoutMaxAdapter, app->textMaxAdapter, 0, 1);
+napp_maxAdapter.c:                panel_visible_layout(app->statusPanel, app->layoutIndexMaxAdapter);
+napp_maxAdapter.c:                panel_update(app->statusPanel);
+napp_maxAdapter.c:                textview_scroll_visible(app->textMaxAdapter, TRUE, TRUE);
+napp_maxAdapter.c:        textview_printf(app->textMaxAdapter, "napp_maxAdapter.c : Entering maxAdapterViewStatistics() \n");
+napp_maxAdapter.c:                textview_printf(app->textMaxAdapter, "napp_maxAdapter.c : Here \n");
+napp_maxAdapter.c:                layout_show_col(app->canvasLayout, 0, FALSE);
+napp_maxAdapter.c:                layout_show_row(app->canvasLayout, 0, FALSE);
+napp_maxAdapter.c:                imgView = layout_get_imageview(app->canvasLayout, 0,0); // get the handle to the imageView in the layout
+napp_maxAdapter.c:                layout_imageview(app->canvasLayout, imgView, 0,0); // assign the new imageView back to the layout
+napp_maxAdapter.c:                layout_show_col(app->canvasLayout, 0, TRUE);
+napp_maxAdapter.c:                layout_show_row(app->canvasLayout, 0, TRUE);
+napp_maxAdapter.c:                textview_printf(app->textMaxAdapter, "napp_maxAdapter.c : Error loading /home/pi/nappgui_src/jacky/img/maxAdapterViewStatistics.png\n");
+napp_maxAdapter.c:	tabs_selected(app->tabStatus, 2);
+napp_maxAdapter.c:               layout_textview(app->statusLayoutMaxAdapter, app->textMaxAdapter, 0, 1);
+napp_maxAdapter.c:                panel_visible_layout(app->statusPanel, app->layoutIndexMaxAdapter);
+napp_maxAdapter.c:                panel_update(app->statusPanel);
+napp_maxAdapter.c:                textview_scroll_visible(app->textMaxAdapter, TRUE, TRUE);
+napp_maxAdapter.c:	tabs_selected(app->tabStatus, 2);
+napp_maxAdapter.c:               layout_textview(app->statusLayoutMaxAdapter, app->textMaxAdapter, 0, 1);
+napp_maxAdapter.c:                panel_visible_layout(app->statusPanel, app->layoutIndexMaxAdapter);
+napp_maxAdapter.c:                panel_update(app->statusPanel);
+napp_maxAdapter.c:                textview_scroll_visible(app->textMaxAdapter, TRUE, TRUE);
+napp_maxAdapter.c:    textview_printf(app->textMaxAdapter, "Button <Start> click (%d)\n", app->clicks);
+napp_maxAdapter.c:    textview_scroll_caret(app->textMaxAdapter);
+napp_maxAdapter.c:    window_stop_modal(app->modalWindow, 300);   /* 300 - value to be returned */
+napp_maxAdapter.c:	progress_undefined(app->bar, TRUE);
+napp_maxAdapter.c:	textview_printf(app->textMaxAdapter, "start discovery : type = %s, number of iterations to run : %d \n", type, num_of_iterations_to_run);
+napp_maxAdapter.c:	textview_printf(app->textMaxAdapter, "napp_maxAdapter.c : maxAdapterDiscoverDevices() : %d \n", results);
+napp_maxAdapter.c:        //progress_undefined(app->bar, TRUE);
+napp_maxAdapter.c:        progress_undefined(app->bar, FALSE);
+napp_maxAdapter.c:        //progress_undefined(app->bar, TRUE);
+napp_maxAdapter.c:        //progress_undefined(app->bar, TRUE);
+napp_maxAdapter.c:	//tabs_selected(app->tabStatus, 2);
+napp_maxAdapter.c:	tabs_selected(app->tabStatus, 2);
+napp_maxAdapter.c:               layout_textview(app->statusLayoutMaxAdapter, app->textMaxAdapter, 0, 1);
+napp_maxAdapter.c:                panel_visible_layout(app->statusPanel, app->layoutIndexMaxAdapter);
+napp_maxAdapter.c:                panel_update(app->statusPanel);
+napp_maxAdapter.c:                textview_scroll_visible(app->textMaxAdapter, TRUE, TRUE);
+napp_maxAdapter.c:    app->modalWindow = modalClient;
+napp_maxAdapter.c:	tabs_selected(app->tabStatus, 2);
+napp_maxAdapter.c:               layout_textview(app->statusLayoutMaxAdapter, app->textMaxAdapter, 0, 1);
+napp_maxAdapter.c:                panel_visible_layout(app->statusPanel, app->layoutIndexMaxAdapter);
+napp_maxAdapter.c:                panel_update(app->statusPanel);
+napp_maxAdapter.c:                textview_scroll_visible(app->textMaxAdapter, TRUE, TRUE);
+napp_maxAdapter.c:	tabs_selected(app->tabStatus, 2);
+napp_maxAdapter.c:               layout_textview(app->statusLayoutMaxAdapter, app->textMaxAdapter, 0, 1);
+napp_maxAdapter.c:                panel_visible_layout(app->statusPanel, app->layoutIndexMaxAdapter);
+napp_maxAdapter.c:                panel_update(app->statusPanel);
+napp_maxAdapter.c:                textview_scroll_visible(app->textMaxAdapter, TRUE, TRUE);
+napp_maxAdapter.c:	// tabs_selected(app->tabStatus, 2);
+napp_maxAdapter.c:        textview_printf(app->textMaxAdapter, "napp_maxAdapter.c : Entering maxAdapterNodesetEditor() \n");
+napp_maxAdapter.c:                textview_printf(app->textMaxAdapter, "napp_maxAdapter.c : Here \n");
+napp_maxAdapter.c:                layout_show_col(app->canvasLayout, 0, FALSE);
+napp_maxAdapter.c:                layout_show_row(app->canvasLayout, 0, FALSE);
+napp_maxAdapter.c:                imgView = layout_get_imageview(app->canvasLayout, 0,0); // get the handle to the imageView in the layout
+napp_maxAdapter.c:                layout_imageview(app->canvasLayout, imgView, 0,0); // assign the new imageView back to the layout
+napp_maxAdapter.c:                layout_show_col(app->canvasLayout, 0, TRUE);
+napp_maxAdapter.c:                layout_show_row(app->canvasLayout, 0, TRUE);
+napp_maxAdapter.c:                textview_printf(app->textMaxAdapter, "napp_maxAdapter.c : Error loading /home/pi/nappgui_src/jacky/img/editDeviceNodeset.jpg\n");
+napp_maxAdapter.c:	//tabs_selected(app->tabStatus, 2);
+napp_maxAdapter.c:        textview_printf(app->textMaxAdapter, "napp_maxAdapter.c : Entering maxAdapterManualConfiguration() \n");
+napp_maxAdapter.c:                textview_printf(app->textMaxAdapter, "napp_maxAdapter.c : Here \n");
+napp_maxAdapter.c:                layout_show_col(app->canvasLayout, 0, FALSE);
+napp_maxAdapter.c:                layout_show_row(app->canvasLayout, 0, FALSE);
+napp_maxAdapter.c:                imgView = layout_get_imageview(app->canvasLayout, 0,0); // get the handle to the imageView in the layout
+napp_maxAdapter.c:                layout_imageview(app->canvasLayout, imgView, 0,0); // assign the new imageView back to the layout
+napp_maxAdapter.c:                layout_show_col(app->canvasLayout, 0, TRUE);
+napp_maxAdapter.c:                layout_show_row(app->canvasLayout, 0, TRUE);
+napp_maxAdapter.c:                textview_printf(app->textMaxAdapter, "napp_maxAdapter.c : Error loading /home/pi/nappgui_src/jacky/img/maxAdapter.jpg\n");
+napp_maxCore.c:        textview_printf(app->text, "napp_maxEngine.c : Entering maxEngineRegisterAdapters() \n");
+napp_maxCore.c:                textview_printf(app->text, "napp_maxEngine.c : Here \n");
+napp_maxCore.c:                layout_show_col(app->canvasLayout, 0, FALSE);
+napp_maxCore.c:                layout_show_row(app->canvasLayout, 0, FALSE);
+napp_maxCore.c:                imgView = layout_get_imageview(app->canvasLayout, 0,0); // get the handle to the imageView in the layout
+napp_maxCore.c:                layout_imageview(app->canvasLayout, imgView, 0,0); // assign the new imageView back to the layout
+napp_maxCore.c:                layout_show_col(app->canvasLayout, 0, TRUE);
+napp_maxCore.c:                layout_show_row(app->canvasLayout, 0, TRUE);
+napp_maxCore.c:                textview_printf(app->text, "napp_maxEngine.c : Error loading /home/pi/nappgui_src/jacky/img/registerAdapters.jpg\n");
+napp_maxIntegrator.c:	status = run_remote_command(maxIntegratorHost, user, password, cmd, pipe, buffer, app->textMaxIntegrator, NULL);
+napp_maxIntegrator.c:        if (app->maxIntegrator_viewLiveLogs_IsShown)
+napp_maxIntegrator.c:                // run the journalctl command and pipe to app->textMaxAdapter (widget)
+napp_maxIntegrator.c:        status = run_remote_command(maxIntegratorHost, user, password, cmd, pipe, buffer, app->textMaxIntegrator, NULL);
+napp_maxIntegrator.c:	//progress_undefined(app->bar, TRUE);
+napp_maxIntegrator.c:	progress_undefined(app->bar, FALSE);
+napp_maxIntegrator.c:    	progress_value(app->bar, 0.0);
+napp_maxIntegrator.c:	status = run_remote_command(maxIntegratorHost, user, password, cmd, pipe, buffer, app->textMaxIntegrator, NULL);
+napp_maxIntegrator.c:        if (app->maxIntegrator_viewLiveLogs_IsShown)
+napp_maxIntegrator.c:                // run the journalctl command and pipe to app->textMaxAdapter (widget)
+napp_maxIntegrator.c:        status = run_remote_command(maxIntegratorHost, user, password, cmd, pipe, buffer, app->textMaxIntegrator, NULL);
+napp_maxIntegrator.c:	//progress_undefined(app->bar, TRUE);
+napp_maxIntegrator.c:        progress_undefined(app->bar, FALSE);
+napp_maxIntegrator.c:    	progress_value(app->bar, 0.0);
+napp_maxIntegrator.c:    textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+napp_maxIntegrator.c:    textview_scroll_caret(app->text);
+napp_maxIntegrator.c:    app->modalWindow = modalClient;
+napp_maxIntegrator.c:    /* handle to target window to align centre to app->window centre */
+napp_maxIntegrator.c:textview_printf(app->text, "MaxIntegrator->Ldap (size_x : %d, size_y : %d)\n", window_x, window_y);
+napp_maxIntegrator.c:    origin.x = app->sys_resolution.x / 2 - window_x / 2 ;
+napp_maxIntegrator.c:    origin.y = app->sys_resolution.y / 2 - window_y / 2 ;
+napp_maxIntegrator.c:textview_printf(app->text, "MaxIntegrator->Ldap (origin.x = %d, origin.y = %d\n", origin.x, origin.y);
+napp_maxIntegrator.c:    window_destroy(&app->modalWindow);
+napp_maxIntegrator.c:    textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+napp_maxIntegrator.c:    textview_scroll_caret(app->text);
+napp_maxIntegrator.c:    app->modalWindow = modalClient;
+napp_maxIntegrator.c:   /* handle to target window to align centre to app->window centre */
+napp_maxIntegrator.c:textview_printf(app->text, "MaxIntegrator->LDS (size_x : %f, size_y : %f)\n", window_x, window_y);
+napp_maxIntegrator.c:    origin.x = app->sys_resolution.x / 2 - window_x / 2 ;
+napp_maxIntegrator.c:    origin.y = app->sys_resolution.y / 2 - window_y / 2 ;
+napp_maxIntegrator.c:textview_printf(app->text, "MaxIntegrator->LDS (origin.x = %f, origin.y = %f\n", origin.x, origin.y);
+napp_maxIntegrator.c:    window_destroy(&app->modalWindow);
+napp_maxIntegrator.c:    textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+napp_maxIntegrator.c:    textview_scroll_caret(app->text);
+napp_maxIntegrator.c:    app->modalWindow = modalClient;
+napp_maxIntegrator.c:   /* handle to target window to align centre to app->window centre */
+napp_maxIntegrator.c:textview_printf(app->text, "MaxIntegrator->Historian (size_x : %f, size_y : %f)\n", window_x, window_y);
+napp_maxIntegrator.c:    origin.x = app->sys_resolution.x / 2 - window_x / 2 ;
+napp_maxIntegrator.c:    origin.y = app->sys_resolution.y / 2 - window_y / 2 ;
+napp_maxIntegrator.c:textview_printf(app->text, "MaxIntegrator->Historian (origin.x = %f, origin.y = %f\n", origin.x, origin.y);
+napp_maxIntegrator.c:    window_destroy(&app->modalWindow);
+napp_maxIntegrator.c:    textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+napp_maxIntegrator.c:    textview_scroll_caret(app->text);
+napp_maxIntegrator.c:    app->modalWindow = modalClient;
+napp_maxIntegrator.c:   /* handle to target window to align centre to app->window centre */
+napp_maxIntegrator.c:textview_printf(app->text, "MaxIntegrator->MQTT (size_x : %f, size_y : %f)\n", window_x, window_y);
+napp_maxIntegrator.c:    origin.x = app->sys_resolution.x / 2 - window_x / 2 ;
+napp_maxIntegrator.c:    origin.y = app->sys_resolution.y / 2 - window_y / 2 ;
+napp_maxIntegrator.c:textview_printf(app->text, "MaxIntegrator->MQTT (origin.x = %f, origin.y = %f\n", origin.x, origin.y);
+napp_maxIntegrator.c:    window_destroy(&app->modalWindow);
+napp_maxOrchestrator.c:	// error : ogl3d_make_current(app->gl_context);
+napp_maxOrchestrator.c:	ogl3d_begin_draw(app->gl_context);
+napp_maxOrchestrator.c:	// error : ogl3d_swap_buffers(app->gl_context);
+napp_maxOrchestrator.c:	textview_printf(app->text, "napp_maxOrchestrator.c : Entering maxOrchestratorDefineDataflow() \n"); 
+napp_maxOrchestrator.c:		textview_printf(app->textMaxOrchestrator, "napp_maxOrchestrator.c : Define Dataflow \n");
+napp_maxOrchestrator.c:		if (!app->canvasLayout)
+napp_maxOrchestrator.c:			app->canvasLayout = layout_create(1,1);
+napp_maxOrchestrator.c:		layout_show_col(app->canvasLayout, 0, FALSE);	// hide
+napp_maxOrchestrator.c:		layout_show_row(app->canvasLayout, 0, FALSE);	// hide
+napp_maxOrchestrator.c:		imgView = layout_get_imageview(app->canvasLayout, 0,0); // get the handle to the imageView in the layout
+napp_maxOrchestrator.c:        	layout_imageview(app->canvasLayout, imgView, 0,0); // assign the new imageView back to the layout
+napp_maxOrchestrator.c:		layout_show_col(app->canvasLayout, 0, TRUE);	// show
+napp_maxOrchestrator.c:		layout_show_row(app->canvasLayout, 0, TRUE);	// show
+napp_maxOrchestrator.c:		textview_printf(app->text, "napp_maxOrchestrator.c : Error loading /home/pi/nappgui_src/jacky/img/maxOrchestrator.png\n");
+napp_maxOrchestrator.c:	//panel_size(app->panelABottom, s2df(1080.0f, 450.0f));
+napp_maxOrchestrator.c:	layout_tabstop(app->layoutATop, 0,0, ekKEY_TAB);
+napp_maxOrchestrator.c:	splitview_webview(app->split2b, webview, FALSE);
+napp_maxOrchestrator.c:	//panel_layout(app->panelABottom, app->layoutABottom);
+napp_maxOrchestrator.c:	//app->layoutABottom = layout_create(1,1);
+napp_maxOrchestrator.c:	//app->panelABottom = panel_scroll(TRUE, TRUE);
+napp_maxOrchestrator.c:	layout_webview(app->layoutATop, webview, 0,0);
+napp_maxOrchestrator.c:	layout_hexpand(app->layoutATop, 0);
+napp_maxOrchestrator.c:	layout_vexpand(app->layoutATop, 0);
+napp_maxOrchestrator.c:        //panel_layout(app->panelABottom, app->layoutABottom); - already perform this step during initialisation (nappmain.c)
+napp_maxOrchestrator.c:	panel_update(app->panelATop);
+napp_maxServices.c:        textview_printf(app->text, "napp_maxEngine.c : Entering maxEngineUsersAccount() \n");
+napp_maxServices.c:                textview_printf(app->text, "napp_maxEngine.c : Here \n");
+napp_maxServices.c:                layout_show_col(app->canvasLayout, 0, FALSE);
+napp_maxServices.c:                layout_show_row(app->canvasLayout, 0, FALSE);
+napp_maxServices.c:                imgView = layout_get_imageview(app->canvasLayout, 0,0); // get the handle to the imageView in the layout
+napp_maxServices.c:                layout_imageview(app->canvasLayout, imgView, 0,0); // assign the new imageView back to the layout
+napp_maxServices.c:                layout_show_col(app->canvasLayout, 0, TRUE);
+napp_maxServices.c:                layout_show_row(app->canvasLayout, 0, TRUE);
+napp_maxServices.c:                textview_printf(app->text, "napp_maxEngine.c : Error loading /home/pi/nappgui_src/jacky/img/maxEngineUsersLogin.png\n");
+napp_maxServices.c:        textview_printf(app->text, "napp_maxEngine.c : Entering maxEngineSystemsAccount() \n");
+napp_maxServices.c:                textview_printf(app->text, "napp_maxEngine.c : Here \n");
+napp_maxServices.c:                layout_show_col(app->canvasLayout, 0, FALSE);
+napp_maxServices.c:                layout_show_row(app->canvasLayout, 0, FALSE);
+napp_maxServices.c:                imgView = layout_get_imageview(app->canvasLayout, 0,0); // get the handle to the imageView in the layout
+napp_maxServices.c:                layout_imageview(app->canvasLayout, imgView, 0,0); // assign the new imageView back to the layout
+napp_maxServices.c:                layout_show_col(app->canvasLayout, 0, TRUE);
+napp_maxServices.c:                layout_show_row(app->canvasLayout, 0, TRUE);
+napp_maxServices.c:                textview_printf(app->text, "napp_maxEngine.c : Error loading /home/pi/nappgui_src/jacky/img/maxEngineSystemsLogin.png\n");
+napp_maxServices.c:    textview_printf(app->text, "Filename is %s, nofilename is %d \n", app->savedFile, app->nofilename);
+napp_maxServices.c:    textview_scroll_caret(app->text);
+napp_maxServices.c:    app->modalWindow = modalClient;
+napp_maxServices.c:    window_destroy(&app->modalWindow);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "Project->New Menu click (%d)\n", app->clicks);
+nappmenu.c:        textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    /*createAttributesWindow(app->window);*/
+nappmenu.c:    textview_printf(app->textMaxAdapter, "Project->Open Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    FileOpen(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "Project->Save Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    FileSave(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "Project->Save As Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    FileSaveAs(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "Project->Close Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    FileClose(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "View->Interconnectivity Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    ViewInterconnectivity(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "View->Project Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    ViewProject(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "View->Attributes Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    ViewAttributes(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "View->References Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    ViewReferences(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "View->Address Space Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    ViewAddressSpace(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "View->maxAdapter Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    ViewmaxAdapter(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "View->maxGate Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    ViewmaxGate(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "View->maxIntegrator Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    ViewmaxIntegrator(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "View->Log Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    ViewLog(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "View->File Toolbar Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    app->view_fileToolbar_IsShown = !app->view_fileToolbar_IsShown;
+nappmenu.c:    if (app->view_fileToolbar_IsShown) {
+nappmenu.c:	menuitem_state(app->view_fileToolbar, ekGUI_ON);
+nappmenu.c:	textview_printf(app->textMaxAdapter, "View->File Toolbar : showing flat buttons \n", app->clicks);
+nappmenu.c:	layout_show_col(app->buttonLayout, 0, TRUE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 1, TRUE);
+nappmenu.c:	layout_show_col(app->buttonLayout, 2, TRUE);
+nappmenu.c:	layout_show_col(app->buttonLayout, 3, TRUE);
+nappmenu.c:	layout_show_col(app->buttonLayout, 4, TRUE);
+nappmenu.c:	layout_show_col(app->buttonLayout, 5, TRUE);
+nappmenu.c:	menuitem_state(app->view_fileToolbar, ekGUI_OFF);
+nappmenu.c:	textview_printf(app->textMaxAdapter, "View->File Toolbar : hiding flat buttons \n", app->clicks);
+nappmenu.c:	layout_show_col(app->buttonLayout, 0, FALSE);
+nappmenu.c:	layout_show_col(app->buttonLayout, 1, FALSE);
+nappmenu.c:	layout_show_col(app->buttonLayout, 2, FALSE);
+nappmenu.c:	layout_show_col(app->buttonLayout, 3, FALSE);
+nappmenu.c:	layout_show_col(app->buttonLayout, 4, FALSE);
+nappmenu.c:	layout_show_col(app->buttonLayout, 5, FALSE);
+nappmenu.c:    layout_update(app->buttonLayout);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "View->View Toolbar Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    app->view_viewToolbar_IsShown = !app->view_viewToolbar_IsShown;
+nappmenu.c:    if (app->view_viewToolbar_IsShown) {
+nappmenu.c:        menuitem_state(app->view_viewToolbar, ekGUI_ON);
+nappmenu.c:        textview_printf(app->textMaxAdapter, "Toolbars->View Toolbar : showing flat buttons \n", app->clicks);
+nappmenu.c:        layout_show_col(app->buttonLayout, 6, TRUE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 7, TRUE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 8, TRUE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 9, TRUE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 10, TRUE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 11, TRUE);
+nappmenu.c:        menuitem_state(app->view_viewToolbar, ekGUI_OFF);
+nappmenu.c:        textview_printf(app->textMaxAdapter, "Toolbars->View Toolbar : hiding flat buttons \n", app->clicks);
+nappmenu.c:        layout_show_col(app->buttonLayout, 6, FALSE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 7, FALSE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 8, FALSE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 9, FALSE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 10, FALSE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 11, FALSE);
+nappmenu.c:    layout_update(app->buttonLayout);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "View->maxEngine Toolbar Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    app->view_maxEngineToolbar_IsShown = !app->view_maxEngineToolbar_IsShown;
+nappmenu.c:    if (app->view_maxEngineToolbar_IsShown) {
+nappmenu.c:        menuitem_state(app->view_maxEngineToolbar, ekGUI_ON);
+nappmenu.c:        textview_printf(app->textMaxAdapter, "Toolbars->maxEngine Toolbar : showing flat buttons \n", app->clicks);
+nappmenu.c:        layout_show_col(app->buttonLayout, 12, TRUE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 13, TRUE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 14, TRUE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 15, TRUE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 16, TRUE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 17, TRUE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 18, TRUE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 19, TRUE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 20, TRUE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 21, TRUE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 22, TRUE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 23, TRUE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 24, TRUE);
+nappmenu.c:	layout_show_col(app->buttonLayout, 25, TRUE);
+nappmenu.c:        menuitem_state(app->view_maxEngineToolbar, ekGUI_OFF);
+nappmenu.c:        textview_printf(app->textMaxAdapter, "Toolbars->maxEngine Toolbar : hiding flat buttons \n", app->clicks);
+nappmenu.c:        layout_show_col(app->buttonLayout, 12, FALSE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 13, FALSE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 14, FALSE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 15, FALSE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 16, FALSE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 17, FALSE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 18, FALSE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 19, FALSE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 20, FALSE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 21, FALSE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 22, FALSE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 23, FALSE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 24, FALSE);
+nappmenu.c:        layout_show_col(app->buttonLayout, 25, FALSE);
+nappmenu.c:    layout_update(app->buttonLayout);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "View->maxCore Toolbar Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    app->view_maxCoreToolbar_IsShown = !app->view_maxCoreToolbar_IsShown;
+nappmenu.c:    if (app->view_maxCoreToolbar_IsShown) {
+nappmenu.c:        menuitem_state(app->view_maxCoreToolbar, ekGUI_ON);
+nappmenu.c:	menuitem_state(app->view_maxCoreToolbar, ekGUI_OFF);
+nappmenu.c:    layout_update(app->buttonLayout);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "View->maxIntegrator Toolbar Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    app->view_maxIntegratorToolbar_IsShown = !app->view_maxIntegratorToolbar_IsShown;
+nappmenu.c:    if (app->view_maxIntegratorToolbar_IsShown) {
+nappmenu.c:        menuitem_state(app->view_maxIntegratorToolbar, ekGUI_ON);
+nappmenu.c:        menuitem_state(app->view_maxIntegratorToolbar, ekGUI_OFF);
+nappmenu.c:    layout_update(app->buttonLayout);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "View->maxAdapter Toolbar Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    app->view_maxAdapterToolbar_IsShown = !app->view_maxAdapterToolbar_IsShown;
+nappmenu.c:    if (app->view_maxAdapterToolbar_IsShown) {
+nappmenu.c:        menuitem_state(app->view_maxAdapterToolbar, ekGUI_ON);
+nappmenu.c:        menuitem_state(app->view_maxAdapterToolbar, ekGUI_OFF);
+nappmenu.c:    layout_update(app->buttonLayout);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "View->maxGate Toolbar Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    app->view_maxGateToolbar_IsShown = !app->view_maxGateToolbar_IsShown;
+nappmenu.c:    if (app->view_maxGateToolbar_IsShown) {
+nappmenu.c:        menuitem_state(app->view_maxGateToolbar, ekGUI_ON);
+nappmenu.c:        menuitem_state(app->view_maxGateToolbar, ekGUI_OFF);
+nappmenu.c:    layout_update(app->buttonLayout);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "View->maxScale Toolbar Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    app->view_maxScaleToolbar_IsShown = !app->view_maxScaleToolbar_IsShown;
+nappmenu.c:    if (app->view_maxScaleToolbar_IsShown) {
+nappmenu.c:        menuitem_state(app->view_maxScaleToolbar, ekGUI_ON);
+nappmenu.c:        menuitem_state(app->view_maxScaleToolbar, ekGUI_OFF);
+nappmenu.c:    layout_update(app->buttonLayout);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "View->maxOrchestrator Toolbar Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    app->view_maxOrchestratorToolbar_IsShown = !app->view_maxOrchestratorToolbar_IsShown;
+nappmenu.c:    if (app->view_maxOrchestratorToolbar_IsShown) {
+nappmenu.c:        menuitem_state(app->view_maxOrchestratorToolbar, ekGUI_ON);
+nappmenu.c:        menuitem_state(app->view_maxOrchestratorToolbar, ekGUI_OFF);
+nappmenu.c:    layout_update(app->buttonLayout);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "View->maxMind Toolbar Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    app->view_maxMindToolbar_IsShown = !app->view_maxMindToolbar_IsShown;
+nappmenu.c:    if (app->view_maxMindToolbar_IsShown) {
+nappmenu.c:        menuitem_state(app->view_maxMindToolbar, ekGUI_ON);
+nappmenu.c:        menuitem_state(app->view_maxMindToolbar, ekGUI_OFF);
+nappmenu.c:    layout_update(app->buttonLayout);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "View->maxLicense Toolbar Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    app->view_maxLicenseToolbar_IsShown = !app->view_maxLicenseToolbar_IsShown;
+nappmenu.c:    if (app->view_maxLicenseToolbar_IsShown) {
+nappmenu.c:        menuitem_state(app->view_maxLicenseToolbar, ekGUI_ON);
+nappmenu.c:        menuitem_state(app->view_maxLicenseToolbar, ekGUI_OFF);
+nappmenu.c:    layout_update(app->buttonLayout);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "View->maxServices Toolbar Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    app->view_maxServicesToolbar_IsShown = !app->view_maxServicesToolbar_IsShown;
+nappmenu.c:    if (app->view_maxServicesToolbar_IsShown) {
+nappmenu.c:        menuitem_state(app->view_maxServicesToolbar, ekGUI_ON);
+nappmenu.c:        menuitem_state(app->view_maxServicesToolbar, ekGUI_OFF);
+nappmenu.c:    layout_update(app->buttonLayout);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "View->Document Toolbar  Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    app->view_documentToolbar_IsShown = !app->view_documentToolbar_IsShown;
+nappmenu.c:    if (app->view_documentToolbar_IsShown) {
+nappmenu.c:        menuitem_state(app->view_documentToolbar, ekGUI_ON);
+nappmenu.c:        menuitem_state(app->view_documentToolbar, ekGUI_OFF);
+nappmenu.c:    layout_update(app->buttonLayout);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "maxEngine->Start Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxEngineOneClickStart(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "maxEngine->Stop Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxEngineOneClickStop(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "maxEngine->View Statistics Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    textview_printf(app->textMaxAdapter, "maxEngine->View Live Logs Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    app->maxEngine_viewLiveLogs_IsShown = !app->maxEngine_viewLiveLogs_IsShown;
+nappmenu.c:    if (app->maxEngine_viewLiveLogs_IsShown) {
+nappmenu.c:        menuitem_state(app->maxEngine_ViewLiveLogs, ekGUI_ON);
+nappmenu.c:        menuitem_state(app->maxEngine_ViewLiveLogs, ekGUI_OFF);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "maxAdapter->Start Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    if (menuitem_get_state(app->maxAdapter_Start) == ekGUI_OFF) {
+nappmenu.c:    	maxAdapterStart(app, app->window);
+nappmenu.c:    	progress_undefined(app->bar, TRUE);
+nappmenu.c:    menuitem_state(app->maxAdapter_Start, ekGUI_ON);
+nappmenu.c:    menuitem_state(app->maxAdapter_Stop, ekGUI_OFF);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "maxAdapter->Stop Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    if (menuitem_get_state(app->maxAdapter_Stop) == ekGUI_OFF) {
+nappmenu.c:    	maxAdapterStop(app, app->window);
+nappmenu.c:    	progress_undefined(app->bar, FALSE);
+nappmenu.c:    menuitem_state(app->maxAdapter_Start, ekGUI_OFF);
+nappmenu.c:    menuitem_state(app->maxAdapter_Stop, ekGUI_ON);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "maxAdapter->Alarms&Conditions Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxAdapterAlarmsAndConditions(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "maxAdapter->Events Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxAdapterEvents(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "maxAdapter->Logs Management Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxAdapterLogsManagement(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "maxAdapter->Reverse Connect Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxAdapterReverseConnect(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "maxAdapter->Startup Parameters Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxAdapterStartupParameters(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "maxAdapter->Communications Protocol Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxAdapterCommunicationsProtocol(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "maxAdapter->View Statistics Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxAdapterViewStatistics(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "maxAdapter->View Live Logs Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    app->maxAdapter_viewLiveLogs_IsShown = !app->maxAdapter_viewLiveLogs_IsShown;
+nappmenu.c:    if (app->maxAdapter_viewLiveLogs_IsShown) {
+nappmenu.c:        menuitem_state(app->maxAdapter_ViewLiveLogs, ekGUI_ON);
+nappmenu.c:    	maxAdapterViewLiveLogs(app, app->window, TRUE);
+nappmenu.c:        menuitem_state(app->maxAdapter_ViewLiveLogs, ekGUI_OFF);
+nappmenu.c:	maxAdapterViewLiveLogs(app, app->window, FALSE);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "maxAdapter->Discover Devices Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxAdapterDiscoverDevices(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "maxAdapter->Auto generate Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxAdapterAutoGenerate(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "maxAdapter->Edit device nodeset Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxAdapterNodesetEditor(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "maxAdapter->Simulate and connect Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxAdapterSimRun(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "maxAdapter->Manual Configuration Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxAdapterManualConfiguration(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxCore, "maxCore->View Live Logs Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxCore);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxCoreViewLiveLogs(app, app->window);
+nappmenu.c:    app->maxCore_viewLiveLogs_IsShown = !app->maxCore_viewLiveLogs_IsShown;
+nappmenu.c:    if (app->maxCore_viewLiveLogs_IsShown) {
+nappmenu.c:        menuitem_state(app->maxCore_ViewLiveLogs, ekGUI_ON);
+nappmenu.c:        menuitem_state(app->maxCore_ViewLiveLogs, ekGUI_OFF);
+nappmenu.c:    textview_printf(app->textMaxServices, "maxService->Users Account Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxServices);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxServicesUsersAccount(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxServices, "maxServices->Systems Account Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxServices);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxServicesSystemsAccount(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxServices, "maxServices->Generate SSL Cetificates Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxServices);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxServicesGenerateSSLCertificates(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxCore, "maxCore->Register maxAdapters Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxCore);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxCoreRegisterAdapters(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxIntegrator, "maxIntegrator->Start Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxIntegrator);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxIntegratorStart(app, app->window);
+nappmenu.c:    progress_undefined(app->bar, TRUE);
+nappmenu.c:    textview_printf(app->textMaxIntegrator, "maxIntegrator->Stop Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxIntegrator);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxIntegratorStop(app, app->window);
+nappmenu.c:    progress_undefined(app->bar, FALSE);
+nappmenu.c:    progress_value(app->bar, 0.0);
+nappmenu.c:    textview_printf(app->textMaxIntegrator, "maxIntegrator->Radius Server Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxIntegrator);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxIntegratorRadiusServer(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxIntegrator, "maxIntegrator->Ldap Server Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxIntegrator);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxIntegratorLdapServer(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxIntegrator, "maxIntegrator->Identity & Access Server Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxIntegrator);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxIntegratorIAMServer(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxIntegrator, "maxIntegrator->Syslog Server Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxIntegrator);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxIntegratorSyslogServer(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "maxAdapter->Historian Server Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxAdapterHistorianServer(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxIntegrator, "maxIntegrator->View Statistics Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxIntegrator);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxIntegratorViewStatistics(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxIntegrator, "maxIntegrator->View Live Logs Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxIntegrator);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxIntegratorViewLiveLogs(app, app->window);
+nappmenu.c:    app->maxIntegrator_viewLiveLogs_IsShown = !app->maxIntegrator_viewLiveLogs_IsShown;
+nappmenu.c:    if (app->maxIntegrator_viewLiveLogs_IsShown) {
+nappmenu.c:        menuitem_state(app->maxIntegrator_ViewLiveLogs, ekGUI_ON);
+nappmenu.c:        menuitem_state(app->maxIntegrator_ViewLiveLogs, ekGUI_OFF);
+nappmenu.c:    textview_printf(app->textMaxIntegrator, "maxIntegrator->Rabbit AMQP Server Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxIntegrator);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxIntegratorRabbitAqmpServer(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxIntegrator, "maxIntegrator->Message Broker Server Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxIntegrator);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxIntegratorMqttServer(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxIntegrator, "maxIntegrator->WebAPI Server Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxIntegrator);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxIntegratorWebAPIServer(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxIntegrator, "maxIntegrator->WebSocket Server Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxIntegrator);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxIntegratorWebSocketServer(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxIntegrator, "maxIntegrator->Proxy Server Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxIntegrator);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxIntegratorProxyServer(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxIntegrator, "maxIntegrator->OPCUA Server Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxIntegrator);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxIntegratorOPCUAServer(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxIntegrator, "maxIntegrator->Global Directory Server Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxIntegrator);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxIntegratorGDSServer(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxIntegrator, "maxIntegrator->Local Directory Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxIntegrator);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxIntegratorLDSServer(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "maxScale->Setup Instance Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxScale);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxScaleSetupInstance(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "maxScale->Configuration Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxScale);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxScaleConfiguration(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "maxOrchestrator->Start Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxOrchestrator);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxOrchestratorStart(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxOrchestrator, "maxOrchestrator->Stop Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxOrchestrator);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxOrchestratorStop(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxOrchestrator, "maxOrchestrator->Define dataflow Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxOrchestrator);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxOrchestratorDefineDataflow(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxMind, "maxMind->Digital Twin Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxMind);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxMindDigitalTwin(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxMind, "maxMind->Real time Analytics Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxMind);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxMindRealTimeAnalytics(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxMind, "maxMind->Machine Learning Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxMind);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxMindMachineLearning(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxGate, "maxGate->Start Instance Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxGate);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxGateStartInstance(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxGate, "maxGate->Stop Instance Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxGate);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxGateStopInstance(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxGate, "maxGate->Inspect Instance Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxGate);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxGateInspectInstance(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxGate, "maxGate->Manual Configuration Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxGate);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    maxGateManualConfiguration(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxServices, "maxServices->Users Account Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxServices);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    textview_printf(app->textMaxServices, "maxServices->Systems Account Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxServices);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    textview_printf(app->textMaxServices, "maxServices->Generate SSL certificate Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxServices);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    textview_printf(app->textMaxAdapter, "client->Add Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    ClientAdd(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "client->Remove Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    ClientRemove(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "client->Connect Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    ClientConnect(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "client->Disconnect Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    ClientDisconnect(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "client->Properties Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    ClientProperties(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "client->Change User Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    ClientChangeUser(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "client->Change Password Menu click (%d)\n", app->clicks);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    ClientChangePassword(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "server->Start Menu click (%d)\n", app->clicks);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    ServerStart(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "server->Stop Menu click (%d)\n", app->clicks);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    ServerStop(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "server->Properties Menu click (%d)\n", app->clicks);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    ServerProperties(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "server->Add User  Menu click (%d)\n", app->clicks);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    ServerAdduser(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "server->Edit User Menu click (%d)\n", app->clicks);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    ServerEdituser(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "Document->Add Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    textview_printf(app->textMaxAdapter, "Document->Remove Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    textview_printf(app->textMaxAdapter, "Document->Hide/ Unhide all dock widgets Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    textview_printf(app->textMaxAdapter, "Settings->Plugins Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    textview_printf(app->textMaxAdapter, "Settings->Configure->OPCSvr Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    textview_printf(app->textMaxAdapter, "Settings->Configure->LDS Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    textview_printf(app->textMaxAdapter, "Settings->Configure->GDS Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    textview_printf(app->textMaxAdapter, "Settings->Interfaces->modbusTCP Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    interfacesModbusTCP(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "Settings->Interfaces->modbusRTU click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    interfacesModbusRTU(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "Settings->Interfaces->EtherCAT click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    interfacesEtherCAT(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "Settings->Interfaces->TwinCAT ADS click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    interfacesTwinCATADS(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "Settings->Interfaces->Ethernet/IP click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    interfacesEthernetIP(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "Settings->Interfaces->Ethernet/IP click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    interfacesProfiNet(app, app->window);
+nappmenu.c:    textview_printf(app->textMaxAdapter, "Settings->Configure->MSB Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    textview_printf(app->textMaxAdapter, "Settings->Manage Certificates Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    textview_printf(app->textMaxAdapter, "Help->Manual Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    textview_printf(app->textMaxAdapter, "Help->What's This? Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    textview_printf(app->textMaxAdapter, "Help->License Status Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    textview_printf(app->textMaxAdapter, "Help->Check for UpdatesMenu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    textview_printf(app->textMaxAdapter, "Help->About Menu click (%d)\n", app->clicks);
+nappmenu.c:    textview_scroll_caret(app->textMaxAdapter);
+nappmenu.c:    app->clicks += 1;
+nappmenu.c:    helpAbout(app, app->window);
+nappmenu.c:    app->top_menu = topmenu;
+nappmenu.c:    osapp_menubar(topmenu, app->window);
+nappmenu.c:    app->view = menuitem_create();
+nappmenu.c:    menuitem_key(app->view, ekKEY_V, ekMKEY_ALT);
+nappmenu.c:    menuitem_text(app->view, "View");
+nappmenu.c:    menu_add_item(topmenu, app->view);
+nappmenu.c:    osapp_menubar(submenu_project, app->window);
+nappmenu.c:    app->submenu_view = menu_create();
+nappmenu.c:    osapp_menubar(app->submenu_view, app->window);
+nappmenu.c:      app->view_interconnectivity = menuitem_create(); menuitem_enabled(app->view_interconnectivity, 1); menuitem_visible(app->view_interconnectivity, 1);
+nappmenu.c:      app->view_project = menuitem_create(); menuitem_enabled(app->view_project, 1); menuitem_visible(app->view_project, 1);
+nappmenu.c:      app->view_attributes = menuitem_create(); menuitem_enabled(app->view_attributes, 1); menuitem_visible(app->view_attributes, 1);
+nappmenu.c:      app->view_log = menuitem_create(); menuitem_enabled(app->view_log, 1); menuitem_visible(app->view_log, 1);
+nappmenu.c:      app->view_addressspace =  menuitem_create(); menuitem_enabled(app->view_addressspace, 1); menuitem_visible(app->view_addressspace, 1);
+nappmenu.c:      app->view_references = menuitem_create(); menuitem_enabled(app->view_references, 1); menuitem_visible(app->view_references, 1);
+nappmenu.c:      app->view_maxAdapter = menuitem_create(); menuitem_enabled(app->view_maxAdapter,1); menuitem_visible(app->view_maxAdapter,1);
+nappmenu.c:      app->view_maxGate = menuitem_create(); menuitem_enabled(app->view_maxGate,1); menuitem_visible(app->view_maxGate,1);
+nappmenu.c:      app->view_maxIntegrator = menuitem_create(); menuitem_enabled(app->view_maxIntegrator,1); menuitem_visible(app->view_maxIntegrator,1);
+nappmenu.c:      menuitem_text(app->view_interconnectivity,      "Interconnectivity       "); menuitem_state(app->view_interconnectivity, ekGUI_OFF); //view_interconnectivity = TRUE;
+nappmenu.c:      menuitem_text(app->view_project,                "Project                 "); menuitem_state(app->view_project, ekGUI_OFF); //view_project = TRUE;
+nappmenu.c:      menuitem_text(app->view_attributes,             "Attributes              "); menuitem_state(app->view_attributes, ekGUI_OFF); //view_attributes = TRUE;
+nappmenu.c:      menuitem_text(app->view_references,             "References              "); menuitem_state(app->view_references, ekGUI_OFF); //view_references = TRUE;
+nappmenu.c:      menuitem_text(app->view_addressspace,           "Address Space           "); menuitem_state(app->view_addressspace, ekGUI_OFF); //view_addressspace = TRUE;
+nappmenu.c:      menuitem_text(app->view_maxAdapter,             "maxAdapter              "); menuitem_state(app->view_maxAdapter, ekGUI_OFF); //view_maxAdapter = TRUE;
+nappmenu.c:      menuitem_text(app->view_maxGate,                "maxGate                 "); menuitem_state(app->view_maxGate, ekGUI_OFF); //view_maxGate = TRUE;
+nappmenu.c:      menuitem_text(app->view_maxIntegrator,          "maxIntegrator           "); menuitem_state(app->view_maxIntegrator, ekGUI_OFF); //view_maxIntegrator = TRUE;
+nappmenu.c:      menuitem_text(app->view_log,                    "Log                     "); menuitem_state(app->view_log, ekGUI_OFF); //view_log = TRUE;
+nappmenu.c:      menu_add_item(app->submenu_view, app->view_interconnectivity); menuitem_image(app->view_interconnectivity, image_view_interconnectivity);
+nappmenu.c:      menu_add_item(app->submenu_view, app->view_project);  menuitem_image(app->view_project, image_view_project);
+nappmenu.c:      menu_add_item(app->submenu_view, app->view_attributes); menuitem_image(app->view_attributes, image_view_attributes);
+nappmenu.c:      menu_add_item(app->submenu_view, app->view_references); menuitem_image(app->view_references, image_view_references);
+nappmenu.c:      menu_add_item(app->submenu_view, app->view_addressspace); menuitem_image(app->view_addressspace, image_view_addressspace);
+nappmenu.c:      menu_add_item(app->submenu_view, app->view_maxAdapter); menuitem_image(app->view_maxAdapter, image_view_maxAdapter);
+nappmenu.c:      menu_add_item(app->submenu_view, app->view_maxGate); menuitem_image(app->view_maxGate, image_view_maxGate);
+nappmenu.c:      menu_add_item(app->submenu_view, app->view_maxIntegrator);menuitem_image(app->view_maxIntegrator, image_view_maxIntegrator);
+nappmenu.c:      menu_add_item(app->submenu_view, app->view_log); menuitem_image(app->view_log, image_view_log);
+nappmenu.c:      menu_add_item(app->submenu_view, view_separator);
+nappmenu.c:      menuitem_submenu(app->view, &app->submenu_view);
+nappmenu.c:      menuitem_OnClick(app->view_interconnectivity, listener(app, i_OnClick_menu_view_interconnectivity, App));
+nappmenu.c:      menuitem_OnClick(app->view_project, listener(app, i_OnClick_menu_view_project, App));
+nappmenu.c:      menuitem_OnClick(app->view_attributes, listener(app, i_OnClick_menu_view_attributes, App));
+nappmenu.c:      menuitem_OnClick(app->view_references, listener(app, i_OnClick_menu_view_references, App));
+nappmenu.c:      menuitem_OnClick(app->view_addressspace, listener(app, i_OnClick_menu_view_addressspace, App));
+nappmenu.c:      menuitem_OnClick(app->view_maxAdapter, listener(app, i_OnClick_menu_view_maxAdapter, App));
+nappmenu.c:      menuitem_OnClick(app->view_maxGate, listener(app, i_OnClick_menu_view_maxGate, App));
+nappmenu.c:      menuitem_OnClick(app->view_maxIntegrator, listener(app, i_OnClick_menu_view_maxIntegrator, App));
+nappmenu.c:      menuitem_OnClick(app->view_log, listener(app, i_OnClick_menu_view_log, App));
+nappmenu.c:    osapp_menubar(submenu_maxEngine, app->window);
+nappmenu.c:      app->maxEngine_ViewLiveLogs = menuitem_create(); menuitem_enabled(app->maxEngine_ViewLiveLogs, 1); menuitem_visible(app->maxEngine_ViewLiveLogs, 1);
+nappmenu.c:      menuitem_text(app->maxEngine_ViewLiveLogs,            "View Live Logs           ");
+nappmenu.c:      menu_add_item(submenu_maxEngine, app->maxEngine_ViewLiveLogs); menuitem_image(app->maxEngine_ViewLiveLogs, image_maxEngine_viewlivelogs);
+nappmenu.c:      menuitem_OnClick(app->maxEngine_ViewLiveLogs, listener(app, i_OnClick_menu_maxengine_viewlivelogs, App));
+nappmenu.c:    osapp_menubar(submenu_maxCore, app->window);
+nappmenu.c:      app->maxCore_ViewLiveLogs = menuitem_create(); menuitem_enabled(app->maxCore_ViewLiveLogs, 1); menuitem_visible(app->maxCore_ViewLiveLogs, 1);
+nappmenu.c:      menuitem_text(app->maxCore_ViewLiveLogs, "View Live logs");
+nappmenu.c:      menu_add_item(submenu_maxCore, app->maxCore_ViewLiveLogs); menuitem_image(app->maxCore_ViewLiveLogs, image_maxCore_viewlivelogs);
+nappmenu.c:      menuitem_OnClick(app->maxCore_ViewLiveLogs, listener(app, i_OnClick_menu_maxcore_viewlivelogs, App));
+nappmenu.c:    osapp_menubar(submenu_maxAdapter, app->window);
+nappmenu.c:      app->maxAdapter_Start = menuitem_create(); menuitem_enabled(app->maxAdapter_Start, 1); menuitem_visible(app->maxAdapter_Start, 1);
+nappmenu.c:      app->maxAdapter_Stop = menuitem_create(); menuitem_enabled(app->maxAdapter_Stop, 1); menuitem_visible(app->maxAdapter_Stop, 1); menuitem_state(app->maxAdapter_Stop, ekGUI_ON);
+nappmenu.c:      app->maxAdapter_ViewLiveLogs = menuitem_create(); menuitem_enabled(app->maxAdapter_ViewLiveLogs, 1); menuitem_visible(app->maxAdapter_ViewLiveLogs, 1);
+nappmenu.c:      menuitem_text(app->maxAdapter_Start, "Start instance");
+nappmenu.c:      menuitem_text(app->maxAdapter_Stop, "Stop instance");
+nappmenu.c:      menuitem_text(app->maxAdapter_ViewLiveLogs,        "View Live Logs           ");
+nappmenu.c:      menu_add_item(submenu_maxAdapter, app->maxAdapter_Start); menuitem_image(app->maxAdapter_Start, image_maxAdapter_start);
+nappmenu.c:      menu_add_item(submenu_maxAdapter, app->maxAdapter_Stop); menuitem_image(app->maxAdapter_Stop, image_maxAdapter_stop);
+nappmenu.c:      menu_add_item(submenu_maxAdapter, app->maxAdapter_ViewLiveLogs); menuitem_image(app->maxAdapter_ViewLiveLogs, image_maxAdapter_viewlivelogs);
+nappmenu.c:      menuitem_OnClick(app->maxAdapter_Start, listener(app, i_OnClick_menu_maxadapter_start, App));
+nappmenu.c:      menuitem_OnClick(app->maxAdapter_Stop, listener(app, i_OnClick_menu_maxadapter_stop, App));
+nappmenu.c:      menuitem_OnClick(app->maxAdapter_ViewLiveLogs, listener(app, i_OnClick_menu_maxadapter_viewlivelogs, App));
+nappmenu.c:    osapp_menubar(submenu_maxIntegrator, app->window);
+nappmenu.c:      app->maxIntegrator_ViewLiveLogs = menuitem_create(); menuitem_enabled(app->maxIntegrator_ViewLiveLogs, 1); menuitem_visible(app->maxIntegrator_ViewLiveLogs, 1);
+nappmenu.c:      menuitem_text(app->maxIntegrator_ViewLiveLogs,         "View Live Logs          ");
+nappmenu.c:      menu_add_item(submenu_maxIntegrator, app->maxIntegrator_ViewLiveLogs); menuitem_image(app->maxIntegrator_ViewLiveLogs, image_maxIntegrator_viewlivelogs);
+nappmenu.c:      menuitem_OnClick(app->maxIntegrator_ViewLiveLogs, listener(app, i_OnClick_menu_maxIntegrator_viewlivelogs, App));
+nappmenu.c:    osapp_menubar(submenu_maxScale, app->window);
+nappmenu.c:    osapp_menubar(submenu_maxMind, app->window);
+nappmenu.c:    osapp_menubar(submenu_maxGate, app->window);
+nappmenu.c:    osapp_menubar(submenu_maxLicense, app->window);
+nappmenu.c:    osapp_menubar(submenu_maxOrchestrator, app->window);
+nappmenu.c:    osapp_menubar(submenu_maxServices, app->window);
+nappmenu.c:    osapp_menubar(submenu_client, app->window);
+nappmenu.c:    osapp_menubar(submenu_server, app->window);
+nappmenu.c:    osapp_menubar(submenu_document, app->window);
+nappmenu.c:    osapp_menubar(submenu_toolbars, app->window);
+nappmenu.c:      app->view_fileToolbar = menuitem_create(); menuitem_enabled(app->view_fileToolbar, 1); menuitem_visible(app->view_fileToolbar, 1);
+nappmenu.c:      app->view_viewToolbar = menuitem_create(); menuitem_enabled(app->view_viewToolbar, 1); menuitem_visible(app->view_viewToolbar, 1);
+nappmenu.c:      app->view_maxEngineToolbar = menuitem_create(); menuitem_enabled(app->view_maxEngineToolbar, 1); menuitem_visible(app->view_maxEngineToolbar, 1);
+nappmenu.c:      app->view_maxCoreToolbar = menuitem_create(); menuitem_enabled(app->view_maxCoreToolbar, 1); menuitem_visible(app->view_maxCoreToolbar, 1);
+nappmenu.c:      app->view_maxIntegratorToolbar = menuitem_create(); menuitem_enabled(app->view_maxIntegratorToolbar, 1); menuitem_visible(app->view_maxIntegratorToolbar, 1);
+nappmenu.c:      app->view_maxAdapterToolbar = menuitem_create(); menuitem_enabled(app->view_maxAdapterToolbar, 1); menuitem_visible(app->view_maxAdapterToolbar, 1);
+nappmenu.c:      app->view_maxGateToolbar = menuitem_create(); menuitem_enabled(app->view_maxGateToolbar, 1); menuitem_visible(app->view_maxGateToolbar, 1);
+nappmenu.c:      app->view_maxScaleToolbar = menuitem_create(); menuitem_enabled(app->view_maxScaleToolbar, 1); menuitem_visible(app->view_maxScaleToolbar, 1);
+nappmenu.c:      app->view_maxOrchestratorToolbar = menuitem_create(); menuitem_enabled(app->view_maxOrchestratorToolbar, 1); menuitem_visible(app->view_maxOrchestratorToolbar, 1);
+nappmenu.c:      app->view_maxMindToolbar = menuitem_create();  menuitem_enabled(app->view_maxMindToolbar, 1); menuitem_visible(app->view_maxMindToolbar, 1);
+nappmenu.c:      app->view_maxLicenseToolbar = menuitem_create();  menuitem_enabled(app->view_maxLicenseToolbar, 1); menuitem_visible(app->view_maxLicenseToolbar, 1);
+nappmenu.c:      app->view_maxServicesToolbar = menuitem_create(); menuitem_enabled(app->view_maxServicesToolbar, 1); menuitem_visible(app->view_maxServicesToolbar, 1);
+nappmenu.c:      app->view_documentToolbar = menuitem_create(); menuitem_enabled(app->view_documentToolbar, 1); menuitem_visible(app->view_documentToolbar, 1);
+nappmenu.c:      menuitem_text(app->view_fileToolbar,            "Project             ");
+nappmenu.c:	if (app->view_fileToolbar_IsShown)
+nappmenu.c:		menuitem_state(app->view_fileToolbar, ekGUI_ON);
+nappmenu.c:		menuitem_state(app->view_fileToolbar, ekGUI_OFF);
+nappmenu.c:      menuitem_text(app->view_viewToolbar,            "View             "); menuitem_state(app->view_viewToolbar, ekGUI_ON);
+nappmenu.c:      menuitem_text(app->view_maxEngineToolbar,       "maxEngine        "); menuitem_state(app->view_maxEngineToolbar, ekGUI_ON);
+nappmenu.c:      menuitem_text(app->view_maxAdapterToolbar,      "maxAdapter       "); menuitem_state(app->view_maxAdapterToolbar, ekGUI_ON);
+nappmenu.c:      menuitem_text(app->view_maxCoreToolbar, 	      "maxCore          "); menuitem_state(app->view_maxCoreToolbar, ekGUI_ON);
+nappmenu.c:      menuitem_text(app->view_maxOrchestratorToolbar, "maxOrchestrator  "); menuitem_state(app->view_maxOrchestratorToolbar, ekGUI_ON);
+nappmenu.c:      menuitem_text(app->view_maxIntegratorToolbar,   "maxIntegrator    "); menuitem_state(app->view_maxIntegratorToolbar, ekGUI_ON);
+nappmenu.c:      menuitem_text(app->view_maxScaleToolbar,        "maxScale         "); menuitem_state(app->view_maxScaleToolbar, ekGUI_ON);
+nappmenu.c:      menuitem_text(app->view_maxMindToolbar,         "maxMind          "); menuitem_state(app->view_maxMindToolbar, ekGUI_ON);
+nappmenu.c:      menuitem_text(app->view_maxGateToolbar,         "maxGate          "); menuitem_state(app->view_maxGateToolbar, ekGUI_ON);
+nappmenu.c:      menuitem_text(app->view_maxLicenseToolbar,      "maxLicense       "); menuitem_state(app->view_maxLicenseToolbar, ekGUI_ON);
+nappmenu.c:      menuitem_text(app->view_maxServicesToolbar,     "maxServices      "); menuitem_state(app->view_maxServicesToolbar, ekGUI_ON);
+nappmenu.c:      menuitem_text(app->view_documentToolbar,        "Document         "); menuitem_state(app->view_documentToolbar, ekGUI_ON);
+nappmenu.c:      menu_add_item(submenu_toolbars, app->view_fileToolbar); menuitem_image(app->view_fileToolbar, image_view_fileToolbar);
+nappmenu.c:      menu_add_item(submenu_toolbars, app->view_viewToolbar); menuitem_image(app->view_viewToolbar, image_view_viewToolbar);
+nappmenu.c:      menu_add_item(submenu_toolbars, app->view_maxEngineToolbar); menuitem_image(app->view_maxEngineToolbar, image_view_maxEngineToolbar);
+nappmenu.c:      menu_add_item(submenu_toolbars, app->view_maxAdapterToolbar); menuitem_image(app->view_maxAdapterToolbar, image_view_maxAdapterToolbar);
+nappmenu.c:      menu_add_item(submenu_toolbars, app->view_maxCoreToolbar); menuitem_image(app->view_maxCoreToolbar, image_view_maxCoreToolbar);
+nappmenu.c:      menu_add_item(submenu_toolbars, app->view_maxOrchestratorToolbar); menuitem_image(app->view_maxOrchestratorToolbar, image_view_maxOrchestratorToolbar);
+nappmenu.c:      menu_add_item(submenu_toolbars, app->view_maxIntegratorToolbar); menuitem_image(app->view_maxIntegratorToolbar, image_view_maxIntegratorToolbar);
+nappmenu.c:      menu_add_item(submenu_toolbars, app->view_maxScaleToolbar); menuitem_image(app->view_maxScaleToolbar, image_view_maxScaleToolbar);
+nappmenu.c:      menu_add_item(submenu_toolbars, app->view_maxMindToolbar); menuitem_image(app->view_maxMindToolbar, image_view_maxMindToolbar);
+nappmenu.c:      menu_add_item(submenu_toolbars, app->view_maxGateToolbar); menuitem_image(app->view_maxGateToolbar, image_view_maxGateToolbar);
+nappmenu.c:      menu_add_item(submenu_toolbars, app->view_maxLicenseToolbar); menuitem_image(app->view_maxLicenseToolbar, image_view_maxLicenseToolbar);
+nappmenu.c:      menu_add_item(submenu_toolbars, app->view_maxServicesToolbar); menuitem_image(app->view_maxServicesToolbar, image_view_maxServicesToolbar);
+nappmenu.c:      menu_add_item(submenu_toolbars, app->view_documentToolbar); menuitem_image(app->view_documentToolbar, image_view_documentToolbar);
+nappmenu.c:      menuitem_OnClick(app->view_fileToolbar, listener(app, i_OnClick_menu_view_filetoolbar, App));
+nappmenu.c:      menuitem_OnClick(app->view_viewToolbar, listener(app, i_OnClick_menu_view_viewtoolbar, App));
+nappmenu.c:      menuitem_OnClick(app->view_maxEngineToolbar, listener(app, i_OnClick_menu_view_maxEnginetoolbar, App));
+nappmenu.c:      menuitem_OnClick(app->view_maxCoreToolbar, listener(app, i_OnClick_menu_view_maxCoretoolbar, App));
+nappmenu.c:      menuitem_OnClick(app->view_maxIntegratorToolbar, listener(app, i_OnClick_menu_view_maxIntegratortoolbar, App));
+nappmenu.c:      menuitem_OnClick(app->view_maxAdapterToolbar, listener(app, i_OnClick_menu_view_maxAdaptertoolbar, App));
+nappmenu.c:      menuitem_OnClick(app->view_maxGateToolbar, listener(app, i_OnClick_menu_view_maxGatetoolbar, App));
+nappmenu.c:      menuitem_OnClick(app->view_maxOrchestratorToolbar, listener(app, i_OnClick_menu_view_maxOrchestratortoolbar, App));
+nappmenu.c:      menuitem_OnClick(app->view_maxMindToolbar, listener(app, i_OnClick_menu_view_maxMindtoolbar, App));
+nappmenu.c:      menuitem_OnClick(app->view_maxLicenseToolbar, listener(app, i_OnClick_menu_view_maxLicensetoolbar, App));
+nappmenu.c:      menuitem_OnClick(app->view_maxServicesToolbar, listener(app, i_OnClick_menu_view_maxServicestoolbar, App));
+nappmenu.c:      menuitem_OnClick(app->view_documentToolbar, listener(app, i_OnClick_menu_view_documenttoolbar, App));
+nappmenu.c:    osapp_menubar(submenu_settings, app->window);
+nappmenu.c:      osapp_menubar(submenu_settings_configure, app->window);
+nappmenu.c:      osapp_menubar(submenu_settings_interfaces, app->window);
+nappmenu.c:    osapp_menubar(submenu_help, app->window);
+napp_mongoosewebsocketclient.c:	//textMaxManage = (TextView *)ev_data;	// cast to App to get the GUI object tData->app->textManage
+napp_mongoosewebsocketclient.c:	app = (App *)ev_data;	// cast to App to get the GUI object tData->app->textManage
+napp_mongoosewebsocketclient.c:	//app->wsclient_callback_state = ev;
+napp_mongoosewebsocketclient.c:	    if (app->textMaxManage != NULL) {
+napp_mongoosewebsocketclient.c:		//bmutex_lock(app->mutex);
+napp_mongoosewebsocketclient.c:		//textview_writef(app->textMaxManage, "Websocket Connection opened.. waiting for handshake .. \n");
+napp_mongoosewebsocketclient.c:		//textview_scroll_caret(app->textMaxManage);
+napp_mongoosewebsocketclient.c:		//bmutex_unlock(app->mutex);
+napp_mongoosewebsocketclient.c:		app->wsclient_callback_text = (byte_t *)heap_malloc(256, "app->wsclient_callback_text");
+napp_mongoosewebsocketclient.c:		strcpy(app->wsclient_callback_text, "Websocket Connection opened.. waiting for handshake ..");
+napp_mongoosewebsocketclient.c:		printf("tData->app->text is null \n");
+napp_mongoosewebsocketclient.c:		//textview_printf(app->text, "Websocket handshake completed upgrade \n");
+napp_mongoosewebsocketclient.c:		//textview_scroll_caret(app->text);
+napp_mongoosewebsocketclient.c:		//app->wsclient_callback_text = "Websocket handshake completed upgrade";
+napp_mongoosewebsocketclient.c:			//bmutex_lock(app->mutex);
+napp_mongoosewebsocketclient.c:			//textview_printf(app->textMaxManage, wm->data.buf);
+napp_mongoosewebsocketclient.c:			//textview_scroll_caret(app->textMaxManage);
+napp_mongoosewebsocketclient.c:			//bmutex_unlock(app->mutex);
+napp_mongoosewebsocketclient.c:			//app->wsclient_callback_text = wm->data.buf;
+napp_mongoosewebsocketclient.c:		//textview_printf(app->textMaxManage, "Connection closed \n");
+napp_mongoosewebsocketclient.c:		//textview_scroll_caret(app->textMaxManage);
+napp_mongoosewebsocketclient.c:		//app->ws_mg_client = NULL;
+napp_mongoosewebsocketclient.c:		//app->wsclient_callback_text = "ev == MG_EV_CLOSE : Connection close";
+napp_mongoosewebsocketclient.c:		//textview_printf(app->textMaxManage, "Connection closed \n");
+napp_mongoosewebsocketclient.c:		//textview_scroll_caret(app->textMaxManage);
+napp_mongoosewebsocketclient.c:    		//app->ws_mg_client = NULL;
+napp_mongoosewebsocketclient.c:      			mg_send(app->ws_mg_client, wm->data.buf, wm->data.len);
+napp_mongoosewebsocketclient.c:      		mg_send(app->ws_mg_client, wm->data.buf, wm->data.len);
+napp_mongoosewebsocketclient.c:		app->wsclient_callback_text = "ev == MG_EV_READ : Received response";
+napp_mongoosewebsocketclient.c:		if (app->textMaxManage != NULL) {
+napp_mongoosewebsocketclient.c:		//textview_printf(app->textMaxManage, "Websocket error \n");
+napp_mongoosewebsocketclient.c:		//textview_scroll_caret(app->textMaxManage);
+napp_mongoosewebsocketclient.c:		app->wsclient_callback_text = "ev == MG_EV_ERROR : Connection error";
+napp_mongoosewebsocketclient.c: 	printf("app->wsclient_callback_state=%d \n", app->wsclient_callback_state);
+napp_mongoosewebsocketclient.c:	//printf("app->text = %s \n", textview_get_text(app->text));
+napp_mongoosewebsocketclient.c:	//app->ws_mgr = &mg_client_mgr; // assign to app object
+napp_mongoosewebsocketclient.c:	//bmutex_lock(app->mutex);
+napp_mongoosewebsocketclient.c:	mg_mgr_init(&app->ws_mgr);        // initalise event manager
+napp_mongoosewebsocketclient.c:	//bmutex_unlock(app->mutex);
+napp_mongoosewebsocketclient.c:	ws_mg_client = mg_ws_connect(&app->ws_mgr, c_url, wsclient_callback, NULL, NULL);       // create a client connection
+napp_mongoosewebsocketclient.c:		//bmutex_lock(app->mutex);
+napp_mongoosewebsocketclient.c:                textview_printf(app->textMaxEngine, "nappmain.c : %s : cannot create ws client object \n", __func__);
+napp_mongoosewebsocketclient.c:		//bmutex_unlock(app->mutex);
+napp_mongoosewebsocketclient.c:                //textview_printf(app->text, "nappmain.c : %s : successfully created ws client object \n", __func__);
+napp_mongoosewebsocketclient.c:		//bmutex_lock(app->mutex);
+napp_mongoosewebsocketclient.c:		app->ws_mg_client = ws_mg_client;	// save the handle for use in wsclient_callback()
+napp_mongoosewebsocketclient.c:		//bmutex_unlock(app->mutex);
+napp_mongoosewebsocketclient.c:	//bmutex_lock(app->mutex);
+napp_mongoosewebsocketclient.c://        textview_scroll_caret(app->textMaxEngine);
+napp_mongoosewebsocketclient.c:	//bmutex_unlock(app->mutex);
+napp_mongoosewebsocketclient.c:	//bmutex_lock(app->mutex);
+napp_mongoosewebsocketclient.c:        strcpy(app->serverLogs, "Test message");
+napp_mongoosewebsocketclient.c:	//bmutex_unlock(app->mutex);
+napp_mongoosewebsocketclient.c:	//bmutex_lock(app->mutex);
+napp_mongoosewebsocketclient.c:		mg_mgr_poll(&app->ws_mgr, 1000);
+napp_mongoosewebsocketclient.c:       	mg_mgr_free(&app->ws_mgr);
+napp_mongoosewebsocketclient.c:	//bmutex_unlock(app->mutex);
+nappview.c:    textview_printf(app->text, "Flyout View->Interconnectivity Hide event click (%d)\n", app->clicks);
+nappview.c:    textview_scroll_caret(app->text);
+nappview.c:    window_hide(app->View_Interconnectivity->flywin);
+nappview.c:    app->View_Interconnectivity_IsShown = 0;
+nappview.c:    menuitem_state(app->view_interconnectivity,ekGUI_OFF);
+nappview.c:    textview_printf(app->text, "Flyout View->Project Hide event click (%d)\n", app->clicks);
+nappview.c:    textview_scroll_caret(app->text);
+nappview.c:    window_hide(app->View_Project->flywin);
+nappview.c:    app->View_Project_IsShown = 0;
+nappview.c:    menuitem_state(app->view_project,ekGUI_OFF);
+nappview.c:    textview_printf(app->text, "Flyout View->Attributes Hide event click (%d)\n", app->clicks);
+nappview.c:    textview_scroll_caret(app->text);
+nappview.c:    window_hide(app->View_Attributes->flywin);
+nappview.c:    app->View_Attributes_IsShown = 0;
+nappview.c:    menuitem_state(app->view_attributes,ekGUI_OFF);
+nappview.c:    textview_printf(app->text, "Flyout View->References Hide event click (%d)\n", app->clicks);
+nappview.c:    textview_scroll_caret(app->text);
+nappview.c:    window_hide(app->View_References->flywin);
+nappview.c:    app->View_References_IsShown = 0;
+nappview.c:    menuitem_state(app->view_references,ekGUI_OFF);
+nappview.c:    textview_printf(app->text, "Flyout View->Address Space Hide event click (%d)\n", app->clicks);
+nappview.c:    textview_scroll_caret(app->text);
+nappview.c:    window_hide(app->View_AddressSpace->flywin);
+nappview.c:    app->View_AddressSpace_IsShown = 0;
+nappview.c:    menuitem_state(app->view_addressspace,ekGUI_OFF);
+nappview.c:    textview_printf(app->text, "Flyout View->maxAdapter Hide event click (%d)\n", app->clicks);
+nappview.c:    textview_scroll_caret(app->text);
+nappview.c:    window_hide(app->View_maxAdapter->flywin);
+nappview.c:    app->View_maxAdapter_IsShown = 0;
+nappview.c:    menuitem_state(app->view_maxAdapter,ekGUI_OFF);
+nappview.c:    textview_printf(app->text, "Flyout View->maxGate Hide event click (%d)\n", app->clicks);
+nappview.c:    textview_scroll_caret(app->text);
+nappview.c:    window_hide(app->View_maxGate->flywin);
+nappview.c:    app->View_maxGate_IsShown = 0;
+nappview.c:    menuitem_state(app->view_maxGate,ekGUI_OFF);
+nappview.c:    textview_printf(app->text, "Flyout View->maxIntegrator Hide event click (%d)\n", app->clicks);
+nappview.c:    textview_scroll_caret(app->text);
+nappview.c:    window_hide(app->View_maxIntegrator->flywin);
+nappview.c:    app->View_maxIntegrator_IsShown = 0;
+nappview.c:    menuitem_state(app->view_maxIntegrator,ekGUI_OFF);
+nappview.c:    textview_printf(app->text, "Flyout View->Log Hide event click (%d)\n", app->clicks);
+nappview.c:    textview_scroll_caret(app->text);
+nappview.c:    window_hide(app->View_Log->flywin);
+nappview.c:    app->View_Log_IsShown = 0;
+nappview.c:    menuitem_state(app->view_log,ekGUI_OFF);
+nappview.c:    textview_printf(app->textMaxManage, "Flyout View->interconnectivity Move event \n", app->clicks);
+nappview.c:    textview_printf(app->textMaxManage, "Flyout View->Project Move event \n", app->clicks);
+nappview.c:    textview_printf(app->text, "Flyout View->Project Move event detected \n");
+nappview.c:    textview_scroll_caret(app->text);
+nappview.c:    mycoordinate.x = window_get_origin(app->View_Project->flywin).x;
+nappview.c:    mycoordinate.y = window_get_origin(app->View_Project->flywin).y;
+nappview.c:    mysize.width = window_get_size(app->View_Project->flywin).width;
+nappview.c:    mysize.height = window_get_size(app->View_Project->flywin).height;
+nappview.c:    //textview_printf(app->text, "app->resolution %f %f \n", app->sys_resolution.x, app->sys_resolution.y);
+nappview.c:    //textview_printf(app->text, "imaginaryLeftWindow %f %f \n", window_get_origin(app->imaginaryLeftWindow).x, window_get_origin(app->imaginaryLeftWindow).y);
+nappview.c:    /* now check if there ia overlapping of the app->window */
+nappview.c:    /* original - if (mycoordinate.x < app->screen_coordinate.x) */
+nappview.c:    if (mycoordinate.x + mysize.width * 0.50 > app->screen_coordinate.x) {
+nappview.c:        if ( (mycoordinate.x + mysize.width * 0.25) < app->screen_coordinate.x) {
+nappview.c:                textview_printf(app->text,
+nappview.c:                        "Flyout View->Project Move event Left border (X) breach detected : mycoordinate.x (%f) mysize.width*0.25 (%f) app->screen_coordinate.x (%f) \n",
+nappview.c:                        mycoordinate.x,  mysize.width * 0.25, app->screen_coordinate.x);
+nappview.c:                textview_scroll_caret(app->text);
+nappview.c:                window_show(app->imaginaryLeftWindow);
+nappview.c:                window_hide(app->imaginaryLeftWindow);
+nappview.c:        window_hide(app->imaginaryLeftWindow);
+nappview.c:    if (mycoordinate.y + mysize.height *0.50 > app->screen_coordinate.y) {
+nappview.c:        if (mycoordinate.y + mysize.height * 0.25 < app->screen_coordinate.y) {
+nappview.c:                textview_printf(app->text, "Flyout View->Project Move event detected : Top border (Y) breached \n");
+nappview.c:                textview_scroll_caret(app->text);
+nappview.c:                window_show(app->imaginaryTopWindow);
+nappview.c:                window_hide(app->imaginaryTopWindow);
+nappview.c:        window_hide(app->imaginaryTopWindow);
+nappview.c:    /* original - if (mycoordinate.x + mysize.width * 0.50 > app->screen_coordinate.x + app->sys_resolution.x) */
+nappview.c:    x_offset = app->screen_coordinate.x + app->sys_resolution.x - mysize.width;
+nappview.c:        /* original - if (mycoordinate.x + mysize.width * 0.25 > app->screen_coordinate.x + app->sys_resolution.x) */
+nappview.c:                textview_printf(app->text, "Flyout View->Project Move event detected : Right border (X) breached \n");
+nappview.c:                textview_scroll_caret(app->text);
+nappview.c:                window_show(app->imaginaryRightWindow);
+nappview.c:                window_hide(app->imaginaryRightWindow);
+nappview.c:        window_hide(app->imaginaryRightWindow);
+nappview.c:    y_offset = app->screen_coordinate.y + app->sys_resolution.y;
+nappview.c:    textview_printf(app->text, "Here : y_offset %f, mycoordinate.y %f, mysize.height %f \n", y_offset, mycoordinate.y, mysize.height);
+nappview.c:    textview_scroll_caret(app->text);
+nappview.c:    /*there is a 212 difference between app->window and view->project due to the height of the flyout window (view->project) */
+nappview.c:        textview_printf(app->text, "Flyout View->Project Move event detected : Bottom border (Y) breached \n");
+nappview.c:        textview_scroll_caret(app->text);
+nappview.c:                textview_printf(g_app->text, "%s \n", wm->data.buf);
+nappview.c:	struct mg_mgr *mgr = &app->ws_mgr;
+nappview.c:        	mg_mgr_poll(&app->ws_mgr, 0);    /* non-blocking poll */
+nappview.c:		textview_printf(g_app->text, "nappview.c : message from websocket \n");
+nappview.c:	textview_printf(app->text, "nappview.c : Entering i_OnIdle_Interconnectivity_state() : %d \n", app->View_Interconnectivity_IsShown);
+nappview.c:	menuitem_state(app->view_interconnectivity, app->View_Interconnectivity_IsShown ? ekGUI_ON : ekGUI_OFF);
+nappview.c:	textview_printf(app->textMaxEngine, "nappview.c : Entering ViewInterconnectivity() \n");
+nappview.c:		textview_printf(app->textMaxEngine, "nappview.c : Here \n");
+nappview.c:                layout_show_col(app->canvasLayout, 0, FALSE);
+nappview.c:                layout_show_row(app->canvasLayout, 0, FALSE);
+nappview.c:		imgView = layout_get_imageview(app->canvasLayout, 0,0); // get the handle to the imageView in the layout
+nappview.c:		layout_imageview(app->canvasLayout, imgView, 0,0); // assign the new imageView back to the layout
+nappview.c:		layout_show_col(app->canvasLayout, 0, TRUE);
+nappview.c:                layout_show_row(app->canvasLayout, 0, TRUE);
+nappview.c:		textview_printf(app->textMaxEngine, "nappview.c : Error loading /home/pi/nappgui_src/jacky/img/interconnectivity.jpg\n");
+nappview.c:    if (app->View_Interconnectivity == NULL)
+nappview.c:        flyout = i_flyout(app->window); //(parent_window);
+nappview.c:        app->View_Interconnectivity = flyout; /* save the handle of the View->Reference flyout window in the main App */
+nappview.c:	//window_hide(app->View_Interconnectivity->flywin); /* hide it first*/
+nappview.c:        //window_overlay(flyout->flywin, app->window);
+nappview.c:        window_show(app->View_Interconnectivity->flywin);
+nappview.c:        app->View_Interconnectivity_IsShown = 1; /* set the flag to true */
+nappview.c:        menuitem_state(app->view_interconnectivity, ekGUI_ON);
+nappview.c:        textview_printf(app->textMaxManage, "View->Interconnectivity flyout window already exist");
+nappview.c:        if (app->View_Interconnectivity_IsShown == 0) /* it is currently hidden */
+nappview.c:		textview_printf(app->textMaxManage, "View_Interconnectivity_IsShown == 0, showing it now");
+nappview.c:                app->View_Interconnectivity_IsShown = 1;      /* set the flag to true */
+nappview.c:		//window_hide(app->View_Interconnectivity->flywin); /* hide it first*/
+nappview.c:                //window_overlay(app->View_Interconnectivity->flywin, app->window);     /* now show it */
+nappview.c:                window_show(app->View_Interconnectivity->flywin);     /* show it */
+nappview.c:		 menuitem_state(app->view_interconnectivity, ekGUI_ON);
+nappview.c:		textview_printf(app->textMaxManage, "View_Interconnectivity_IsShown == 1, hiding it now");
+nappview.c:                app->View_Interconnectivity_IsShown = 0;       /* set the flag to false */
+nappview.c:                window_hide(app->View_Interconnectivity->flywin); /* hide it */
+nappview.c:                 menuitem_state(app->view_interconnectivity, ekGUI_OFF); //=> this caused the menu to disappear
+nappview.c:        textview_printf(app->textMaxEngine, "menuitem_state(view->Interconnectivity is %d \n", menuitem_get_state(app->view_interconnectivity)); /* 0=ekGUI_OFF, 1=ekGUI_ON, 2= ekGUI_MIXED */
+nappview.c:        textview_scroll_caret(app->textMaxEngine);
+nappview.c:    if (app->View_Project == NULL)   /* the View->Project flyout window is not yet created */
+nappview.c:        app->View_Project = flyout; /* save the handle of the View->Project flyout window in the main App */
+nappview.c:        app->View_Project_IsShown = 1; /* set the flag to true */
+nappview.c:	menuitem_state(app->view_project, ekGUI_ON);
+nappview.c:	textview_printf(app->text, "View->Project flyout window already exist");
+nappview.c:        if (app->View_Project_IsShown == 0) /* it is currently hidden */
+nappview.c:		textview_printf(app->text, "View_Project_IsShown == 0, showing it now");
+nappview.c:                window_show(app->View_Project->flywin);     /* show it */
+nappview.c:                app->View_Project_IsShown = 1;      /* set the flag to true */
+nappview.c:		menuitem_state(app->view_project, ekGUI_ON);
+nappview.c:		textview_printf(app->text, "View_Project_IsShown == 1, hiding it now");
+nappview.c:                window_hide(app->View_Project->flywin); /* hide it */
+nappview.c:                app->View_Project_IsShown = 0;       /* set the flag to false */
+nappview.c:	 	menuitem_state(app->view_project, ekGUI_OFF);
+nappview.c:        textview_printf(app->text, "menuitem_state(view->Project is %d \n", menuitem_get_state(app->view_project)); /* 0=ekGUI_OFF, 1=ekGUI_ON, 2= ekGUI_MIXED */
+nappview.c:        textview_scroll_caret(app->text);
+nappview.c:    if (app->View_Attributes == NULL)   /* the View->Attributes flyout window is not yet created */
+nappview.c:        app->View_Attributes = flyout; /* save the handle of the View->Attributes flyout window in the main App */
+nappview.c:        app->View_Attributes_IsShown = 1; /* set the flag to true */
+nappview.c:        menuitem_state(app->view_attributes, ekGUI_ON);
+nappview.c:        textview_printf(app->text, "View->Attributes flyout window already exist");
+nappview.c:        if (app->View_Attributes_IsShown == 0) /* it is currently hidden */
+nappview.c:		textview_printf(app->text, "View_Attributes_IsShown == 0, showing it now");
+nappview.c:                window_show(app->View_Attributes->flywin);     /* show it */
+nappview.c:                app->View_Attributes_IsShown = 1;      /* set the flag to true */
+nappview.c:		menuitem_state(app->view_attributes, ekGUI_ON);
+nappview.c:		textview_printf(app->text, "View_Attributes_IsShown == 1, hiding it now");
+nappview.c:                window_hide(app->View_Attributes->flywin); /* hide it */
+nappview.c:                app->View_Attributes_IsShown = 0;       /* set the flag to false */
+nappview.c:		menuitem_state(app->view_attributes, ekGUI_OFF);
+nappview.c:        textview_printf(app->text, "menuitem_state(view->Attributes is %d \n", menuitem_get_state(app->view_attributes)); /* 0=ekGUI_OFF, 1=ekGUI_ON, 2= ekGUI_MIXED */
+nappview.c:        textview_scroll_caret(app->text);
+nappview.c:    if (app->View_References == NULL)	/* the View->Reference flyout window is not yet created */
+nappview.c:        app->View_References = flyout; /* save the handle of the View->Reference flyout window in the main App */
+nappview.c:        app->View_References_IsShown = 1; /* set the flag to true */
+nappview.c:      menuitem_state(app->view_references, ekGUI_ON);
+nappview.c:	textview_printf(app->text, "View->Reference flyout window already exist");
+nappview.c:	if (app->View_References_IsShown == 0) /* it is currently hidden */
+nappview.c:		textview_printf(app->text, "View_References_IsShown == 0, showing it now");
+nappview.c:		window_show(app->View_References->flywin);     /* show it */
+nappview.c:        	app->View_References_IsShown = 1;      /* set the flag to true */
+nappview.c:                menuitem_state(app->view_references, ekGUI_ON);
+nappview.c:		textview_printf(app->text, "View_References_IsShown == 1, hiding it now");
+nappview.c:		window_hide(app->View_References->flywin); /* hide it */
+nappview.c:		app->View_References_IsShown = 0;	/* set the flag to false */
+nappview.c:                menuitem_state(app->view_references, ekGUI_OFF);
+nappview.c:   	textview_printf(app->text, "menuitem_state(view->References is %d \n", menuitem_get_state(app->view_references)); /* 0=ekGUI_OFF, 1=ekGUI_ON, 2= ekGUI_MIXED */
+nappview.c:        textview_scroll_caret(app->text);
+nappview.c:    if (app->View_AddressSpace == NULL)   /* the View->AddressSpace flyout window is not yet created */
+nappview.c:        app->View_AddressSpace = flyout; /* save the handle of the View->AddressSpace flyout window in the main App */
+nappview.c:        app->View_AddressSpace_IsShown = 1; /* set the flag to true */
+nappview.c:	menuitem_state(app->view_addressspace, ekGUI_ON);
+nappview.c:	textview_printf(app->text, "View->Address Space flyout window already exist");
+nappview.c:        if (app->View_AddressSpace_IsShown == 0) /* it is currently hidden */
+nappview.c:		textview_printf(app->text, "View_AddressSpace_IsShown == 0, showing it now");
+nappview.c:                window_show(app->View_AddressSpace->flywin);     /* show it */
+nappview.c:                app->View_AddressSpace_IsShown = 1;      /* set the flag to true */
+nappview.c:		menuitem_state(app->view_addressspace, ekGUI_ON);
+nappview.c:		textview_printf(app->text, "View_Attributes_IsShown == 1, hiding it now");
+nappview.c:                window_hide(app->View_AddressSpace->flywin); /* hide it */
+nappview.c:                app->View_AddressSpace_IsShown = 0;       /* set the flag to false */
+nappview.c:		menuitem_state(app->view_addressspace, ekGUI_OFF);
+nappview.c:        textview_printf(app->text, "menuitem_state(view->Address Space is %d \n", menuitem_get_state(app->view_addressspace)); /* 0=ekGUI_OFF, 1=ekGUI_ON, 2= ekGUI_MIXED */
+nappview.c:        textview_scroll_caret(app->text);
+nappview.c:    if (app->View_maxAdapter == NULL)   /* the View->AddressSpace flyout window is not yet created */
+nappview.c:        app->View_maxAdapter = flyout; /* save the handle of the View->maxAdapter flyout window in the main App */
+nappview.c:        app->View_maxAdapter_IsShown = 1; /* set the flag to true */
+nappview.c:        menuitem_state(app->view_maxAdapter, ekGUI_ON);
+nappview.c:	textview_printf(app->text, "View->Adapter flyout window already exist");
+nappview.c:        if (app->View_maxAdapter_IsShown == 0) /* it is currently hidden */
+nappview.c:		textview_printf(app->text, "View_maxAdapter_IsShown == 0, showing it now");
+nappview.c:                window_show(app->View_maxAdapter->flywin);     /* show it */
+nappview.c:                app->View_maxAdapter_IsShown = 1;      /* set the flag to true */
+nappview.c:                menuitem_state(app->view_maxAdapter, ekGUI_ON);
+nappview.c:		textview_printf(app->text, "View_maxAdapter_IsShown == 1, hiding it now");
+nappview.c:                window_hide(app->View_maxAdapter->flywin); /* hide it */
+nappview.c:                app->View_maxAdapter_IsShown = 0;       /* set the flag to false */
+nappview.c:                menuitem_state(app->view_maxAdapter, ekGUI_OFF);
+nappview.c:        textview_printf(app->text, "menuitem_state(view->maxAdapter is %d \n", menuitem_get_state(app->view_maxAdapter)); /* 0=ekGUI_OFF, 1=ekGUI_ON, 2= ekGUI_MIXED */
+nappview.c:        textview_scroll_caret(app->text);
+nappview.c:    if (app->View_maxGate == NULL)   /* the View->AddressSpace flyout window is not yet created */
+nappview.c:        app->View_maxGate = flyout; /* save the handle of the View->maxGate flyout window in the main App */
+nappview.c:        app->View_maxGate_IsShown = 1; /* set the flag to true */
+nappview.c:        menuitem_state(app->view_maxGate, ekGUI_ON);
+nappview.c:	textview_printf(app->text, "View->maxGate flyout window already exist");
+nappview.c:        if (app->View_maxGate_IsShown == 0) /* it is currently hidden */
+nappview.c:		textview_printf(app->text, "View_maxGate_IsShown == 0, showing it now");
+nappview.c:                window_show(app->View_maxGate->flywin);     /* show it */
+nappview.c:                app->View_maxGate_IsShown = 1;      /* set the flag to true */
+nappview.c:                menuitem_state(app->view_maxGate, ekGUI_ON);
+nappview.c:		textview_printf(app->text, "View_maxGate_IsShown == 1, hiding it now");
+nappview.c:                window_hide(app->View_maxGate->flywin); /* hide it */
+nappview.c:                app->View_maxGate_IsShown = 0;       /* set the flag to false */
+nappview.c:                menuitem_state(app->view_maxGate, ekGUI_OFF);
+nappview.c:        textview_printf(app->text, "menuitem_state(view->maxGate is %d \n", menuitem_get_state(app->view_maxGate)); /* 0=ekGUI_OFF, 1=ekGUI_ON, 2= ekGUI_MIXED */
+nappview.c:        textview_scroll_caret(app->text);
+nappview.c:    if (app->View_maxIntegrator == NULL)   /* the View->AddressSpace flyout window is not yet created */
+nappview.c:        app->View_maxIntegrator = flyout; /* save the handle of the View->maxIntegrator flyout window in the main App */
+nappview.c:        app->View_maxIntegrator_IsShown = 1; /* set the flag to true */
+nappview.c:        menuitem_state(app->view_maxIntegrator, ekGUI_ON);
+nappview.c:	textview_printf(app->text, "View->maxIntegrator flyout window already exist");
+nappview.c:        if (app->View_maxIntegrator_IsShown == 0) /* it is currently hidden */
+nappview.c:		textview_printf(app->text, "View_maxIntegrator_IsShown == 0, showing it now");
+nappview.c:                window_show(app->View_maxIntegrator->flywin);     /* show it */
+nappview.c:                app->View_maxIntegrator_IsShown = 1;      /* set the flag to true */
+nappview.c:                menuitem_state(app->view_maxIntegrator, ekGUI_ON);
+nappview.c:		textview_printf(app->text, "View_maxIntegrator_IsShown == 1, hiding it now");
+nappview.c:                window_hide(app->View_maxIntegrator->flywin); /* hide it */
+nappview.c:                app->View_maxIntegrator_IsShown = 0;       /* set the flag to false */
+nappview.c:                menuitem_state(app->view_maxIntegrator, ekGUI_OFF);
+nappview.c:        textview_printf(app->text, "menuitem_state(view->maxIntegrator is %d \n", menuitem_get_state(app->view_maxIntegrator)); /* 0=ekGUI_OFF, 1=ekGUI_ON, 2= ekGUI_MIXED */
+nappview.c:        textview_scroll_caret(app->text);
+nappview.c:    if (app->View_Log == NULL)   /* the View->Log flyout window is not yet created */
+nappview.c:        app->View_Log = flyout; /* save the handle of the View->Log flyout window in the main App */
+nappview.c:        app->View_Log_IsShown = 1; /* set the flag to true */
+nappview.c:	menuitem_state(app->view_log, ekGUI_ON);
+nappview.c:	textview_printf(app->text, "View->Log flyout window already exist");
+nappview.c:        if (app->View_Log_IsShown == 0) /* it is currently hidden */
+nappview.c:		textview_printf(app->text, "View_Log_IsShown == 0, showing it now");
+nappview.c:                window_show(app->View_Log->flywin);     /* show it */
+nappview.c:                app->View_Log_IsShown = 1;      /* set the flag to true */
+nappview.c:		menuitem_state(app->view_log, ekGUI_ON);
+nappview.c:		textview_printf(app->text, "View_Log_IsShown == 1, hiding it now");
+nappview.c:                window_hide(app->View_Log->flywin); /* hide it */
+nappview.c:                app->View_Log_IsShown = 0;       /* set the flag to false */
+nappview.c:		menuitem_state(app->view_log, ekGUI_OFF);
+nappview.c:        textview_printf(app->text, "menuitem_state(view->Log is %d \n", menuitem_get_state(app->view_log)); /* 0=ekGUI_OFF, 1=ekGUI_ON, 2= ekGUI_MIXED */
+nappview.c:        textview_scroll_caret(app->text);

@@ -8,7 +8,7 @@ nap_link_opengl(maxmanage)
 nap_target_c_standard(maxmanage 99)
 nap_target_cxx_standard(maxmanage 14)
 # Replace 'my_target' with your actual target name
-#target_compile_features(maxmanage PRIVATE c_std_99)
+target_compile_features(maxmanage PRIVATE c_std_99)
 # Optional: Force the compiler to fail if it doesn't support C11
 #set_target_properties(maxmanage PROPERTIES C_STANDARD_REQUIRED ON)
 # Optional: Disable compiler-specific extensions (like GNU extensions) to use strict ISO C
